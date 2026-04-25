@@ -1,0 +1,1305 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Baby Invites Boutique — Editorial</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Outfit:wght@200;300;400;500;600&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: 'Outfit', system-ui, sans-serif;
+  background: #1a1410;
+  color: #2a201a;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+  height: 100%; width: 100%;
+}
+#root { width: 100%; height: 100%; }
+
+/* ── Stage ── */
+.boutique-stage {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.boutique-stage::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(212,165,116,0.06) 0%, transparent 1px),
+    radial-gradient(circle at 60% 70%, rgba(212,165,116,0.04) 0%, transparent 1px),
+    radial-gradient(circle at 80% 20%, rgba(212,165,116,0.05) 0%, transparent 1px);
+  background-size: 5px 5px, 9px 9px, 13px 13px;
+  pointer-events: none; opacity: 0.7; z-index: 0;
+}
+
+/* ── Desktop 2-column ── */
+@media (min-width: 900px) {
+  .boutique-stage {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0;
+    align-items: center;
+    justify-items: center;
+  }
+  .stage-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 40px 48px 72px;
+    max-width: 500px;
+    width: 100%;
+    z-index: 10;
+  }
+  .brand-mark, .reel-meta, .outside-controls { display: none !important; }
+  .phone { margin-right: 48px; }
+}
+@media (max-width: 899px) {
+  .stage-left { display: none !important; }
+}
+
+/* ── Desktop left panel ── */
+.stage-left { display: none; }
+.stage-left-eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px; letter-spacing: 0.36em;
+  text-transform: uppercase; font-weight: 500;
+  color: rgba(245,233,216,0.5); margin-bottom: 16px;
+}
+.stage-left-brand {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px; color: #f5e9d8; line-height: 1; margin-bottom: 4px;
+}
+.stage-left-sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 9px; letter-spacing: 0.36em;
+  text-transform: uppercase; opacity: 0.45; color: #f5e9d8; margin-bottom: 32px;
+}
+.stage-left-headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px, 3vw, 40px);
+  color: #f5e9d8; line-height: 1.05;
+  letter-spacing: -0.02em; margin-bottom: 12px;
+}
+.stage-left-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 17px;
+  color: rgba(245,233,216,0.75); line-height: 1.5;
+  margin-bottom: 32px;
+}
+.stage-left-divider {
+  width: 40px; height: 1px;
+  background: rgba(212,165,116,0.4); margin-bottom: 24px;
+}
+.stage-left-scenes {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.stage-left-scene-btn {
+  background: none; border: none; cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(245,233,216,0.4); text-align: left;
+  padding: 4px 0; transition: color 0.2s ease;
+}
+.stage-left-scene-btn.active { color: #d4a574; }
+.stage-left-scene-btn:hover { color: rgba(245,233,216,0.7); }
+
+/* ── Phone ── */
+.phone {
+  position: relative;
+  width: 390px;
+  height: min(844px, 94vh);
+  background: #fff;
+  border-radius: 54px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.8) inset,
+    0 40px 100px -20px rgba(0,0,0,0.65),
+    0 80px 140px -40px rgba(0,0,0,0.5),
+    0 0 0 11px #0a0604,
+    0 0 0 12px rgba(255,255,255,0.04);
+  overflow: hidden;
+  z-index: 2;
+  flex-shrink: 0;
+}
+.phone-notch {
+  position: absolute; top: 12px; left: 50%;
+  transform: translateX(-50%);
+  width: 118px; height: 34px;
+  background: #0a0604; border-radius: 22px; z-index: 50;
+  pointer-events: none;
+}
+.phone-scroll {
+  width: 100%; height: 100%;
+  overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: none;
+}
+.phone-scroll::-webkit-scrollbar { display: none; }
+
+/* ── Scenes ── */
+.scene {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+.scene-snap {
+  height: 100%;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;
+}
+
+/* Safe zone — below notch */
+.safe-top { padding-top: 60px; }
+
+/* ── Status bar ── */
+.statusbar {
+  position: absolute; top: 16px; left: 0; right: 0;
+  display: flex; justify-content: space-between;
+  padding: 10px 32px 0;
+  font-size: 13px; font-weight: 600;
+  z-index: 40; font-feature-settings: "tnum";
+  mix-blend-mode: difference; color: #faf3e7;
+  pointer-events: none;
+}
+.statusbar .right { display: flex; gap: 5px; align-items: center; }
+
+/* ── Type ── */
+.eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px; letter-spacing: 0.32em;
+  text-transform: uppercase; font-weight: 500;
+}
+.display { font-family: 'DM Serif Display', serif; font-weight: 400; letter-spacing: -0.02em; line-height: 1.0; }
+.script  { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; }
+
+/* ── Animations ── */
+@keyframes float-1 { 0%,100%{transform:translate(0,0) rotate(-9deg);} 50%{transform:translate(2px,-10px) rotate(-7deg);} }
+@keyframes float-2 { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-12px) rotate(1deg);} }
+@keyframes float-3 { 0%,100%{transform:translate(0,0) rotate(10deg);} 50%{transform:translate(3px,-10px) rotate(8deg);} }
+@keyframes drift   { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-7px);} }
+@keyframes drift-slow { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-4px);} }
+@keyframes fall {
+  0%  { transform:translateY(-20px) rotate(0); opacity:0; }
+  8%, 90% { opacity:1; }
+  100%{ transform:translateY(120vh) rotate(360deg); opacity:0; }
+}
+@keyframes wave { 0%,100%{height:3px;} 50%{height:12px;} }
+@keyframes pulse-down { 0%,100%{transform:translateX(-50%) translateY(0);opacity:0.4;} 50%{transform:translateX(-50%) translateY(5px);opacity:0.8;} }
+
+/* ── Invite mocks ── */
+.invite-mock {
+  position: relative; border-radius: 18px; overflow: hidden;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset, 0 14px 36px -10px rgba(0,0,0,0.3), 0 32px 64px -20px rgba(0,0,0,0.2);
+  aspect-ratio: 9/16; width: 100%;
+}
+.invite-honey  { background: radial-gradient(ellipse at 50% 30%, #fff4dd 0%, #f5e1bd 60%, #e8c989 100%); }
+.invite-floral { background: radial-gradient(ellipse at 50% 70%, #fde4e0 0%, #f5cfc9 50%, #e8b4b0 100%); }
+.invite-minimal{ background: linear-gradient(180deg, #faf5ec 0%, #f0e6d4 100%); }
+.watercolor { position:absolute; border-radius:50%; filter:blur(18px); opacity:0.42; pointer-events:none; }
+.wave-bar { width:2px; background:currentColor; border-radius:2px; animation:wave 0.9s ease-in-out infinite; }
+
+/* ── Buttons ── */
+.btn-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 15px 22px; border-radius: 100px;
+  font-family: 'Outfit', sans-serif; font-weight: 500;
+  font-size: 12px; letter-spacing: 0.06em;
+  border: none; cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s; text-transform: uppercase;
+}
+.btn-pill:active { transform: scale(0.97); }
+.btn-dark      { background: #1a1410; color: #f5e9d8; }
+.btn-light     { background: #f5e9d8; color: #1a1410; border: 1px solid rgba(0,0,0,0.06); }
+.btn-whatsapp  { background: #25D366; color: #fff; box-shadow: 0 10px 28px -6px rgba(37,211,102,0.5); }
+
+/* ── Backgrounds ── */
+.bg-honey-deep {
+  background: radial-gradient(ellipse at 30% 25%, #fff4dd 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 90%, #d4a574 0%, transparent 50%),
+              linear-gradient(180deg, #f5e1bd 0%, #d4a574 100%);
+}
+.bg-floral-deep {
+  background: radial-gradient(ellipse at 70% 20%, #fff0eb 0%, transparent 55%),
+              radial-gradient(ellipse at 20% 90%, #c87a76 0%, transparent 55%),
+              linear-gradient(180deg, #fde4e0 0%, #e8b4b0 100%);
+}
+.bg-minimal-deep {
+  background: radial-gradient(ellipse at 50% 30%, #faf6f0 0%, transparent 55%),
+              radial-gradient(ellipse at 80% 100%, #c9a876 0%, transparent 50%),
+              linear-gradient(180deg, #f0e6d4 0%, #c9a876 100%);
+}
+.bg-paper { background: radial-gradient(ellipse at 50% 0%, #fdf6e8 0%, #ead8c4 100%); }
+.bg-night { background: radial-gradient(ellipse at 50% 30%, #2a1f18 0%, #0e0a08 100%); color: #f5e9d8; }
+
+/* ── Demo phone-in-phone ── */
+.demo-frame {
+  border-radius: 32px; background: #0a0604; padding: 8px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 20px 44px -10px rgba(0,0,0,0.55);
+}
+.demo-screen { width: 100%; height: 100%; border-radius: 25px; overflow: hidden; position: relative; }
+
+/* ── Compare ── */
+.compare-track {
+  position: relative; width: 100%; border-radius: 18px; overflow: hidden;
+  box-shadow: 0 8px 24px -8px rgba(0,0,0,0.2);
+  user-select: none;
+}
+.compare-side { position: absolute; inset: 0; }
+.compare-handle {
+  position: absolute; top: 0; bottom: 0; width: 2px;
+  background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,0.12); cursor: ew-resize; z-index: 10;
+  display: flex; align-items: center; justify-content: center;
+}
+.compare-knob {
+  width: 36px; height: 36px; border-radius: 50%; background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: #2a201a; flex-shrink: 0;
+}
+
+/* ── Outside controls ── */
+.outside-controls {
+  position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 5px; z-index: 100;
+}
+.scene-jumper {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(245,233,216,0.07); backdrop-filter: blur(8px);
+  border: 1px solid rgba(245,233,216,0.1);
+  font-family: 'Outfit', sans-serif; font-size: 9px; font-weight: 500;
+  color: rgba(245,233,216,0.45); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease;
+}
+.scene-jumper:hover { background: rgba(245,233,216,0.16); color: #f5e9d8; }
+.scene-jumper.active { background: #f5e9d8; color: #1a1410; width: 36px; height: 36px; }
+.brand-mark { position: fixed; top: 24px; left: 24px; z-index: 100; color: #f5e9d8; }
+.brand-mark .b1 { font-family: 'DM Serif Display', serif; font-size: 17px; line-height: 1; }
+.brand-mark .b2 { font-family: 'Outfit', sans-serif; font-size: 8px; letter-spacing: 0.36em; text-transform: uppercase; opacity: 0.5; }
+.reel-meta {
+  position: fixed; top: 24px; right: 24px; z-index: 100;
+  font-family: 'Outfit', sans-serif; font-size: 8px; letter-spacing: 0.3em;
+  text-transform: uppercase; text-align: right; line-height: 1.8;
+  color: rgba(245,233,216,0.5);
+}
+.reel-meta .num { font-family: 'DM Serif Display', serif; font-size: 26px; letter-spacing: -0.02em; color: #f5e9d8; margin-bottom: 3px; font-style: italic; }
+
+/* ── Scroll hint ── */
+.scroll-hint {
+  position: absolute; bottom: 18px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  font-family: 'Outfit', sans-serif; font-weight: 500;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  animation: pulse-down 2s ease-in-out infinite; z-index: 10;
+}
+
+/* ── Tweaks panel ── */
+.twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:272px;max-height:calc(100vh - 32px);display:flex;flex-direction:column;background:rgba(250,249,247,.8);color:#29261b;-webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);border:.5px solid rgba(255,255,255,.6);border-radius:14px;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+.twk-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 8px 10px 14px;cursor:move;user-select:none}
+.twk-hd b{font-size:12px;font-weight:600}
+.twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+.twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+.twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;min-height:0;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+.twk-row{display:flex;flex-direction:column;gap:5px}
+.twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+.twk-lbl{display:flex;justify-content:space-between;align-items:baseline;color:rgba(41,38,27,.72)}
+.twk-lbl>span:first-child{font-weight:500}
+.twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(41,38,27,.45);padding:10px 0 0}
+.twk-sect:first-child{padding-top:0}
+.twk-field{appearance:none;width:100%;height:26px;padding:0 8px;border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+select.twk-field{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");background-repeat:no-repeat;background-position:right 8px center;padding-right:22px}
+.twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;background:rgba(0,0,0,.06);user-select:none}
+.twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+.twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;background:transparent;color:inherit;font:inherit;font-weight:500;height:22px;border-radius:6px;cursor:default;padding:0}
+.twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+.twk-toggle[data-on="1"]{background:#34c759}
+.twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+.twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+/* ── Mobile full-screen phone ── */
+@media (max-width: 460px) {
+  .phone { width: 100vw; height: 100svh; border-radius: 0; box-shadow: none; margin: 0; }
+  .phone-notch { display: none; }
+  .safe-top { padding-top: 48px; }
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback } = React;
+
+/* ═══════════════════════════════════════════════════════════════
+   TWEAKS PANEL
+═══════════════════════════════════════════════════════════════ */
+function useTweaks(defaults) {
+  const [values, setValues] = useState(defaults);
+  const setTweak = useCallback((keyOrObj, val) => {
+    setValues(prev => typeof keyOrObj === 'object' ? { ...prev, ...keyOrObj } : { ...prev, [keyOrObj]: val });
+  }, []);
+  return [values, setTweak];
+}
+
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = useState(false);
+  const dragRef = useRef(null);
+  const offsetRef = useRef({ x: 16, y: 16 });
+  const PAD = 16;
+  const clamp = useCallback(() => {
+    const p = dragRef.current; if (!p) return;
+    const mR = Math.max(PAD, window.innerWidth - p.offsetWidth - PAD);
+    const mB = Math.max(PAD, window.innerHeight - p.offsetHeight - PAD);
+    offsetRef.current = { x: Math.min(mR, Math.max(PAD, offsetRef.current.x)), y: Math.min(mB, Math.max(PAD, offsetRef.current.y)) };
+    p.style.right = offsetRef.current.x + 'px'; p.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+  useEffect(() => {
+    if (!open) return;
+    clamp();
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(clamp) : null;
+    if (ro) { ro.observe(document.documentElement); return () => ro.disconnect(); }
+    window.addEventListener('resize', clamp); return () => window.removeEventListener('resize', clamp);
+  }, [open, clamp]);
+  useEffect(() => {
+    const h = (e) => { const t = e?.data?.type; if (t === '__activate_edit_mode') setOpen(true); else if (t === '__deactivate_edit_mode') setOpen(false); };
+    window.addEventListener('message', h);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', h);
+  }, []);
+  const onDragStart = (e) => {
+    const p = dragRef.current; if (!p) return;
+    const r = p.getBoundingClientRect();
+    const sR = window.innerWidth - r.right, sB = window.innerHeight - r.bottom, sx = e.clientX, sy = e.clientY;
+    const mv = (ev) => { offsetRef.current = { x: sR - (ev.clientX - sx), y: sB - (ev.clientY - sy) }; clamp(); };
+    const up = () => { window.removeEventListener('mousemove', mv); window.removeEventListener('mouseup', up); };
+    window.addEventListener('mousemove', mv); window.addEventListener('mouseup', up);
+  };
+  if (!open) return null;
+  return (
+    <div ref={dragRef} className="twk-panel" style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+      <div className="twk-hd" onMouseDown={onDragStart}><b>{title}</b><button className="twk-x" onMouseDown={e => e.stopPropagation()} onClick={() => setOpen(false)}>✕</button></div>
+      <div className="twk-body">{children}</div>
+    </div>
+  );
+}
+function TweakSection({ label, children }) { return (<><div className="twk-sect">{label}</div>{children}</>); }
+function TweakToggle({ label, value, onChange }) {
+  return (<div className="twk-row twk-row-h"><div className="twk-lbl"><span>{label}</span></div><button type="button" className="twk-toggle" data-on={value?'1':'0'} onClick={() => onChange(!value)}><i/></button></div>);
+}
+function TweakRadio({ label, value, options, onChange }) {
+  const ref = useRef(null);
+  const [drag, setDrag] = useState(false);
+  const opts = options.map(o => typeof o === 'object' ? o : { value: o, label: o });
+  const idx = Math.max(0, opts.findIndex(o => o.value === value));
+  const n = opts.length;
+  const vRef = useRef(value); vRef.current = value;
+  const segAt = (cx) => { const r = ref.current.getBoundingClientRect(); const i = Math.floor(((cx - r.left - 2) / (r.width - 4)) * n); return opts[Math.max(0, Math.min(n-1, i))].value; };
+  const onDown = (e) => {
+    setDrag(true); const v0 = segAt(e.clientX); if (v0 !== vRef.current) onChange(v0);
+    const mv = (ev) => { const v = segAt(ev.clientX); if (v !== vRef.current) onChange(v); };
+    const up = () => { setDrag(false); window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); };
+    window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up);
+  };
+  return (<div className="twk-row"><div className="twk-lbl"><span>{label}</span></div><div ref={ref} role="radiogroup" onPointerDown={onDown} className={drag?'twk-seg dragging':'twk-seg'}><div className="twk-seg-thumb" style={{ left:`calc(2px + ${idx} * (100% - 4px) / ${n})`, width:`calc((100% - 4px) / ${n})` }}/>{opts.map(o => <button key={o.value} type="button">{o.label}</button>)}</div></div>);
+}
+function TweakSelect({ label, value, options, onChange }) {
+  return (<div className="twk-row"><div className="twk-lbl"><span>{label}</span></div><select className="twk-field" value={value} onChange={e => onChange(e.target.value)}>{options.map(o => { const v = typeof o === 'object' ? o.value : o; const l = typeof o === 'object' ? o.label : o; return <option key={v} value={v}>{l}</option>; })}</select></div>);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   INVITE MOCKUPS
+═══════════════════════════════════════════════════════════════ */
+function BearSVG() {
+  return (
+    <svg viewBox="0 0 120 130" style={{ width:'100%', display:'block' }}>
+      <ellipse cx="60" cy="85" rx="38" ry="35" fill="#d9a76a"/>
+      <ellipse cx="60" cy="90" rx="26" ry="22" fill="#f0d4a8"/>
+      <circle cx="32" cy="38" r="13" fill="#d9a76a"/><circle cx="88" cy="38" r="13" fill="#d9a76a"/>
+      <circle cx="32" cy="38" r="7"  fill="#f0d4a8"/><circle cx="88" cy="38" r="7"  fill="#f0d4a8"/>
+      <circle cx="60" cy="50" r="28" fill="#d9a76a"/>
+      <ellipse cx="60" cy="58" rx="16" ry="13" fill="#f0d4a8"/>
+      <ellipse cx="50" cy="48" rx="2" ry="3" fill="#3d2410"/>
+      <ellipse cx="70" cy="48" rx="2" ry="3" fill="#3d2410"/>
+      <ellipse cx="60" cy="56" rx="3" ry="2.2" fill="#3d2410"/>
+      <path d="M56 60 Q60 63 64 60" stroke="#3d2410" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
+      <circle cx="44" cy="56" r="3" fill="#e8a89a" opacity="0.6"/>
+      <circle cx="76" cy="56" r="3" fill="#e8a89a" opacity="0.6"/>
+      <ellipse cx="78" cy="100" rx="10" ry="9" fill="#a06a2c"/>
+      <ellipse cx="78" cy="94"  rx="10" ry="3" fill="#7a4f1f"/>
+      <path d="M70 96 Q72 105 70 110" stroke="#e8c989" strokeWidth="2" fill="none" strokeLinecap="round"/>
+    </svg>
+  );
+}
+function PeonyCluster() {
+  return (
+    <svg viewBox="0 0 100 100" style={{ width:'100%', display:'block' }}>
+      <defs>
+        <radialGradient id="pg1" cx="50%" cy="50%"><stop offset="0%" stopColor="#fde4e0"/><stop offset="60%" stopColor="#e8b4b0"/><stop offset="100%" stopColor="#c87a76"/></radialGradient>
+        <radialGradient id="pg2" cx="50%" cy="50%"><stop offset="0%" stopColor="#fff0eb"/><stop offset="100%" stopColor="#e8b4b0"/></radialGradient>
+      </defs>
+      <ellipse cx="20" cy="65" rx="14" ry="6" fill="#a8b89a" opacity="0.7" transform="rotate(-30 20 65)"/>
+      <ellipse cx="78" cy="30" rx="12" ry="5" fill="#a8b89a" opacity="0.7" transform="rotate(40 78 30)"/>
+      <ellipse cx="65" cy="78" rx="10" ry="4" fill="#a8b89a" opacity="0.6" transform="rotate(20 65 78)"/>
+      <circle cx="40" cy="40" r="28" fill="url(#pg1)" opacity="0.95"/>
+      <circle cx="40" cy="40" r="20" fill="url(#pg2)" opacity="0.7"/>
+      <circle cx="40" cy="40" r="10" fill="#c87a76" opacity="0.4"/>
+      <ellipse cx="20" cy="30" rx="8" ry="6" fill="#e8b4b0" opacity="0.7" transform="rotate(-20 20 30)"/>
+      <ellipse cx="60" cy="22" rx="7" ry="5" fill="#f5cfc9" opacity="0.8" transform="rotate(30 60 22)"/>
+      <ellipse cx="65" cy="55" rx="9" ry="6" fill="#e8b4b0" opacity="0.75" transform="rotate(50 65 55)"/>
+      <ellipse cx="22" cy="58" rx="7" ry="5" fill="#f5cfc9" opacity="0.7" transform="rotate(-50 22 58)"/>
+      <circle cx="78" cy="65" r="10" fill="url(#pg1)" opacity="0.85"/>
+      <circle cx="78" cy="65" r="4"  fill="#c87a76" opacity="0.5"/>
+    </svg>
+  );
+}
+
+function DulceEsperaMock({ size = 'lg', babyName = 'Mateo', date = '12 · 06 · 26' }) {
+  const sm = size === 'sm';
+  return (
+    <div className="invite-mock invite-honey">
+      <div className="watercolor" style={{ width:'70%', height:'40%', top:'-8%', left:'-10%', background:'#e8c989' }}/>
+      <div className="watercolor" style={{ width:'55%', height:'40%', bottom:'-10%', right:'-12%', background:'#d4a574' }}/>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" style={{ position:'absolute', inset:0, opacity:0.07 }}>
+        <defs><pattern id="hex" x="0" y="0" width="14" height="12" patternUnits="userSpaceOnUse"><polygon points="7,0 14,3.5 14,8.5 7,12 0,8.5 0,3.5" fill="none" stroke="#7a4f1f" strokeWidth="0.4"/></pattern></defs>
+        <rect width="100" height="100" fill="url(#hex)"/>
+      </svg>
+      <div style={{ position:'absolute', top:'6%', left:0, right:0, textAlign:'center', fontFamily:'Outfit,sans-serif', fontSize:sm?5:8, letterSpacing:'0.32em', textTransform:'uppercase', color:'#7a4f1f', fontWeight:500 }}>— Baby Shower —</div>
+      <div style={{ position:'absolute', top:'24%', left:'50%', transform:'translateX(-50%)', width:sm?'44%':'50%' }}><BearSVG/></div>
+      <div style={{ position:'absolute', bottom:sm?'22%':'23%', left:0, right:0, textAlign:'center', padding:'0 8%' }}>
+        <div className="script" style={{ fontSize:sm?10:20, color:'#7a4f1f', lineHeight:1.1 }}>Una dulce</div>
+        <div className="display" style={{ fontSize:sm?14:28, color:'#3d2410', letterSpacing:'-0.02em' }}>bendición</div>
+        <div className="script" style={{ fontSize:sm?8:14, color:'#7a4f1f' }}>está en camino</div>
+      </div>
+      <div style={{ position:'absolute', bottom:'7%', left:0, right:0, textAlign:'center' }}>
+        <div className="display" style={{ fontSize:sm?9:16, color:'#3d2410', letterSpacing:'0.1em' }}>{babyName}</div>
+        <div style={{ width:sm?28:44, height:1, background:'#7a4f1f', margin:sm?'2px auto':'4px auto', opacity:0.4 }}/>
+        <div style={{ fontFamily:'Outfit,sans-serif', fontSize:sm?5:9, letterSpacing:'0.24em', color:'#7a4f1f' }}>{date}</div>
+      </div>
+    </div>
+  );
+}
+
+function JardinMock({ size = 'lg', babyName = 'Sofía', date = '24 · 07 · 26' }) {
+  const sm = size === 'sm';
+  return (
+    <div className="invite-mock invite-floral">
+      <div className="watercolor" style={{ width:'70%', height:'50%', top:'-15%', right:'-15%', background:'#e8b4b0' }}/>
+      <div className="watercolor" style={{ width:'50%', height:'40%', bottom:'-10%', left:'-10%', background:'#f5cfc9' }}/>
+      <div style={{ position:'absolute', top:'-6%', left:'-10%', width:sm?'48%':'52%' }}><PeonyCluster/></div>
+      <div style={{ position:'absolute', bottom:'-3%', right:'-8%', width:sm?'38%':'45%', transform:'rotate(180deg)' }}><PeonyCluster/></div>
+      <div style={{ position:'absolute', top:'28%', right:'14%', fontSize:sm?5:8, color:'#c87a76', opacity:0.7 }}>❀</div>
+      <div style={{ position:'absolute', top:'44%', left:'13%', fontSize:sm?4:7, color:'#c87a76', opacity:0.6 }}>❀</div>
+      <div style={{ position:'absolute', top:'8%', left:0, right:0, textAlign:'center', fontFamily:'Cormorant Garamond,serif', fontStyle:'italic', fontSize:sm?7:12, color:'#8a4f4f', letterSpacing:'0.06em' }}>— celebrando —</div>
+      <div style={{ position:'absolute', top:'36%', left:0, right:0, textAlign:'center', padding:'0 12%' }}>
+        <div className="script" style={{ fontSize:sm?8:15, color:'#8a4f4f' }}>un nuevo amor</div>
+        <div className="display" style={{ fontSize:sm?15:30, color:'#5c2a2a', letterSpacing:'-0.02em', lineHeight:0.95 }}>está por</div>
+        <div className="display" style={{ fontSize:sm?20:40, color:'#5c2a2a', fontStyle:'italic', fontFamily:'DM Serif Display,serif', letterSpacing:'-0.03em', lineHeight:0.95 }}>florecer</div>
+      </div>
+      <div style={{ position:'absolute', top:sm?'68%':'69%', left:'50%', transform:'translateX(-50%)', display:'flex', alignItems:'center', gap:sm?4:8 }}>
+        <div style={{ width:sm?12:22, height:1, background:'#c4a47c' }}/>
+        <div style={{ width:sm?5:8, height:sm?5:8, border:'1px solid #c4a47c', transform:'rotate(45deg)' }}/>
+        <div style={{ width:sm?12:22, height:1, background:'#c4a47c' }}/>
+      </div>
+      <div style={{ position:'absolute', bottom:'7%', left:0, right:0, textAlign:'center' }}>
+        <div className="script" style={{ fontSize:sm?10:18, color:'#5c2a2a' }}>{babyName}</div>
+        <div style={{ fontFamily:'Outfit,sans-serif', fontSize:sm?5:8, letterSpacing:'0.32em', color:'#8a4f4f', marginTop:sm?1:4, textTransform:'uppercase' }}>{date}</div>
+      </div>
+    </div>
+  );
+}
+
+function MilagroMock({ size = 'lg', babyName = 'Luna', date = '03 · 09 · 26' }) {
+  const sm = size === 'sm';
+  return (
+    <div className="invite-mock invite-minimal">
+      <div className="watercolor" style={{ width:'75%', height:'40%', top:'15%', left:'10%', background:'#e8d4a8', opacity:0.28 }}/>
+      <div style={{ position:'absolute', top:sm?'19%':'21%', left:'50%', transform:'translateX(-50%)', width:sm?'27%':'30%' }}>
+        <svg viewBox="0 0 100 100" style={{ width:'100%', display:'block' }}>
+          <defs><radialGradient id="mn" cx="40%" cy="40%"><stop offset="0%" stopColor="#f5e9d8"/><stop offset="100%" stopColor="#c9a876"/></radialGradient></defs>
+          <path d="M50 10 A40 40 0 1 0 50 90 A30 35 0 1 1 50 10 Z" fill="url(#mn)"/>
+        </svg>
+      </div>
+      {[{t:'11%',l:'17%',s:sm?5:8},{t:'17%',l:'77%',s:sm?4:7},{t:'29%',l:'14%',s:sm?3:5},{t:'57%',l:'84%',s:sm?4:7}].map((st,i) => (
+        <div key={i} style={{ position:'absolute', top:st.t, left:st.l, fontSize:st.s, color:'#c9a876', opacity:0.7 }}>✦</div>
+      ))}
+      <div style={{ position:'absolute', top:'7%', left:0, right:0, textAlign:'center', fontFamily:'Outfit,sans-serif', fontSize:sm?5:8, letterSpacing:'0.42em', textTransform:'uppercase', color:'#a08560', fontWeight:500 }}>Baby Shower</div>
+      <div style={{ position:'absolute', top:sm?'51%':'53%', left:0, right:0, textAlign:'center', padding:'0 10%' }}>
+        <div className="script" style={{ fontSize:sm?7:13, color:'#a08560' }}>lo más pequeño</div>
+        <div className="display" style={{ fontSize:sm?12:22, color:'#3a2a1a', letterSpacing:'-0.02em', lineHeight:1.05 }}>puede cambiarlo</div>
+        <div className="display" style={{ fontSize:sm?15:28, color:'#3a2a1a', fontFamily:'DM Serif Display,serif', fontStyle:'italic', letterSpacing:'-0.02em', lineHeight:1 }}>todo.</div>
+      </div>
+      <div style={{ position:'absolute', top:sm?'77%':'78%', left:'50%', transform:'translateX(-50%)', display:'flex', alignItems:'center', gap:sm?3:6 }}>
+        <div style={{ width:sm?18:34, height:1, background:'#c9a876' }}/><div style={{ fontSize:sm?5:10, color:'#c9a876' }}>✦</div><div style={{ width:sm?18:34, height:1, background:'#c9a876' }}/>
+      </div>
+      <div style={{ position:'absolute', bottom:'7%', left:0, right:0, textAlign:'center' }}>
+        <div className="display" style={{ fontSize:sm?8:15, color:'#3a2a1a', letterSpacing:'0.18em', textTransform:'uppercase' }}>{babyName}</div>
+        <div style={{ fontFamily:'Outfit,sans-serif', fontSize:sm?5:8, letterSpacing:'0.32em', color:'#a08560', marginTop:sm?1:3 }}>{date}</div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DEMO COMPONENTS
+═══════════════════════════════════════════════════════════════ */
+const THEMES = {
+  honey:   { bg1:'#fff4dd', bg2:'#f5e1bd', accent:'#7a4f1f', soft:'#d4a574',  ink:'#3d2410', muted:'#7a4f1f' },
+  floral:  { bg1:'#fdf4f1', bg2:'#f5dcd5', accent:'#8a4f4f', soft:'#e8b4b0',  ink:'#5c2a2a', muted:'#8a4f4f' },
+  minimal: { bg1:'#faf6f0', bg2:'#ede1cf', accent:'#a08560', soft:'#c9a876',  ink:'#3a2a1a', muted:'#a08560' },
+};
+const CDATA = {
+  honey:   { name:'Dulce Espera',    baby:'Mateo', parents:'Camila & Andrés',    msg:'Después de tanto soñarte, por fin estás aquí. Cada latido tuyo nos enseña a amar más fuerte.', date:'Sáb · 12 de junio', time:'4:00 PM', place:'Casa de la abuela', addr:'Cra. 14 #87-42, Bogotá', Mock:(p)=><DulceEsperaMock size="lg" {...p}/> },
+  floral:  { name:'Jardín de Amor',  baby:'Sofía', parents:'Valentina & Mateo', msg:'En cada pétalo de este jardín está escrito tu nombre. Te esperamos con el corazón abierto.',  date:'Dom · 24 de julio', time:'11:00 AM', place:'Jardín La Ceiba', addr:'Calle 119 #15-30, Bogotá', Mock:(p)=><JardinMock size="lg" {...p}/> },
+  minimal: { name:'Pequeño Milagro', baby:'Luna',  parents:'Daniela & Sebastián', msg:'Eres la prueba de que los milagros existen y se sienten en el alma. Celebra con nosotros.', date:'Sáb · 3 de septiembre', time:'5:30 PM', place:'Salón Lumière', addr:'Cra. 7 #114-20, Bogotá', Mock:(p)=><MilagroMock size="lg" {...p}/> },
+};
+
+function WhatsappIcon({ size = 16 }) {
+  return (<svg viewBox="0 0 32 32" width={size} height={size} fill="currentColor"><path d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.8c1.8 1 3.9 1.5 6.2 1.5 7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.7c-2 0-3.9-.5-5.5-1.5l-.4-.2-4 1 1.1-3.9-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.7 0-5.9 4.8-10.7 10.7-10.7s10.7 4.8 10.7 10.7-4.8 10.7-10.7 10.7zm5.9-8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2c-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-.9-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.2 3c.2.2 2.1 3.2 5 4.4.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.4z"/></svg>);
+}
+
+function MusicPill({ t }) {
+  return (
+    <div style={{ display:'inline-flex', alignItems:'center', gap:5, padding:'4px 10px', borderRadius:100, background:'rgba(255,255,255,0.7)', backdropFilter:'blur(8px)', border:`1px solid ${t.soft}55`, fontSize:8, color:t.ink }}>
+      <div style={{ display:'flex', alignItems:'center', gap:1, height:12, color:t.accent }}>
+        {[0, 0.15, 0.3, 0.1].map((d,i)=><span key={i} className="wave-bar" style={{ animationDelay:`${d}s` }}/>)}
+      </div>
+      música suave
+    </div>
+  );
+}
+
+/* Demo screens */
+function DemoCover({ data, t }) {
+  return (
+    <div style={{ flex:1, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:'16px', gap:12, minHeight:0 }}>
+      <div style={{ width:'72%', animation:'drift 4s ease-in-out infinite', flexShrink:0 }}><data.Mock/></div>
+      <MusicPill t={t}/>
+      <div style={{ fontSize:7, letterSpacing:'0.3em', textTransform:'uppercase', color:t.muted, opacity:0.7 }}>desliza para abrir ↓</div>
+    </div>
+  );
+}
+function DemoMessage({ data, t }) {
+  return (
+    <div style={{ flex:1, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:'18px 18px', textAlign:'center', gap:10, minHeight:0 }}>
+      <div className="script" style={{ fontSize:10, color:t.muted }}>un mensaje de</div>
+      <div className="display" style={{ fontSize:16, color:t.ink }}>{data.parents}</div>
+      <div style={{ width:22, height:1, background:t.soft }}/>
+      <div className="script" style={{ fontSize:12, color:t.ink, lineHeight:1.55, maxWidth:220 }}>"{data.msg}"</div>
+      <div style={{ fontSize:8, letterSpacing:'0.26em', textTransform:'uppercase', color:t.muted }}>— {data.baby} —</div>
+    </div>
+  );
+}
+function DemoEvent({ data, t }) {
+  const rows = [
+    { label:'bebé', value: data.baby },
+    { label:'fecha', value: data.date },
+    { label:'hora',  value: data.time },
+    { label:'lugar', value: data.place },
+    { label:'dirección', value: data.addr },
+  ];
+  return (
+    <div style={{ flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'18px 18px', gap:4, minHeight:0 }}>
+      <div className="script" style={{ fontSize:10, color:t.muted, textAlign:'center', marginBottom:6 }}>detalles del día</div>
+      {rows.map((r,i)=>(
+        <div key={i} style={{ display:'flex', justifyContent:'space-between', alignItems:'baseline', padding:'8px 0', borderBottom:`1px solid ${t.soft}33` }}>
+          <div style={{ fontSize:7, letterSpacing:'0.28em', textTransform:'uppercase', color:t.muted }}>{r.label}</div>
+          <div style={{ fontSize:10, color:t.ink, fontWeight:500, textAlign:'right', maxWidth:'58%' }}>{r.value}</div>
+        </div>
+      ))}
+      <div style={{ display:'flex', gap:8, marginTop:10 }}>
+        <MiniActionBtn icon="🗓" label="Agendar" t={t}/>
+        <MiniActionBtn icon="📍" label="Ver mapa" t={t}/>
+      </div>
+    </div>
+  );
+}
+function DemoLocation({ data, t }) {
+  return (
+    <div style={{ flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'18px 16px', gap:8, minHeight:0 }}>
+      <div className="script" style={{ fontSize:10, color:t.muted, textAlign:'center' }}>cómo llegar</div>
+      <div className="display" style={{ fontSize:16, color:t.ink, textAlign:'center' }}>{data.place}</div>
+      <div style={{ width:'100%', aspectRatio:'3/2', borderRadius:12, background:t.bg2, position:'relative', overflow:'hidden', border:`1px solid ${t.soft}44` }}>
+        <svg viewBox="0 0 200 130" style={{ position:'absolute', inset:0, width:'100%', height:'100%' }}>
+          <path d="M0 60 Q80 48 200 75" stroke={t.soft} strokeWidth="6" fill="none" opacity="0.4"/>
+          <path d="M55 0 Q72 70 88 130" stroke={t.soft} strokeWidth="4" fill="none" opacity="0.3"/>
+          <path d="M130 0 L148 130" stroke={t.soft} strokeWidth="3" fill="none" opacity="0.25"/>
+          <ellipse cx="38" cy="110" rx="20" ry="12" fill={t.soft} opacity="0.18"/>
+        </svg>
+        <div style={{ position:'absolute', top:'42%', left:'52%', transform:'translate(-50%,-50%)', width:26, height:26, borderRadius:'50%', background:t.ink, display:'flex', alignItems:'center', justifyContent:'center', color:t.bg1, fontSize:11, boxShadow:`0 3px 10px ${t.ink}55` }}>♥</div>
+      </div>
+      <div style={{ fontSize:9, color:t.muted, textAlign:'center', lineHeight:1.4 }}>{data.addr}</div>
+      <button style={{ padding:'9px', borderRadius:100, background:t.ink, color:t.bg1, border:'none', fontSize:9, fontWeight:500, letterSpacing:'0.08em', cursor:'pointer' }}>Abrir en Maps →</button>
+    </div>
+  );
+}
+function DemoConfirm({ data, t }) {
+  const [count, setCount] = useState(2);
+  const btnS = { width:32, height:32, borderRadius:'50%', border:`1px solid ${t.soft}`, background:'transparent', color:t.ink, fontSize:16, cursor:'pointer' };
+  return (
+    <div style={{ flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'18px 18px', textAlign:'center', gap:10, minHeight:0 }}>
+      <div className="script" style={{ fontSize:10, color:t.muted }}>¿podrás acompañarnos?</div>
+      <div className="display" style={{ fontSize:18, color:t.ink, lineHeight:1.05 }}>Confirma tu asistencia</div>
+      <div style={{ background:'white', borderRadius:12, padding:'12px', border:`1px solid ${t.soft}44`, textAlign:'left' }}>
+        <div style={{ fontSize:7, letterSpacing:'0.26em', textTransform:'uppercase', color:t.muted, marginBottom:4 }}>invitados</div>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+          <button onClick={()=>setCount(Math.max(1,count-1))} style={btnS}>−</button>
+          <span className="display" style={{ fontSize:24, color:t.ink }}>{count}</span>
+          <button onClick={()=>setCount(count+1)} style={btnS}>+</button>
+        </div>
+      </div>
+      <button style={{ padding:'12px 16px', borderRadius:100, background:'#25D366', color:'white', border:'none', fontSize:11, fontWeight:600, letterSpacing:'0.04em', display:'flex', alignItems:'center', justifyContent:'center', gap:7, boxShadow:'0 5px 16px -4px rgba(37,211,102,0.5)', cursor:'pointer' }}>
+        <WhatsappIcon size={13}/> Confirmar por WhatsApp
+      </button>
+      <div style={{ fontSize:8, color:t.muted, opacity:0.7 }}>recibirás un recordatorio el día anterior</div>
+    </div>
+  );
+}
+function DemoClose({ data, t }) {
+  return (
+    <div style={{ flex:1, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:'18px 18px', textAlign:'center', gap:8, minHeight:0 }}>
+      <div style={{ fontSize:20, color:t.muted }}>✦</div>
+      <div className="script" style={{ fontSize:11, color:t.muted }}>gracias por celebrar con nosotros</div>
+      <div className="display" style={{ fontSize:22, color:t.ink, lineHeight:1.1 }}>cada presencia<br/>es un regalo.</div>
+      <div style={{ fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color:t.muted, marginTop:4 }}>{data.parents}</div>
+      <div style={{ width:28, height:1, background:t.soft }}/>
+      <div className="script" style={{ fontSize:13, color:t.ink }}>— {data.baby} —</div>
+    </div>
+  );
+}
+function MiniActionBtn({ icon, label, t }) {
+  return (<div style={{ flex:1, padding:'8px 6px', borderRadius:10, background:'white', border:`1px solid ${t.soft}44`, display:'flex', alignItems:'center', justifyContent:'center', gap:4, fontSize:8, color:t.ink, fontWeight:500 }}><span>{icon}</span>{label}</div>);
+}
+
+function InviteDemo({ collection, step }) {
+  const t = THEMES[collection];
+  const data = CDATA[collection];
+  return (
+    <div style={{ width:'100%', height:'100%', background:`linear-gradient(180deg,${t.bg1} 0%,${t.bg2} 100%)`, display:'flex', flexDirection:'column', color:t.ink, fontFamily:'Outfit,sans-serif', overflow:'hidden' }}>
+      <div style={{ padding:'14px 12px 0', display:'flex', justifyContent:'space-between', fontSize:8, fontWeight:600, color:t.ink, flexShrink:0 }}>
+        <span>9:41</span><span>•••</span>
+      </div>
+      {step === 0 && <DemoCover data={data} t={t}/>}
+      {step === 1 && <DemoMessage data={data} t={t}/>}
+      {step === 2 && <DemoEvent data={data} t={t}/>}
+      {step === 3 && <DemoLocation data={data} t={t}/>}
+      {step === 4 && <DemoConfirm data={data} t={t}/>}
+      {step === 5 && <DemoClose data={data} t={t}/>}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCENES
+═══════════════════════════════════════════════════════════════ */
+
+/* ── 01 HERO ── */
+function SceneHero({ onJump }) {
+  return (
+    <div className="scene scene-snap bg-night">
+      {/* Petals — decorative only */}
+      {[...Array(5)].map((_,i)=>(
+        <div key={i} style={{ position:'absolute', left:`${12+i*17}%`, top:'-20px', fontSize:7+(i%3)*2, color:['#d4a574','#e8b4b0','#c9a876'][i%3], opacity:0.45, animation:`fall ${9+i*1.3}s linear infinite`, animationDelay:`${i*1.6}s`, pointerEvents:'none', zIndex:1 }}>{['❀','✦','✦','❀','✦'][i]}</div>
+      ))}
+
+      {/* Top bar — below notch */}
+      <div style={{ paddingTop:66, padding:'66px 28px 0', position:'relative', zIndex:5, flexShrink:0 }}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+          <div style={{ fontFamily:'DM Serif Display', fontSize:12, color:'#f5e9d8', fontStyle:'italic' }}>Vol. 01</div>
+          <div style={{ width:36, height:1, background:'rgba(245,233,216,0.25)' }}/>
+          <div className="eyebrow" style={{ color:'#d4a574', fontSize:8 }}>Boutique · 2026</div>
+        </div>
+      </div>
+
+      {/* Headline */}
+      <div style={{ padding:'14px 28px 0', position:'relative', zIndex:5, flexShrink:0 }}>
+        <div className="script" style={{ fontSize:15, color:'#d4a574', marginBottom:2 }}>Invitaciones digitales</div>
+        <div className="display" style={{ fontSize:'clamp(30px,8vw,42px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.025em' }}>
+          que se sienten
+        </div>
+        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(34px,9vw,48px)', color:'#f5e9d8', lineHeight:1, letterSpacing:'-0.035em' }}>
+          como un recuerdo.
+        </div>
+      </div>
+
+      {/* Invite mockups — hero + flankers */}
+      <div style={{ flex:1, position:'relative', zIndex:3, minHeight:0, overflow:'hidden' }}>
+        {/* Left flank */}
+        <div style={{ position:'absolute', left:'-6%', top:'50%', transform:'translateY(-50%)', width:'30%', opacity:0.65, filter:'blur(0.5px)', animation:'float-1 7s ease-in-out infinite', zIndex:2 }}>
+          <DulceEsperaMock size="sm"/>
+        </div>
+        {/* Center hero */}
+        <div style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'52%', animation:'float-2 6s ease-in-out infinite', zIndex:3, filter:'drop-shadow(0 30px 60px rgba(0,0,0,0.55))' }}>
+          <JardinMock size="lg"/>
+        </div>
+        {/* Right flank */}
+        <div style={{ position:'absolute', right:'-6%', top:'50%', transform:'translateY(-50%)', width:'30%', opacity:0.65, filter:'blur(0.5px)', animation:'float-3 7.5s ease-in-out infinite', zIndex:2 }}>
+          <MilagroMock size="sm"/>
+        </div>
+      </div>
+
+      {/* Bottom CTA — never overlaps, always at bottom */}
+      <div style={{ padding:'16px 28px 44px', background:'linear-gradient(180deg,transparent 0%,rgba(8,5,3,0.92) 45%)', position:'relative', zIndex:5, flexShrink:0 }}>
+        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-end', marginBottom:14 }}>
+          <div>
+            <div className="eyebrow" style={{ color:'#d4a574', fontSize:8 }}>desde</div>
+            <div className="display" style={{ fontSize:34, color:'#f5e9d8', lineHeight:1, marginTop:2 }}>$10</div>
+            <div style={{ fontSize:9, color:'rgba(245,233,216,0.5)', letterSpacing:'0.06em', marginTop:2 }}>entrega en 24h</div>
+          </div>
+          <div className="script" style={{ fontSize:12, color:'rgba(245,233,216,0.78)', lineHeight:1.4, textAlign:'right', maxWidth:155 }}>
+            animadas, editables<br/>y listas para WhatsApp
+          </div>
+        </div>
+        <button className="btn-pill btn-light" onClick={onJump} style={{ width:'100%', justifyContent:'space-between', padding:'16px 22px' }}>
+          <span>Ver la colección</span>
+          <span style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:17 }}>→</span>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ── 02 COLECCIÓN INTRO "Tres historias" ── */
+function SceneCollectionIntro({ onContinue }) {
+  return (
+    <div className="scene scene-snap bg-paper">
+      {/* Giant number — purely decorative, pointer-events none */}
+      <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.08)', lineHeight:1, letterSpacing:'-0.04em', pointerEvents:'none', userSelect:'none', zIndex:0 }}>02</div>
+
+      {/* All content in flow */}
+      <div style={{ flex:1, display:'flex', flexDirection:'column', padding:'72px 28px 24px', gap:0, position:'relative', zIndex:2, overflow:'hidden' }}>
+
+        {/* Header */}
+        <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:10 }}>la colección</div>
+        <div className="display" style={{ fontSize:'clamp(32px,9vw,44px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.025em' }}>Tres</div>
+        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(38px,11vw,54px)', color:'#8a4f4f', lineHeight:0.95, letterSpacing:'-0.03em', marginTop:-4 }}>historias</div>
+        <p style={{ fontSize:13, color:'#5a4838', marginTop:12, lineHeight:1.55, maxWidth:290 }}>
+          Una misma emoción, contada en tres lenguajes visuales.
+          <span className="script" style={{ fontSize:16, color:'#8a4f4f' }}> Elige el que más te toque.</span>
+        </p>
+
+        {/* Spacer */}
+        <div style={{ flex:1, minHeight:12 }}/>
+
+        {/* Three thumbnails */}
+        <div style={{ display:'flex', gap:12, alignItems:'flex-end' }}>
+          {[
+            { Mock: DulceEsperaMock, num:'I',   name:'Dulce\nEspera',    color:'#7a4f1f', delay:'0s' },
+            { Mock: JardinMock,      num:'II',  name:'Jardín\nde Amor',  color:'#8a4f4f', delay:'0.4s', lift:true },
+            { Mock: MilagroMock,     num:'III', name:'Pequeño\nMilagro', color:'#a08560', delay:'0.8s' },
+          ].map(({ Mock, num, name, color, delay, lift }) => (
+            <div key={num} style={{ flex: lift ? 1.1 : 1, transform: lift ? 'translateY(-10px)' : 'none', animation:`drift-slow 4.5s ease-in-out infinite`, animationDelay: delay }}>
+              <Mock size="sm"/>
+              <div style={{ marginTop:8, paddingLeft:2 }}>
+                <div className="eyebrow" style={{ fontSize:7, color }}>{num}</div>
+                <div className="display" style={{ fontSize:13, lineHeight:1.1, marginTop:2, color:'#2a201a', whiteSpace:'pre-line' }}>{name}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom spacer */}
+        <div style={{ height:40 }}/>
+      </div>
+
+      <div className="scroll-hint" style={{ color:'#7a4f1f', bottom:22 }}>
+        <div>Conócelas</div><div style={{ fontSize:14 }}>↓</div>
+      </div>
+    </div>
+  );
+}
+
+/* ── 03–05 COLLECTION PAGES ── */
+function SceneCollectionPage({ which, onTryDemo }) {
+  const D = {
+    honey:   { bg:'bg-honey-deep', Mock:DulceEsperaMock, num:'I',   name:'Dulce Espera',    emoji:'🍯', tag:'Honey & Cream', quote:'Una dulce bendición está en camino.', ink:'#3d2410', accent:'#7a4f1f', muted:'#a07b3f', swatch:['#fff4dd','#f5e1bd','#d4a574','#7a4f1f'] },
+    floral:  { bg:'bg-floral-deep', Mock:JardinMock,     num:'II',  name:'Jardín de Amor',  emoji:'🌸', tag:'Floral Blush',  quote:'Un nuevo amor está por florecer.',       ink:'#5c2a2a', accent:'#8a4f4f', muted:'#c87a76', swatch:['#fdf4f1','#f5cfc9','#e8b4b0','#c4a47c'] },
+    minimal: { bg:'bg-minimal-deep',Mock:MilagroMock,    num:'III', name:'Pequeño Milagro', emoji:'🤍', tag:'Minimal Chic',  quote:'Lo más pequeño puede cambiarlo todo.',  ink:'#3a2a1a', accent:'#a08560', muted:'#c9a876', swatch:['#faf6f0','#f0e6d4','#c9a876','#3a2a1a'] },
+  }[which];
+
+  return (
+    <div className={`scene scene-snap ${D.bg}`}>
+      {/* Number watermark — decorative */}
+      <div aria-hidden="true" style={{ position:'absolute', top:40, right:-12, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:200, color:'rgba(0,0,0,0.05)', lineHeight:0.8, letterSpacing:'-0.05em', pointerEvents:'none', userSelect:'none', zIndex:0 }}>{D.num}</div>
+
+      {/* Top tag — below notch */}
+      <div style={{ paddingTop:70, padding:'70px 28px 0', flexShrink:0, position:'relative', zIndex:3 }}>
+        <div className="eyebrow" style={{ color:D.accent, fontSize:9 }}>{D.emoji} · {D.tag}</div>
+        {/* Vertical edition label */}
+        <div style={{ position:'absolute', top:80, left:10, transform:'rotate(-90deg)', transformOrigin:'left center', fontFamily:'Outfit', fontSize:8, letterSpacing:'0.42em', color:D.accent, textTransform:'uppercase', opacity:0.55, fontWeight:500, whiteSpace:'nowrap' }}>
+          Edición {D.num} de III
+        </div>
+      </div>
+
+      {/* Invite mockup — sized to leave room for info below */}
+      <div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center', padding:'8px 48px', minHeight:0, position:'relative', zIndex:2 }}>
+        <div style={{ width:'75%', animation:'drift 5s ease-in-out infinite', filter:'drop-shadow(0 22px 40px rgba(0,0,0,0.22))' }}>
+          <D.Mock size="lg"/>
+        </div>
+      </div>
+
+      {/* Info block — in flow, never overlaps */}
+      <div style={{ padding:'16px 28px 36px', flexShrink:0, position:'relative', zIndex:3, background:'linear-gradient(180deg,transparent 0%,rgba(0,0,0,0.05) 100%)' }}>
+        <div className="display" style={{ fontSize:'clamp(28px,7.5vw,38px)', color:D.ink, lineHeight:0.95, letterSpacing:'-0.02em' }}>
+          {D.name.split(' ')[0]}
+        </div>
+        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(32px,9vw,42px)', color:D.accent, lineHeight:0.95, letterSpacing:'-0.03em', marginTop:-4, marginBottom:8 }}>
+          {D.name.split(' ').slice(1).join(' ')}
+        </div>
+        <div className="script" style={{ fontSize:15, color:D.ink, lineHeight:1.35, marginBottom:12 }}>"{D.quote}"</div>
+
+        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:14 }}>
+          <div style={{ display:'flex', gap:5 }}>
+            {D.swatch.map((c,i)=><div key={i} style={{ width:16, height:16, borderRadius:'50%', background:c, border:'1px solid rgba(0,0,0,0.08)' }}/>)}
+          </div>
+          <div style={{ display:'flex', alignItems:'baseline', gap:5 }}>
+            <div className="eyebrow" style={{ fontSize:8, color:D.muted }}>desde</div>
+            <div className="display" style={{ fontSize:26, color:D.ink, lineHeight:1 }}>$10</div>
+          </div>
+        </div>
+
+        <button onClick={()=>onTryDemo(which)} className="btn-pill" style={{ width:'100%', justifyContent:'space-between', background:D.ink, color:'#faf3e7', padding:'15px 20px' }}>
+          <span>Probar demo en vivo</span>
+          <span style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:16 }}>→</span>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ── 06 DEMO ── */
+function SceneDemo({ collection, setCollection }) {
+  const [step, setStep] = useState(0);
+  const STEPS = ['Portada','Mensaje','Detalles','Mapa','Confirmar','Cierre'];
+  useEffect(()=>{ setStep(0); }, [collection]);
+
+  return (
+    <div className="scene scene-snap bg-night" style={{ display:'flex', flexDirection:'column' }}>
+      {/* Header */}
+      <div style={{ paddingTop:66, padding:'66px 28px 10px', flexShrink:0, position:'relative', zIndex:3 }}>
+        <div className="eyebrow" style={{ color:'#d4a574', marginBottom:6 }}>06 · Demo en vivo</div>
+        <div className="display" style={{ fontSize:'clamp(22px,6vw,28px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.02em' }}>
+          Así lo recibe{' '}
+          <span style={{ fontFamily:'DM Serif Display', fontStyle:'italic', color:'#d4a574' }}>cada invitado.</span>
+        </div>
+      </div>
+
+      {/* Collection switcher */}
+      <div style={{ display:'flex', gap:6, padding:'10px 28px', flexShrink:0 }}>
+        {[{id:'honey',label:'🍯 Dulce'},{id:'floral',label:'🌸 Jardín'},{id:'minimal',label:'🤍 Milagro'}].map(c=>(
+          <button key={c.id} onClick={()=>setCollection(c.id)} style={{ padding:'7px 11px', borderRadius:100, border:`1px solid ${collection===c.id?'#f5e9d8':'rgba(245,233,216,0.18)'}`, background:collection===c.id?'#f5e9d8':'transparent', color:collection===c.id?'#1a1410':'rgba(245,233,216,0.68)', fontSize:10, fontWeight:500, cursor:'pointer' }}>
+            {c.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Demo phone-in-phone */}
+      <div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center', padding:'4px 56px', minHeight:0 }}>
+        <div className="demo-frame" style={{ width:'100%', maxWidth:230, aspectRatio:'9/19' }}>
+          <div className="demo-screen">
+            <InviteDemo collection={collection} step={step}/>
+          </div>
+        </div>
+      </div>
+
+      {/* Step nav */}
+      <div style={{ padding:'8px 28px 40px', flexShrink:0 }}>
+        <div style={{ display:'flex', alignItems:'center', gap:10, justifyContent:'space-between', marginBottom:10 }}>
+          <button onClick={()=>setStep(Math.max(0,step-1))} disabled={step===0} style={navBtn(step===0)}>‹</button>
+          <div style={{ flex:1, textAlign:'center', color:'#f5e9d8' }}>
+            <div className="eyebrow" style={{ fontSize:8, color:'#d4a574' }}>{step+1} / {STEPS.length}</div>
+            <div style={{ fontSize:12, marginTop:2, fontWeight:500 }}>{STEPS[step]}</div>
+          </div>
+          <button onClick={()=>setStep(Math.min(STEPS.length-1,step+1))} disabled={step===STEPS.length-1} style={navBtn(step===STEPS.length-1)}>›</button>
+        </div>
+        <div style={{ display:'flex', gap:4, justifyContent:'center' }}>
+          {STEPS.map((_,i)=><div key={i} style={{ width:i===step?20:5, height:3, borderRadius:2, background:i===step?'#f5e9d8':'rgba(245,233,216,0.2)', transition:'all 0.3s ease' }}/>)}
+        </div>
+      </div>
+    </div>
+  );
+}
+function navBtn(disabled) {
+  return { width:40, height:40, borderRadius:'50%', border:'1px solid rgba(245,233,216,0.2)', background:'rgba(245,233,216,0.06)', color:'#f5e9d8', cursor:disabled?'default':'pointer', fontSize:22, opacity:disabled?0.28:1, display:'flex', alignItems:'center', justifyContent:'center' };
+}
+
+/* ── 07 QUÉ INCLUYE ── */
+function SceneIncludes() {
+  const items = [
+    { ic:<IcAnim/>, label:'Invitación animada',     desc:'Transiciones suaves entre secciones' },
+    { ic:<IcMusic/>,label:'Música ambiental',        desc:'Eliges la canción que la abre' },
+    { ic:<IcWA/>,   label:'Confirmación WhatsApp',   desc:'Tus invitados confirman en un toque' },
+    { ic:<IcPin/>,  label:'Mapa con ubicación',      desc:'Enlace directo a Google Maps' },
+    { ic:<IcCal/>,  label:'Agenda automática',       desc:'Guardan el evento al instante' },
+    { ic:<IcHrt/>,  label:'Datos editables',         desc:'Nombres, fecha y mensaje personalizados' },
+  ];
+  return (
+    <div className="scene scene-snap bg-paper">
+      <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.07)', lineHeight:1, pointerEvents:'none', userSelect:'none' }}>07</div>
+
+      <div style={{ flex:1, display:'flex', flexDirection:'column', padding:'72px 28px 0', position:'relative', zIndex:2, overflow:'hidden' }}>
+        <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:8 }}>qué incluye</div>
+        <div className="display" style={{ fontSize:'clamp(28px,8vw,36px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.02em' }}>Todo listo para</div>
+        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(34px,10vw,44px)', color:'#8a4f4f', lineHeight:0.95, letterSpacing:'-0.03em', marginTop:-4, marginBottom:16 }}>compartir.</div>
+
+        {/* Feature list */}
+        <div style={{ flex:1, overflow:'hidden' }}>
+          {items.map((it,i)=>(
+            <div key={i} style={{ display:'grid', gridTemplateColumns:'28px 1fr 20px', gap:12, alignItems:'center', padding:'10px 0', borderBottom:'1px solid rgba(122,79,31,0.15)', borderTop:i===0?'1px solid rgba(122,79,31,0.15)':'none' }}>
+              <div style={{ width:24, height:24, color:'#7a4f1f', flexShrink:0 }}>{it.ic}</div>
+              <div>
+                <div style={{ fontSize:13, fontWeight:500, color:'#2a201a' }}>{it.label}</div>
+                <div style={{ fontSize:10, color:'#6a5848', marginTop:1 }}>{it.desc}</div>
+              </div>
+              <div className="script" style={{ fontSize:15, color:'#7a4f1f' }}>✓</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Price — separated cleanly at bottom */}
+        <div style={{ padding:'18px 0 36px', textAlign:'center', borderTop:'1px solid rgba(122,79,31,0.1)', marginTop:8 }}>
+          <div className="script" style={{ fontSize:13, color:'#6a5848', marginBottom:2 }}>y todo por</div>
+          <div className="display" style={{ fontSize:'clamp(44px,13vw,56px)', color:'#2a201a', lineHeight:1 }}>$10</div>
+          <div style={{ fontSize:8, letterSpacing:'0.32em', textTransform:'uppercase', color:'#7a4f1f', marginTop:4 }}>USD · pago único</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+function IcAnim(){ return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"><circle cx="12" cy="6" r="2.5"/><path d="M12 8.5v7" strokeDasharray="1.5 1.5"/><circle cx="12" cy="18" r="2.5"/></svg> }
+function IcMusic(){ return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg> }
+function IcWA(){ return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"><path d="M3 21l1.8-5A8 8 0 1 1 8 19.5L3 21z"/><path d="M9 10c0 3 2 5 5 5"/></svg> }
+function IcPin(){ return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/></svg> }
+function IcCal(){ return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg> }
+function IcHrt(){ return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg> }
+
+/* ── 08 ANTES / DESPUÉS ── */
+function SceneCompare() {
+  const [pos, setPos] = useState(50);
+  const trackRef = useRef(null);
+  const dragging = useRef(false);
+  const onMove = (cx) => {
+    if (!trackRef.current) return;
+    const r = trackRef.current.getBoundingClientRect();
+    setPos(Math.max(6, Math.min(94, ((cx - r.left) / r.width) * 100)));
+  };
+  return (
+    <div className="scene scene-snap bg-night">
+      <div style={{ flex:1, display:'flex', flexDirection:'column', padding:'68px 28px 36px', gap:14, overflow:'hidden' }}>
+        {/* Header */}
+        <div style={{ flexShrink:0 }}>
+          <div className="eyebrow" style={{ color:'#d4a574', marginBottom:6 }}>08 · Antes / Después</div>
+          <div className="display" style={{ fontSize:'clamp(22px,6.5vw,28px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.02em' }}>De una imagen plana</div>
+          <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(26px,8vw,34px)', color:'#d4a574', lineHeight:0.95, letterSpacing:'-0.02em', marginTop:-2 }}>a un momento.</div>
+        </div>
+
+        {/* Labels row */}
+        <div style={{ display:'flex', justifyContent:'space-between', flexShrink:0 }}>
+          <div style={{ fontSize:9, letterSpacing:'0.3em', textTransform:'uppercase', color:'rgba(245,233,216,0.45)', fontWeight:600 }}>← ANTES</div>
+          <div style={{ fontSize:9, letterSpacing:'0.3em', textTransform:'uppercase', color:'#d4a574', fontWeight:600 }}>DESPUÉS →</div>
+        </div>
+
+        {/* Compare track */}
+        <div ref={trackRef} className="compare-track" style={{ flex:1, minHeight:0, maxHeight:380, cursor:'ew-resize' }}
+          onMouseDown={()=>{ dragging.current=true; }}
+          onMouseMove={e=>{ if(dragging.current) onMove(e.clientX); }}
+          onMouseUp={()=>{ dragging.current=false; }}
+          onMouseLeave={()=>{ dragging.current=false; }}
+          onTouchStart={()=>{ dragging.current=true; }}
+          onTouchMove={e=>onMove(e.touches[0].clientX)}
+          onTouchEnd={()=>{ dragging.current=false; }}>
+
+          {/* DESPUÉS (full, behind) */}
+          <div className="compare-side" style={{ background:'linear-gradient(180deg,#fdf4f1 0%,#f5dcd5 100%)', display:'flex', alignItems:'center', justifyContent:'center', padding:16 }}>
+            <div style={{ width:'65%' }}><JardinMock size="sm"/></div>
+            <div style={{ position:'absolute', bottom:10, left:0, right:0, textAlign:'center', fontSize:9, color:'#5c2a2a', lineHeight:1.4, padding:'0 12px' }}>
+              ✦ animada · música · mapa · confirmación
+            </div>
+          </div>
+
+          {/* ANTES (clipped left side) */}
+          <div className="compare-side" style={{ clipPath:`inset(0 ${100-pos}% 0 0)`, background:'#d8d1c8', display:'flex', alignItems:'center', justifyContent:'center', padding:16 }}>
+            <div style={{ width:'80%', background:'#e5ddd4', borderRadius:8, padding:12, border:'1px solid rgba(0,0,0,0.07)' }}>
+              <div style={{ fontSize:7, color:'#999', marginBottom:6 }}>+57 312 ··· hoy 11:42</div>
+              <div style={{ width:'100%', aspectRatio:'4/5', background:'#f0e8e0', borderRadius:5, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', border:'1px dashed #c0a890', padding:8, textAlign:'center' }}>
+                <div style={{ fontFamily:'Comic Sans MS,cursive', fontSize:13, color:'#999' }}>BABY SHOWER</div>
+                <div style={{ fontSize:8, color:'#bbb', marginTop:4 }}>Sábado 12 · Casa</div>
+                <div style={{ fontSize:7, color:'#ccc', marginTop:8 }}>(imagen estática)</div>
+              </div>
+              <div style={{ fontSize:8, color:'#999', marginTop:6, lineHeight:1.4 }}>sin interacción · se pierde en el chat</div>
+            </div>
+          </div>
+
+          {/* Drag handle */}
+          <div className="compare-handle" style={{ left:`${pos}%` }}>
+            <div className="compare-knob">⇆</div>
+          </div>
+        </div>
+
+        <div style={{ fontSize:9, textAlign:'center', color:'rgba(245,233,216,0.4)', letterSpacing:'0.16em', textTransform:'uppercase', flexShrink:0 }}>arrastra para comparar</div>
+      </div>
+    </div>
+  );
+}
+
+/* ── 09 REEL MOMENT ── */
+function SceneViral() {
+  const [idx, setIdx] = useState(0);
+  const items = [
+    { Mock:DulceEsperaMock, name:'Dulce Espera',    tag:'Honey & Cream',  accent:'#7a4f1f' },
+    { Mock:JardinMock,      name:'Jardín de Amor',  tag:'Floral Blush',   accent:'#8a4f4f' },
+    { Mock:MilagroMock,     name:'Pequeño Milagro', tag:'Minimal Chic',   accent:'#a08560' },
+  ];
+  useEffect(()=>{ const t=setInterval(()=>setIdx(i=>(i+1)%3),2800); return ()=>clearInterval(t); }, []);
+  return (
+    <div className="scene scene-snap bg-night" style={{ display:'flex', flexDirection:'column' }}>
+      <div style={{ paddingTop:68, padding:'68px 28px 16px', flexShrink:0 }}>
+        <div className="eyebrow" style={{ color:'#d4a574', marginBottom:6 }}>09 · Para ti</div>
+        <div className="display" style={{ fontSize:'clamp(22px,6.5vw,28px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.02em' }}>Si estás preparando un</div>
+        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(32px,9vw,40px)', color:'#d4a574', lineHeight:0.9, letterSpacing:'-0.03em', marginTop:-2 }}>baby shower…</div>
+        <p style={{ marginTop:8, fontSize:13, color:'rgba(245,233,216,0.65)' }}>esto es para ti.</p>
+      </div>
+
+      {/* Cycling invite */}
+      <div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center', position:'relative', minHeight:0, padding:'0 72px' }}>
+        {items.map((it,i)=>(
+          <div key={i} style={{ position:i===idx?'relative':'absolute', top:0, left:0, width:'100%', opacity:i===idx?1:0, transform:i===idx?'scale(1)':'scale(0.92) rotate(-2deg)', transition:'opacity 0.65s ease, transform 0.65s ease', animation:i===idx?'drift 4s ease-in-out infinite':'none', filter:'drop-shadow(0 40px 60px rgba(0,0,0,0.6))' }}>
+            <it.Mock size="lg"/>
+          </div>
+        ))}
+      </div>
+
+      {/* Bottom meta + dots */}
+      <div style={{ padding:'16px 28px 44px', display:'flex', alignItems:'flex-end', justifyContent:'space-between', flexShrink:0 }}>
+        <div>
+          <div className="eyebrow" style={{ fontSize:8, color:items[idx].accent, marginBottom:3 }}>{String(idx+1).padStart(2,'0')} / 03</div>
+          <div className="display" style={{ fontSize:20, color:'#f5e9d8', lineHeight:1 }}>{items[idx].name}</div>
+          <div style={{ fontSize:10, color:'rgba(245,233,216,0.55)', marginTop:2, letterSpacing:'0.06em' }}>{items[idx].tag}</div>
+        </div>
+        <div style={{ display:'flex', gap:5 }}>
+          {items.map((_,i)=><button key={i} onClick={()=>setIdx(i)} style={{ width:i===idx?20:5, height:4, borderRadius:2, background:i===idx?'#f5e9d8':'rgba(245,233,216,0.22)', border:'none', padding:0, cursor:'pointer', transition:'all 0.3s ease' }}/>)}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── 10 CTA ── */
+function SceneCTA() {
+  return (
+    <div className="scene scene-snap bg-paper" style={{ display:'flex', flexDirection:'column' }}>
+      <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.07)', lineHeight:1, pointerEvents:'none', userSelect:'none' }}>10</div>
+
+      {/* Headline */}
+      <div style={{ paddingTop:70, padding:'70px 28px 0', flexShrink:0, position:'relative', zIndex:2 }}>
+        <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:8 }}>pídela hoy</div>
+        <div className="display" style={{ fontSize:'clamp(28px,8vw,36px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.02em' }}>¿Quieres una</div>
+        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(34px,10vw,46px)', color:'#8a4f4f', lineHeight:0.9, letterSpacing:'-0.03em', marginTop:-4 }}>invitación así?</div>
+        <p style={{ marginTop:12, fontSize:13, color:'#5a4838', lineHeight:1.55, maxWidth:290 }}>
+          Solo cambiamos tus datos. <span className="script" style={{ fontSize:15, color:'#8a4f4f' }}>Tú compartes el momento.</span>
+        </p>
+      </div>
+
+      {/* Invite preview — grows to fill available space */}
+      <div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center', padding:'12px 72px', minHeight:0, position:'relative', zIndex:2 }}>
+        <div style={{ width:'80%', animation:'drift 4s ease-in-out infinite', filter:'drop-shadow(0 20px 40px rgba(80,50,30,0.22))' }}>
+          <JardinMock size="lg"/>
+        </div>
+      </div>
+
+      {/* Price ticket + WhatsApp CTA — always at bottom, never overlaps */}
+      <div style={{ padding:'0 28px 40px', flexShrink:0, position:'relative', zIndex:3 }}>
+        <div style={{ background:'white', borderRadius:16, padding:'14px 18px', boxShadow:'0 12px 32px -10px rgba(80,50,30,0.22)', border:'1px solid rgba(0,0,0,0.04)', display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:10 }}>
+          <div>
+            <div className="eyebrow" style={{ fontSize:8 }}>desde</div>
+            <div className="display" style={{ fontSize:32, lineHeight:1, color:'#2a201a', marginTop:2 }}>$10</div>
+            <div style={{ fontSize:8, color:'#6a5848', marginTop:2, letterSpacing:'0.06em' }}>USD · pago único</div>
+          </div>
+          <div style={{ width:1, alignSelf:'stretch', background:'rgba(0,0,0,0.07)', margin:'0 14px' }}/>
+          <div style={{ textAlign:'right' }}>
+            <div className="script" style={{ fontSize:12, color:'#8a4f4f' }}>entrega</div>
+            <div className="display" style={{ fontSize:22, color:'#2a201a', lineHeight:1 }}>24h</div>
+            <div style={{ fontSize:8, color:'#6a5848', marginTop:2, letterSpacing:'0.06em' }}>revisiones incluidas</div>
+          </div>
+        </div>
+        <button onClick={()=>window.open('https://wa.me/?text=Hola,%20quiero%20una%20invitaci%C3%B3n%20de%20baby%20shower','_blank')} className="btn-pill btn-whatsapp" style={{ width:'100%', justifyContent:'center', padding:'17px 24px', fontSize:13 }}>
+          <WhatsappIcon size={17}/> Pedir mi invitación
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   DESKTOP LEFT PANEL
+═══════════════════════════════════════════════════════════════ */
+const SCENE_COPY = {
+  hero:      { headline:'Invitaciones digitales\nque se sienten\ncomo un recuerdo.',   sub:'Boutique de invitaciones para baby shower — animadas, editables y listas para compartir por WhatsApp.' },
+  intro:     { headline:'Tres colecciones,\nuna sola emoción.',                         sub:'Cada diseño tiene su propio lenguaje visual. Honey & Cream, Floral Blush o Minimal Chic.' },
+  'c-honey': { headline:'Dulce Espera —\nHoney & Cream.',                               sub:'Acuarela cálida, osito artesanal, tipografía script. Para mamás que sueñan con un shower dulce y abrazado.' },
+  'c-floral':{ headline:'Jardín de Amor —\nFloral Blush.',                              sub:'Peonías acuarela, pétalos cayendo, detalles champagne. Editorial, romántico, femenino.' },
+  'c-minimal':{ headline:'Pequeño Milagro —\nMinimal Chic.',                            sub:'Luna de papel, dorado suave, tipografía limpia. Para mamás modernas que aman lo calmo y emocional.' },
+  demo:      { headline:'Así lo ve\ncada invitado.',                                    sub:'Abre la demo, navega las 6 pantallas y comprueba la experiencia completa. Toca "Probar demo" en cualquier colección.' },
+  includes:  { headline:'Todo incluido\npor $10.',                                      sub:'Animación, música, mapa, confirmación por WhatsApp, agenda y datos personalizados. Un pago único.' },
+  compare:   { headline:'De una imagen\na un momento.',                                 sub:'Arrastra el slider y mira la diferencia. De una imagen estática a una invitación digital completa.' },
+  viral:     { headline:'Hecha para\nimpresionar.',                                     sub:'Tres colecciones que se ven premium en cualquier pantalla. Perfectas para compartir en Instagram o WhatsApp.' },
+  cta:       { headline:'Lista en 24 horas.\nPersonalizada para ti.',                   sub:'Solo necesitamos los datos del bebé, la fecha y el lugar. Nosotros hacemos el resto.' },
+};
+
+function StageLeft({ activeScene, goTo }) {
+  const scenes = [
+    { id:'hero', name:'Hero' },{ id:'intro', name:'Colección' },{ id:'c-honey', name:'Dulce Espera' },
+    { id:'c-floral', name:'Jardín de Amor' },{ id:'c-minimal', name:'Pequeño Milagro' },
+    { id:'demo', name:'Demo' },{ id:'includes', name:'Qué incluye' },
+    { id:'compare', name:'Antes / Después' },{ id:'viral', name:'Reel' },{ id:'cta', name:'Pídela' },
+  ];
+  const copy = SCENE_COPY[activeScene] || SCENE_COPY.hero;
+  return (
+    <div className="stage-left">
+      <div>
+        <div className="stage-left-brand">Baby Invites</div>
+        <div className="stage-left-sub">Boutique · Vol. 01</div>
+      </div>
+      <div style={{ width:32, height:1, background:'rgba(212,165,116,0.3)' }}/>
+      <div>
+        <div className="stage-left-headline" style={{ whiteSpace:'pre-line' }}>{copy.headline}</div>
+        <div className="stage-left-desc">{copy.sub}</div>
+      </div>
+      <div className="stage-left-divider"/>
+      <div className="stage-left-scenes">
+        {scenes.map((s,i)=>(
+          <button key={s.id} className={`stage-left-scene-btn ${s.id === activeScene ? 'active' : ''}`} onClick={()=>goTo(i)}>
+            {String(i+1).padStart(2,'0')} — {s.name}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   APP
+═══════════════════════════════════════════════════════════════ */
+const STAGE_BG = {
+  dark:  'radial-gradient(ellipse at 25% 20%, #3a2820 0%, transparent 55%), radial-gradient(ellipse at 80% 75%, #2a1f18 0%, transparent 50%), linear-gradient(180deg, #1a1410 0%, #221814 100%)',
+  cream: 'radial-gradient(ellipse at 30% 20%, #f5e9d8 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, #ead8c4 0%, transparent 50%), linear-gradient(180deg, #efe4d2 0%, #e6d5be 100%)',
+  blush: 'radial-gradient(ellipse at 30% 20%, #fde4e0 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, #f5cfc9 0%, transparent 50%), linear-gradient(180deg, #fbe7e2 0%, #e8b4b0 100%)',
+};
+const SCENES_META = [
+  {id:'hero',name:'Hero'},{id:'intro',name:'Colección'},{id:'c-honey',name:'Dulce Espera'},
+  {id:'c-floral',name:'Jardín de Amor'},{id:'c-minimal',name:'Pequeño Milagro'},
+  {id:'demo',name:'Demo'},{id:'includes',name:'Qué incluye'},
+  {id:'compare',name:'Antes / Después'},{id:'viral',name:'Reel'},{id:'cta',name:'Pídela'},
+];
+
+function App() {
+  const [tweaks, setTweaks] = useTweaks({ showAdmin:false, phoneFrame:true, snapScroll:true, stagePalette:'dark' });
+  const [collection, setCollection] = useState('floral');
+  const [activeIdx, setActiveIdx] = useState(0);
+  const scrollRef = useRef(null);
+
+  useEffect(()=>{
+    const el = scrollRef.current; if (!el) return;
+    const fn = ()=>{ const i = Math.round(el.scrollTop / el.clientHeight); setActiveIdx(Math.max(0, Math.min(SCENES_META.length-1, i))); };
+    el.addEventListener('scroll', fn, { passive:true }); fn();
+    return ()=>el.removeEventListener('scroll', fn);
+  }, []);
+
+  const goTo = (i) => {
+    const el = scrollRef.current; if (!el) return;
+    el.scrollTo({ top: i * el.clientHeight, behavior:'smooth' });
+  };
+
+  return (
+    <div className="boutique-stage" style={{ background: STAGE_BG[tweaks.stagePalette] }}>
+
+      {/* Desktop left panel */}
+      <StageLeft activeScene={SCENES_META[activeIdx].id} goTo={goTo}/>
+
+      {/* Mobile chrome */}
+      <div className="brand-mark">
+        <div className="b1">Baby Invites</div>
+        <div className="b2">Boutique · Vol. 01</div>
+      </div>
+      <div className="reel-meta">
+        <div className="num">{String(activeIdx+1).padStart(2,'0')}</div>
+        <div>{SCENES_META[activeIdx].name}</div>
+        <div style={{ opacity:0.45 }}>de {SCENES_META.length}</div>
+      </div>
+      <div className="outside-controls">
+        {SCENES_META.map((s,i)=>(
+          <button key={s.id} className={`scene-jumper ${i===activeIdx?'active':''}`} onClick={()=>goTo(i)} title={s.name}>{i+1}</button>
+        ))}
+      </div>
+
+      {/* Phone */}
+      <div className="phone" style={tweaks.phoneFrame ? {} : { borderRadius:24, boxShadow:'0 40px 80px -20px rgba(0,0,0,0.5)' }}>
+        {tweaks.phoneFrame && <div className="phone-notch"/>}
+
+        <div className="statusbar">
+          <span>9:41</span>
+          <div className="right">
+            <span style={{ fontSize:10 }}>●●●●●</span>
+            <span style={{ marginLeft:3 }}>5G</span>
+            <svg viewBox="0 0 24 12" width="18" height="9" style={{ marginLeft:2 }}>
+              <rect x="0.5" y="1" width="19" height="10" rx="2" fill="none" stroke="currentColor" strokeWidth="1"/>
+              <rect x="2" y="2.5" width="14" height="7" rx="1" fill="currentColor"/>
+              <rect x="20" y="4" width="2" height="4" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+
+        <div ref={scrollRef} className="phone-scroll" style={{ scrollSnapType: tweaks.snapScroll ? 'y mandatory' : 'none' }}>
+          <SceneHero onJump={()=>goTo(1)}/>
+          <SceneCollectionIntro onContinue={()=>goTo(2)}/>
+          <SceneCollectionPage which="honey"   onTryDemo={c=>{setCollection(c);goTo(5);}}/>
+          <SceneCollectionPage which="floral"  onTryDemo={c=>{setCollection(c);goTo(5);}}/>
+          <SceneCollectionPage which="minimal" onTryDemo={c=>{setCollection(c);goTo(5);}}/>
+          <SceneDemo collection={collection} setCollection={setCollection}/>
+          <SceneIncludes/>
+          <SceneCompare/>
+          <SceneViral/>
+          <SceneCTA/>
+        </div>
+
+        {tweaks.showAdmin && (
+          <div style={{ position:'absolute', bottom:14, left:'50%', transform:'translateX(-50%)', background:'rgba(20,14,10,0.9)', color:'#f5e9d8', padding:'6px 14px', borderRadius:100, fontSize:8, letterSpacing:'0.2em', textTransform:'uppercase', zIndex:60 }}>
+            ⚙ admin · personalizar datos
+          </div>
+        )}
+      </div>
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Stage">
+          <TweakSelect label="Backdrop" value={tweaks.stagePalette} onChange={v=>setTweaks({stagePalette:v})}
+            options={[{value:'dark',label:'Editorial dark'},{value:'cream',label:'Warm cream'},{value:'blush',label:'Blush rose'}]}/>
+          <TweakToggle label="Phone frame"  value={tweaks.phoneFrame}  onChange={v=>setTweaks({phoneFrame:v})}/>
+          <TweakToggle label="Snap scroll"  value={tweaks.snapScroll}  onChange={v=>setTweaks({snapScroll:v})}/>
+        </TweakSection>
+        <TweakSection label="Demo">
+          <TweakRadio label="Colección" value={collection} onChange={setCollection}
+            options={[{value:'honey',label:'🍯'},{value:'floral',label:'🌸'},{value:'minimal',label:'🤍'}]}/>
+        </TweakSection>
+        <TweakSection label="Internal">
+          <TweakToggle label="Admin badge" value={tweaks.showAdmin} onChange={v=>setTweaks({showAdmin:v})}/>
+        </TweakSection>
+      </TweaksPanel>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
