@@ -40,7 +40,7 @@ html, body {
 @media (min-width: 900px) {
   .boutique-stage {
     display: grid;
-    grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+    grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
     gap: 0;
     align-items: stretch;
     justify-items: stretch;
@@ -49,12 +49,12 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    gap: 18px;
-    padding: 36px clamp(28px, 4vw, 56px);
+    gap: 16px;
+    padding: 32px clamp(22px, 3vw, 36px);
     min-height: 100dvh;
     max-width: none;
     width: 100%;
-    background: rgba(10,6,4,0.16);
+    background: rgba(10,6,4,0.1);
     border-right: 1px solid rgba(245,233,216,0.08);
     overflow-y: auto;
     scrollbar-width: none;
@@ -78,7 +78,7 @@ html, body {
 }
 .stage-left-brand {
   font-family: 'DM Serif Display', serif;
-  font-size: 22px; color: #f5e9d8; line-height: 1; margin-bottom: 4px;
+  font-size: 18px; color: #f5e9d8; line-height: 1; margin-bottom: 4px;
 }
 .stage-left-sub {
   font-family: 'Outfit', sans-serif;
@@ -87,13 +87,13 @@ html, body {
 }
 .stage-left-headline {
   font-family: 'DM Serif Display', serif;
-  font-size: clamp(27px, 2.8vw, 34px);
+  font-size: clamp(22px, 2.1vw, 28px);
   color: #f5e9d8; line-height: 1.05;
   letter-spacing: -0.02em; margin-bottom: 12px;
 }
 .stage-left-desc {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic; font-size: 15px;
+  font-style: italic; font-size: 14px;
   color: rgba(245,233,216,0.75); line-height: 1.5;
   margin-bottom: 0;
 }
@@ -103,11 +103,12 @@ html, body {
 }
 .stage-left-scenes {
   display: flex; flex-direction: column; gap: 5px;
+  opacity: 0.72;
 }
 .stage-left-scene-btn {
   background: none; border: none; cursor: pointer;
   font-family: 'Outfit', sans-serif;
-  font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+  font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase;
   color: rgba(245,233,216,0.4); text-align: left;
   padding: 3px 0; transition: color 0.2s ease;
 }
@@ -142,6 +143,7 @@ html, body {
   width: 100%; height: 100%;
   overflow-y: auto; overflow-x: hidden;
   scrollbar-width: none;
+  scroll-behavior: smooth;
 }
 .phone-scroll::-webkit-scrollbar { display: none; }
 
@@ -407,7 +409,7 @@ select.twk-field{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http:
     letter-spacing: 0 !important;
   }
   .scene-hero .hero-title-em {
-    font-size: clamp(32px, 8.4vw, 36px) !important;
+    font-size: clamp(15px, 4vw, 18px) !important;
     letter-spacing: 0 !important;
     max-width: 100%;
   }
@@ -441,7 +443,7 @@ select.twk-field{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http:
     font-size: clamp(28px, 8.6vw, 34px) !important;
   }
   .scene-hero .hero-title-em {
-    font-size: clamp(30px, 7.8vw, 33px) !important;
+    font-size: clamp(14px, 3.8vw, 17px) !important;
   }
   .btn-pill {
     min-width: 0;
@@ -844,13 +846,13 @@ function SceneHero({ onJump }) {
 
       {/* Headline */}
       <div className="hero-copy" style={{ padding:'14px 28px 0', position:'relative', zIndex:5, flexShrink:0 }}>
-        <div className="script" style={{ fontSize:15, color:'#d4a574', marginBottom:2 }}>Invitaciones digitales</div>
-        <div className="display hero-title" style={{ fontSize:'clamp(30px,8vw,42px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.025em' }}>
-          que se sienten
-        </div>
-        <div className="hero-title-em" style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(34px,9vw,48px)', color:'#f5e9d8', lineHeight:1, letterSpacing:'-0.035em' }}>
-          como un recuerdo.
-        </div>
+        <div className="script" style={{ fontSize:15, color:'#d4a574', marginBottom:2 }}>listas en 24 horas</div>
+        <h1 className="display hero-title" style={{ fontSize:'clamp(34px,8vw,52px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.025em' }}>
+          Invitaciones digitales<br/>para baby shower
+        </h1>
+        <p className="script hero-title-em" style={{ fontSize:'clamp(17px,3vw,22px)', color:'rgba(245,233,216,0.78)', lineHeight:1.35, letterSpacing:0, marginTop:12, maxWidth:520 }}>
+          Animadas, personalizadas y listas<br/>para compartir por WhatsApp.
+        </p>
       </div>
 
       {/* Invite mockups — hero + flankers */}
@@ -878,11 +880,11 @@ function SceneHero({ onJump }) {
             <div style={{ fontSize:9, color:'rgba(245,233,216,0.5)', letterSpacing:'0.06em', marginTop:2 }}>entrega en 24h</div>
           </div>
           <div className="script hero-cta-note" style={{ fontSize:12, color:'rgba(245,233,216,0.78)', lineHeight:1.4, textAlign:'right', maxWidth:155 }}>
-            animadas, editables<br/>y listas para WhatsApp
+            personalizada<br/>entrega rápida
           </div>
         </div>
-        <button className="btn-pill btn-light hero-button" onClick={onJump} style={{ width:'calc(100% - 24px)', justifyContent:'space-between', padding:'16px 22px' }}>
-          <span>Ver la colección</span>
+        <button className="btn-pill btn-light hero-button" onClick={()=>window.open('https://wa.me/?text=Hola,%20quiero%20una%20invitaci%C3%B3n%20digital%20para%20baby%20shower','_blank')} style={{ width:'calc(100% - 24px)', justifyContent:'space-between', padding:'16px 22px' }}>
+          <span>Pedir por WhatsApp</span>
           <span style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:17 }}>→</span>
         </button>
       </div>
@@ -890,42 +892,44 @@ function SceneHero({ onJump }) {
   );
 }
 
-/* ── 02 COLECCIÓN INTRO "Tres historias" ── */
-function SceneCollectionIntro({ onContinue }) {
+/* ── 04 COLECCIONES ── */
+function SceneCollectionIntro({ onTryDemo }) {
+  const collections = [
+    { id:'honey', Mock:DulceEsperaMock, num:'I', name:'Dulce Espera', tag:'Honey & Cream', color:'#7a4f1f', desc:'Cálida, tierna y dulce.' },
+    { id:'floral', Mock:JardinMock, num:'II', name:'Jardín de Amor', tag:'Floral Blush', color:'#8a4f4f', desc:'Romántica, floral y elegante.' },
+    { id:'minimal', Mock:MilagroMock, num:'III', name:'Pequeño Milagro', tag:'Minimal Chic', color:'#a08560', desc:'Limpia, suave y moderna.' },
+  ];
   return (
     <div className="scene scene-snap bg-paper">
       {/* Giant number — purely decorative, pointer-events none */}
-      <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.08)', lineHeight:1, letterSpacing:'-0.04em', pointerEvents:'none', userSelect:'none', zIndex:0 }}>02</div>
+      <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.08)', lineHeight:1, letterSpacing:'-0.04em', pointerEvents:'none', userSelect:'none', zIndex:0 }}>04</div>
 
       {/* All content in flow */}
       <div style={{ flex:1, display:'flex', flexDirection:'column', padding:'72px 28px 24px', gap:0, position:'relative', zIndex:2, overflow:'hidden' }}>
 
         {/* Header */}
-        <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:10 }}>la colección</div>
-        <div className="display" style={{ fontSize:'clamp(32px,9vw,44px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.025em' }}>Tres</div>
-        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(38px,11vw,54px)', color:'#8a4f4f', lineHeight:0.95, letterSpacing:'-0.03em', marginTop:-4 }}>historias</div>
+        <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:10 }}>colecciones</div>
+        <h2 className="display" style={{ fontSize:'clamp(32px,9vw,44px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.025em' }}>Elige el estilo</h2>
+        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(34px,9vw,46px)', color:'#8a4f4f', lineHeight:0.95, letterSpacing:'-0.03em', marginTop:-4 }}>que quieres enviar.</div>
         <p style={{ fontSize:13, color:'#5a4838', marginTop:12, lineHeight:1.55, maxWidth:290 }}>
-          Una misma emoción, contada en tres lenguajes visuales.
-          <span className="script" style={{ fontSize:16, color:'#8a4f4f' }}> Elige el que más te toque.</span>
+          Tres diseños base. Personalizamos nombres, fecha, lugar y mensaje.
         </p>
 
         {/* Spacer */}
         <div style={{ flex:1, minHeight:12 }}/>
 
         {/* Three thumbnails */}
-        <div style={{ display:'flex', gap:12, alignItems:'flex-end' }}>
-          {[
-            { Mock: DulceEsperaMock, num:'I',   name:'Dulce\nEspera',    color:'#7a4f1f', delay:'0s' },
-            { Mock: JardinMock,      num:'II',  name:'Jardín\nde Amor',  color:'#8a4f4f', delay:'0.4s', lift:true },
-            { Mock: MilagroMock,     num:'III', name:'Pequeño\nMilagro', color:'#a08560', delay:'0.8s' },
-          ].map(({ Mock, num, name, color, delay, lift }) => (
-            <div key={num} style={{ flex: lift ? 1.1 : 1, transform: lift ? 'translateY(-10px)' : 'none', animation:`drift-slow 4.5s ease-in-out infinite`, animationDelay: delay }}>
+        <div style={{ display:'flex', gap:12, alignItems:'stretch' }}>
+          {collections.map(({ id, Mock, num, name, tag, color, desc }, i) => (
+            <button key={id} onClick={()=>onTryDemo(id)} style={{ flex:1, minWidth:0, border:'none', background:'transparent', cursor:'pointer', textAlign:'left', animation:'drift-slow 4.5s ease-in-out infinite', animationDelay:`${i * 0.25}s` }}>
               <Mock size="sm"/>
               <div style={{ marginTop:8, paddingLeft:2 }}>
                 <div className="eyebrow" style={{ fontSize:7, color }}>{num}</div>
-                <div className="display" style={{ fontSize:13, lineHeight:1.1, marginTop:2, color:'#2a201a', whiteSpace:'pre-line' }}>{name}</div>
+                <div className="display" style={{ fontSize:13, lineHeight:1.05, marginTop:2, color:'#2a201a' }}>{name}</div>
+                <div style={{ fontSize:8, color:'#6a5848', marginTop:4, lineHeight:1.35 }}>{tag}</div>
+                <div className="script" style={{ fontSize:11, color, marginTop:4, lineHeight:1.2 }}>{desc}</div>
               </div>
-            </div>
+            </button>
           ))}
         </div>
 
@@ -1008,11 +1012,13 @@ function SceneDemo({ collection, setCollection }) {
     <div className="scene scene-snap bg-night" style={{ display:'flex', flexDirection:'column' }}>
       {/* Header */}
       <div style={{ paddingTop:66, padding:'66px 28px 10px', flexShrink:0, position:'relative', zIndex:3 }}>
-        <div className="eyebrow" style={{ color:'#d4a574', marginBottom:6 }}>06 · Demo en vivo</div>
-        <div className="display" style={{ fontSize:'clamp(22px,6vw,28px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.02em' }}>
-          Así lo recibe{' '}
-          <span style={{ fontFamily:'DM Serif Display', fontStyle:'italic', color:'#d4a574' }}>cada invitado.</span>
-        </div>
+        <div className="eyebrow" style={{ color:'#d4a574', marginBottom:6 }}>02 · Demo visual</div>
+        <h2 className="display" style={{ fontSize:'clamp(24px,6vw,34px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.02em' }}>
+          Mira la invitación antes de pedirla.
+        </h2>
+        <p style={{ marginTop:8, fontSize:13, color:'rgba(245,233,216,0.65)', lineHeight:1.45, maxWidth:520 }}>
+          Revisa las pantallas principales: portada, mensaje, detalles, mapa y confirmación.
+        </p>
       </div>
 
       {/* Collection switcher */}
@@ -1054,7 +1060,42 @@ function navBtn(disabled) {
   return { width:40, height:40, borderRadius:'50%', border:'1px solid rgba(245,233,216,0.2)', background:'rgba(245,233,216,0.06)', color:'#f5e9d8', cursor:disabled?'default':'pointer', fontSize:22, opacity:disabled?0.28:1, display:'flex', alignItems:'center', justifyContent:'center' };
 }
 
-/* ── 07 QUÉ INCLUYE ── */
+/* ── 03 CÓMO FUNCIONA ── */
+function SceneHowWorks() {
+  const steps = [
+    { n:'01', title:'Elige diseño', desc:'Escoge la colección que va con tu baby shower.' },
+    { n:'02', title:'Envía tus datos', desc:'Nombre, fecha, lugar, mensaje y canción si quieres música.' },
+    { n:'03', title:'Comparte el link', desc:'Recibes tu invitación lista para enviar por WhatsApp.' },
+  ];
+  return (
+    <div className="scene scene-snap bg-paper">
+      <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.08)', lineHeight:1, letterSpacing:'-0.04em', pointerEvents:'none', userSelect:'none', zIndex:0 }}>03</div>
+
+      <div style={{ flex:1, display:'flex', flexDirection:'column', padding:'72px 28px 36px', position:'relative', zIndex:2, overflow:'hidden' }}>
+        <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:10 }}>cómo funciona</div>
+        <h2 className="display" style={{ fontSize:'clamp(30px,8vw,42px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.025em' }}>Tu invitación</h2>
+        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(34px,9vw,48px)', color:'#8a4f4f', lineHeight:0.95, letterSpacing:'-0.03em', marginTop:-3 }}>en 3 pasos.</div>
+        <p style={{ fontSize:13, color:'#5a4838', marginTop:12, lineHeight:1.55, maxWidth:420 }}>
+          Simple, rápido y sin complicarte con edición o diseño.
+        </p>
+
+        <div style={{ flex:1, display:'flex', flexDirection:'column', justifyContent:'center', gap:12, minHeight:0, marginTop:18 }}>
+          {steps.map((step)=>(
+            <div key={step.n} style={{ display:'grid', gridTemplateColumns:'46px 1fr', gap:14, alignItems:'start', padding:'16px 0', borderTop:'1px solid rgba(122,79,31,0.14)' }}>
+              <div className="display" style={{ width:38, height:38, borderRadius:'50%', background:'#2a201a', color:'#f5e9d8', display:'flex', alignItems:'center', justifyContent:'center', fontSize:15 }}>{step.n}</div>
+              <div>
+                <div style={{ fontSize:16, fontWeight:500, color:'#2a201a' }}>{step.title}</div>
+                <div style={{ fontSize:12, color:'#6a5848', marginTop:4, lineHeight:1.45 }}>{step.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── 06 PRECIO ── */
 function SceneIncludes() {
   const items = [
     { ic:<IcAnim/>, label:'Invitación animada',     desc:'Transiciones suaves entre secciones' },
@@ -1066,12 +1107,12 @@ function SceneIncludes() {
   ];
   return (
     <div className="scene scene-snap bg-paper">
-      <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.07)', lineHeight:1, pointerEvents:'none', userSelect:'none' }}>07</div>
+      <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.07)', lineHeight:1, pointerEvents:'none', userSelect:'none' }}>06</div>
 
       <div style={{ flex:1, display:'flex', flexDirection:'column', padding:'72px 28px 0', position:'relative', zIndex:2, overflow:'hidden' }}>
-        <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:8 }}>qué incluye</div>
-        <div className="display" style={{ fontSize:'clamp(28px,8vw,36px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.02em' }}>Todo listo para</div>
-        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(34px,10vw,44px)', color:'#8a4f4f', lineHeight:0.95, letterSpacing:'-0.03em', marginTop:-4, marginBottom:16 }}>compartir.</div>
+        <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:8 }}>precio</div>
+        <h2 className="display" style={{ fontSize:'clamp(28px,8vw,38px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.02em' }}>Todo incluido</h2>
+        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(36px,10vw,52px)', color:'#8a4f4f', lineHeight:0.95, letterSpacing:'-0.03em', marginTop:-4, marginBottom:16 }}>por $10.</div>
 
         {/* Feature list */}
         <div style={{ flex:1, overflow:'hidden' }}>
@@ -1089,9 +1130,9 @@ function SceneIncludes() {
 
         {/* Price — separated cleanly at bottom */}
         <div style={{ padding:'18px 0 36px', textAlign:'center', borderTop:'1px solid rgba(122,79,31,0.1)', marginTop:8 }}>
-          <div className="script" style={{ fontSize:13, color:'#6a5848', marginBottom:2 }}>y todo por</div>
+          <div className="script" style={{ fontSize:13, color:'#6a5848', marginBottom:2 }}>pago único</div>
           <div className="display" style={{ fontSize:'clamp(44px,13vw,56px)', color:'#2a201a', lineHeight:1 }}>$10</div>
-          <div style={{ fontSize:8, letterSpacing:'0.32em', textTransform:'uppercase', color:'#7a4f1f', marginTop:4 }}>USD · pago único</div>
+          <div style={{ fontSize:8, letterSpacing:'0.32em', textTransform:'uppercase', color:'#7a4f1f', marginTop:4 }}>USD · entrega en 24h</div>
         </div>
       </div>
     </div>
@@ -1119,9 +1160,11 @@ function SceneCompare() {
       <div style={{ flex:1, display:'flex', flexDirection:'column', padding:'68px 28px 36px', gap:14, overflow:'hidden' }}>
         {/* Header */}
         <div style={{ flexShrink:0 }}>
-          <div className="eyebrow" style={{ color:'#d4a574', marginBottom:6 }}>08 · Antes / Después</div>
-          <div className="display" style={{ fontSize:'clamp(22px,6.5vw,28px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.02em' }}>De una imagen plana</div>
-          <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(26px,8vw,34px)', color:'#d4a574', lineHeight:0.95, letterSpacing:'-0.02em', marginTop:-2 }}>a un momento.</div>
+          <div className="eyebrow" style={{ color:'#d4a574', marginBottom:6 }}>05 · Antes / Después</div>
+          <h2 className="display" style={{ fontSize:'clamp(24px,6.5vw,34px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.02em' }}>No mandes solo una imagen.</h2>
+          <p style={{ marginTop:8, fontSize:13, color:'rgba(245,233,216,0.65)', lineHeight:1.45, maxWidth:520 }}>
+            Envía una experiencia con música, mapa y confirmación en un toque.
+          </p>
         </div>
 
         {/* Labels row */}
@@ -1215,19 +1258,19 @@ function SceneViral() {
   );
 }
 
-/* ── 10 CTA ── */
+/* ── 07 CTA FINAL ── */
 function SceneCTA() {
   return (
     <div className="scene scene-snap bg-paper" style={{ display:'flex', flexDirection:'column' }}>
-      <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.07)', lineHeight:1, pointerEvents:'none', userSelect:'none' }}>10</div>
+      <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.07)', lineHeight:1, pointerEvents:'none', userSelect:'none' }}>07</div>
 
       {/* Headline */}
       <div style={{ paddingTop:70, padding:'70px 28px 0', flexShrink:0, position:'relative', zIndex:2 }}>
         <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:8 }}>pídela hoy</div>
-        <div className="display" style={{ fontSize:'clamp(28px,8vw,36px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.02em' }}>¿Quieres una</div>
-        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(34px,10vw,46px)', color:'#8a4f4f', lineHeight:0.9, letterSpacing:'-0.03em', marginTop:-4 }}>invitación así?</div>
+        <h2 className="display" style={{ fontSize:'clamp(30px,8vw,40px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.02em' }}>Lista para enviar</h2>
+        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(34px,10vw,48px)', color:'#8a4f4f', lineHeight:0.9, letterSpacing:'-0.03em', marginTop:-4 }}>en 24 horas.</div>
         <p style={{ marginTop:12, fontSize:13, color:'#5a4838', lineHeight:1.55, maxWidth:290 }}>
-          Solo cambiamos tus datos. <span className="script" style={{ fontSize:15, color:'#8a4f4f' }}>Tú compartes el momento.</span>
+          Escríbenos por WhatsApp, envía tus datos y recibe tu invitación personalizada.
         </p>
       </div>
 
@@ -1265,31 +1308,23 @@ function SceneCTA() {
    DESKTOP LEFT PANEL
 ═══════════════════════════════════════════════════════════════ */
 const SCENE_COPY = {
-  hero:      { headline:'Invitaciones digitales\nque se sienten\ncomo un recuerdo.',   sub:'Boutique de invitaciones para baby shower — animadas, editables y listas para compartir por WhatsApp.' },
-  intro:     { headline:'Tres colecciones,\nuna sola emoción.',                         sub:'Cada diseño tiene su propio lenguaje visual. Honey & Cream, Floral Blush o Minimal Chic.' },
-  'c-honey': { headline:'Dulce Espera —\nHoney & Cream.',                               sub:'Acuarela cálida, osito artesanal, tipografía script. Para mamás que sueñan con un shower dulce y abrazado.' },
-  'c-floral':{ headline:'Jardín de Amor —\nFloral Blush.',                              sub:'Peonías acuarela, pétalos cayendo, detalles champagne. Editorial, romántico, femenino.' },
-  'c-minimal':{ headline:'Pequeño Milagro —\nMinimal Chic.',                            sub:'Luna de papel, dorado suave, tipografía limpia. Para mamás modernas que aman lo calmo y emocional.' },
-  demo:      { headline:'Así lo ve\ncada invitado.',                                    sub:'Abre la demo, navega las 6 pantallas y comprueba la experiencia completa. Toca "Probar demo" en cualquier colección.' },
-  includes:  { headline:'Todo incluido\npor $10.',                                      sub:'Animación, música, mapa, confirmación por WhatsApp, agenda y datos personalizados. Un pago único.' },
-  compare:   { headline:'De una imagen\na un momento.',                                 sub:'Arrastra el slider y mira la diferencia. De una imagen estática a una invitación digital completa.' },
-  viral:     { headline:'Hecha para\nimpresionar.',                                     sub:'Tres colecciones que se ven premium en cualquier pantalla. Perfectas para compartir en Instagram o WhatsApp.' },
-  cta:       { headline:'Lista en 24 horas.\nPersonalizada para ti.',                   sub:'Solo necesitamos los datos del bebé, la fecha y el lugar. Nosotros hacemos el resto.' },
+  hero:      { headline:'Invitaciones digitales\npara baby shower.',                    sub:'Personalizadas, animadas y listas para compartir por WhatsApp desde $10.' },
+  demo:      { headline:'Mira la demo\nantes de pedir.',                                sub:'Revisa portada, mensaje, detalles, mapa y confirmación en una experiencia real.' },
+  steps:     { headline:'Tu invitación\nen 3 pasos.',                                  sub:'Elige diseño, envía tus datos y recibe el link listo para compartir.' },
+  collections:{ headline:'Elige el estilo\nque quieres enviar.',                        sub:'Tres colecciones base, personalizadas con los datos de tu evento.' },
+  compare:   { headline:'Más que una\nimagen plana.',                                  sub:'Una invitación interactiva con música, mapa y confirmación.' },
+  includes:  { headline:'Todo incluido\npor $10.',                                      sub:'Diseño personalizado, entrega en 24h y funciones listas para tus invitados.' },
+  cta:       { headline:'Pídela hoy.\nCompártela mañana.',                             sub:'Escríbenos por WhatsApp y empezamos con tus datos.' },
 };
 
 function StageLeft({ activeScene, goTo }) {
-  const scenes = [
-    { id:'hero', name:'Hero' },{ id:'intro', name:'Colección' },{ id:'c-honey', name:'Dulce Espera' },
-    { id:'c-floral', name:'Jardín de Amor' },{ id:'c-minimal', name:'Pequeño Milagro' },
-    { id:'demo', name:'Demo' },{ id:'includes', name:'Qué incluye' },
-    { id:'compare', name:'Antes / Después' },{ id:'viral', name:'Reel' },{ id:'cta', name:'Pídela' },
-  ];
   const copy = SCENE_COPY[activeScene] || SCENE_COPY.hero;
+  const idx = Math.max(0, SCENES_META.findIndex(s => s.id === activeScene));
   return (
     <div className="stage-left">
       <div>
         <div className="stage-left-brand">Baby Invites</div>
-        <div className="stage-left-sub">Boutique · Vol. 01</div>
+        <div className="stage-left-sub">Digital · Baby Shower</div>
       </div>
       <div style={{ width:32, height:1, background:'rgba(212,165,116,0.3)' }}/>
       <div>
@@ -1297,12 +1332,13 @@ function StageLeft({ activeScene, goTo }) {
         <div className="stage-left-desc">{copy.sub}</div>
       </div>
       <div className="stage-left-divider"/>
-      <div className="stage-left-scenes">
-        {scenes.map((s,i)=>(
-          <button key={s.id} className={`stage-left-scene-btn ${s.id === activeScene ? 'active' : ''}`} onClick={()=>goTo(i)}>
-            {String(i+1).padStart(2,'0')} — {s.name}
-          </button>
-        ))}
+      <div className="stage-left-scenes" aria-hidden="true">
+        <div className="eyebrow" style={{ fontSize:8, color:'#d4a574' }}>{String(idx+1).padStart(2,'0')} / {SCENES_META.length}</div>
+        <div style={{ display:'flex', gap:5, marginTop:6 }}>
+          {SCENES_META.map((s,i)=>(
+            <span key={s.id} style={{ width:i===idx?18:5, height:4, borderRadius:3, background:i===idx?'#d4a574':'rgba(245,233,216,0.18)', transition:'all 0.2s ease' }}/>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -1317,10 +1353,13 @@ const STAGE_BG = {
   blush: 'radial-gradient(ellipse at 30% 20%, #fde4e0 0%, transparent 55%), radial-gradient(ellipse at 70% 80%, #f5cfc9 0%, transparent 50%), linear-gradient(180deg, #fbe7e2 0%, #e8b4b0 100%)',
 };
 const SCENES_META = [
-  {id:'hero',name:'Hero'},{id:'intro',name:'Colección'},{id:'c-honey',name:'Dulce Espera'},
-  {id:'c-floral',name:'Jardín de Amor'},{id:'c-minimal',name:'Pequeño Milagro'},
-  {id:'demo',name:'Demo'},{id:'includes',name:'Qué incluye'},
-  {id:'compare',name:'Antes / Después'},{id:'viral',name:'Reel'},{id:'cta',name:'Pídela'},
+  {id:'hero',name:'Inicio'},
+  {id:'demo',name:'Demo'},
+  {id:'steps',name:'Cómo funciona'},
+  {id:'collections',name:'Colecciones'},
+  {id:'compare',name:'Antes / Después'},
+  {id:'includes',name:'Precio'},
+  {id:'cta',name:'Pídela'},
 ];
 
 function App() {
@@ -1380,14 +1419,11 @@ function App() {
 
         <div ref={scrollRef} className="phone-scroll" style={{ scrollSnapType: tweaks.snapScroll ? 'y mandatory' : 'none' }}>
           <SceneHero onJump={()=>goTo(1)}/>
-          <SceneCollectionIntro onContinue={()=>goTo(2)}/>
-          <SceneCollectionPage which="honey"   onTryDemo={c=>{setCollection(c);goTo(5);}}/>
-          <SceneCollectionPage which="floral"  onTryDemo={c=>{setCollection(c);goTo(5);}}/>
-          <SceneCollectionPage which="minimal" onTryDemo={c=>{setCollection(c);goTo(5);}}/>
           <SceneDemo collection={collection} setCollection={setCollection}/>
-          <SceneIncludes/>
+          <SceneHowWorks/>
+          <SceneCollectionIntro onTryDemo={c=>{setCollection(c);goTo(1);}}/>
           <SceneCompare/>
-          <SceneViral/>
+          <SceneIncludes/>
           <SceneCTA/>
         </div>
 
