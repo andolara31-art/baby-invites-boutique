@@ -253,6 +253,399 @@ html, body {
   box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 20px 44px -10px rgba(0,0,0,0.55);
 }
 .demo-screen { width: 100%; height: 100%; border-radius: 25px; overflow: hidden; position: relative; }
+.demo-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.82fr) minmax(300px, 1fr);
+  grid-template-rows: auto 1fr;
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+  padding: 54px clamp(30px, 5vw, 72px) 44px;
+  min-height: 0;
+}
+.demo-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 520px;
+  z-index: 3;
+}
+.demo-tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.demo-tab {
+  appearance: none;
+  border-radius: 999px;
+  border: 1px solid rgba(245,233,216,0.18);
+  background: rgba(245,233,216,0.04);
+  color: rgba(245,233,216,0.7);
+  cursor: pointer;
+  font: 500 11px/1 'Outfit', sans-serif;
+  letter-spacing: 0.08em;
+  padding: 9px 13px;
+  text-transform: uppercase;
+  transition: background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
+}
+.demo-tab:hover { transform: translateY(-1px); color: #f5e9d8; border-color: rgba(245,233,216,0.34); }
+.demo-tab.active { background: #f5e9d8; color: #1a1410; border-color: #f5e9d8; }
+.demo-benefits {
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+  align-self: start;
+  margin-top: -42px;
+}
+.demo-benefit {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: rgba(245,233,216,0.72);
+  font-size: 12px;
+}
+.demo-benefit i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d4a574;
+  box-shadow: 0 0 0 5px rgba(212,165,116,0.08);
+  flex-shrink: 0;
+}
+.demo-device-wrap {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+.demo-device {
+  width: min(38vw, 390px);
+  max-height: calc(100dvh - 110px);
+  aspect-ratio: 9 / 19;
+}
+.invite-xp {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--xp-ink);
+  background:
+    radial-gradient(circle at 20% 12%, color-mix(in srgb, var(--xp-soft) 28%, transparent), transparent 24%),
+    radial-gradient(circle at 82% 88%, color-mix(in srgb, var(--xp-accent) 18%, transparent), transparent 30%),
+    linear-gradient(180deg, var(--xp-bg1), var(--xp-bg2));
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+}
+.invite-xp::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: .16;
+  pointer-events: none;
+  background-image: radial-gradient(circle, var(--xp-accent) 0 1px, transparent 1.5px);
+  background-size: 18px 18px;
+  mix-blend-mode: multiply;
+}
+.invite-xp-minimal::before {
+  opacity: .22;
+  background-size: 34px 34px;
+}
+.xp-status {
+  position: absolute;
+  top: 13px;
+  left: 16px;
+  right: 16px;
+  z-index: 8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: color-mix(in srgb, var(--xp-ink) 78%, transparent);
+  font-size: 8px;
+  font-weight: 600;
+}
+.xp-music {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.56);
+  border: 1px solid color-mix(in srgb, var(--xp-soft) 34%, transparent);
+  backdrop-filter: blur(10px);
+  color: var(--xp-ink);
+  font-size: 8px;
+}
+.xp-wave {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  height: 10px;
+  color: var(--xp-accent);
+}
+.xp-wave span {
+  width: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  animation: xp-wave 1.1s ease-in-out infinite;
+}
+.xp-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 42px 24px 58px;
+  opacity: 0;
+  transform: translateY(8px) scale(.99);
+  filter: blur(2px);
+  pointer-events: none;
+  transition: opacity .72s cubic-bezier(.4,0,.2,1), transform .72s cubic-bezier(.4,0,.2,1), filter .72s ease;
+}
+.xp-scene.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+  pointer-events: auto;
+}
+.xp-center { align-items: center; text-align: center; }
+.xp-kicker {
+  font-size: 8px;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--xp-accent);
+  font-weight: 600;
+}
+.xp-title {
+  font-family: 'DM Serif Display', serif;
+  color: var(--xp-ink);
+  font-size: clamp(25px, 7.6vw, 34px);
+  line-height: .95;
+  letter-spacing: 0;
+}
+.xp-script {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--xp-muted);
+}
+.xp-copy {
+  font-size: 12px;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--xp-ink) 88%, transparent);
+}
+.xp-reveal {
+  opacity: 0;
+  transform: translateY(9px);
+  animation: xp-reveal .9s cubic-bezier(.35,.8,.25,1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+.xp-scale {
+  opacity: 0;
+  transform: scale(.96);
+  animation: xp-scale .95s cubic-bezier(.35,.8,.25,1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+.xp-symbol {
+  width: 118px;
+  aspect-ratio: 1;
+  margin: 18px auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: xp-float 5.8s ease-in-out infinite;
+  position: relative;
+}
+.xp-symbol svg { width: 100%; display: block; }
+.xp-flower-symbol { width: 135px; }
+.xp-moon-symbol {
+  width: 106px;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 18px rgba(201,168,118,.24));
+}
+.xp-name {
+  font-family: 'DM Serif Display', serif;
+  color: var(--xp-ink);
+  font-size: 27px;
+  line-height: 1;
+}
+.xp-detail-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+.xp-detail {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--xp-soft) 34%, transparent);
+}
+.xp-detail-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,.54);
+  color: var(--xp-accent);
+}
+.xp-detail-label {
+  font-size: 7px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--xp-muted);
+}
+.xp-detail-value {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--xp-ink);
+  font-weight: 500;
+}
+.xp-map-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.55;
+  border-radius: 20px;
+  background: rgba(255,255,255,.46);
+  border: 1px solid color-mix(in srgb, var(--xp-soft) 34%, transparent);
+  overflow: hidden;
+  margin: 14px 0 10px;
+  box-shadow: 0 18px 40px -28px var(--xp-ink);
+}
+.xp-route {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.xp-route path {
+  stroke-dasharray: 280;
+  stroke-dashoffset: 280;
+  animation: xp-route 1.8s cubic-bezier(.45,0,.2,1) forwards;
+  animation-delay: .32s;
+}
+.xp-pin {
+  position: absolute;
+  left: 61%;
+  top: 42%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg) scale(.85);
+  background: var(--xp-ink);
+  opacity: 0;
+  animation: xp-pin .85s cubic-bezier(.35,.8,.25,1) forwards;
+  animation-delay: 1s;
+}
+.xp-pin::after {
+  content: '';
+  position: absolute;
+  inset: 9px;
+  border-radius: 50%;
+  background: var(--xp-bg1);
+}
+.xp-button-row {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 100%;
+  margin-top: 18px;
+}
+.xp-btn {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 16px;
+  font: 600 10px/1 'Outfit', sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.xp-btn-primary {
+  background: var(--xp-ink);
+  color: var(--xp-bg1);
+  box-shadow: 0 10px 28px -16px var(--xp-ink);
+  animation: xp-pulse 2.4s ease-in-out infinite;
+}
+.xp-btn-secondary {
+  background: rgba(255,255,255,.55);
+  color: var(--xp-ink);
+  border: 1px solid color-mix(in srgb, var(--xp-soft) 36%, transparent);
+}
+.xp-indicators {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 15px;
+  z-index: 9;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 5px;
+}
+.xp-dot {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  height: 18px;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+  color: color-mix(in srgb, var(--xp-ink) 55%, transparent);
+  font-size: 6px;
+  letter-spacing: .05em;
+  text-align: center;
+}
+.xp-dot i {
+  height: 3px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--xp-ink) 18%, transparent);
+  overflow: hidden;
+  position: relative;
+}
+.xp-dot.active i { background: color-mix(in srgb, var(--xp-ink) 28%, transparent); }
+.xp-dot.active i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  background: var(--xp-accent);
+  animation: xp-progress 3s linear forwards;
+}
+.xp-deco { position: absolute; pointer-events: none; z-index: 1; }
+.xp-honey-drop {
+  width: 9px; height: 13px; border-radius: 70% 70% 70% 18%;
+  background: var(--xp-soft);
+  opacity: .45;
+  animation: xp-drop 5.5s ease-in-out infinite;
+}
+.xp-petal {
+  width: 12px; height: 7px; border-radius: 50%;
+  background: var(--xp-soft);
+  opacity: .42;
+  animation: xp-petal 7s linear infinite;
+}
+.xp-star {
+  color: var(--xp-soft);
+  opacity: .52;
+  animation: xp-shimmer 2.7s ease-in-out infinite;
+}
+@keyframes xp-reveal { to { opacity: 1; transform: translateY(0); } }
+@keyframes xp-scale { to { opacity: 1; transform: scale(1); } }
+@keyframes xp-float { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-7px); } }
+@keyframes xp-wave { 0%,100%{ height: 3px; } 50%{ height: 10px; } }
+@keyframes xp-route { to { stroke-dashoffset: 0; } }
+@keyframes xp-pin { to { opacity: 1; transform: rotate(-45deg) scale(1); } }
+@keyframes xp-pulse { 0%,100%{ box-shadow: 0 10px 28px -16px var(--xp-ink), 0 0 0 0 color-mix(in srgb, var(--xp-accent) 22%, transparent); } 50%{ box-shadow: 0 10px 28px -16px var(--xp-ink), 0 0 0 8px color-mix(in srgb, var(--xp-accent) 0%, transparent); } }
+@keyframes xp-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes xp-drop { 0%,100%{ transform: translateY(0) scale(1); opacity:.34; } 50%{ transform: translateY(10px) scale(.96); opacity:.55; } }
+@keyframes xp-petal { 0%{ transform: translateY(-14px) translateX(0) rotate(0deg); opacity:0; } 15%,80%{ opacity:.42; } 100%{ transform: translateY(110px) translateX(-22px) rotate(80deg); opacity:0; } }
+@keyframes xp-shimmer { 0%,100%{ opacity:.32; transform: scale(.92); } 50%{ opacity:.72; transform: scale(1.04); } }
 
 /* ── Compare ── */
 .compare-track {
@@ -435,6 +828,43 @@ select.twk-field{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http:
   .scene-hero .hero-button {
     width: calc(100vw - 72px) !important;
     max-width: 100%;
+  }
+  .scene-demo {
+    overflow-y: auto;
+  }
+  .demo-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 100svh;
+    padding: 34px 24px max(28px, env(safe-area-inset-bottom));
+  }
+  .demo-copy {
+    gap: 14px;
+    max-width: none;
+  }
+  .demo-copy h2 {
+    font-size: clamp(30px, 9vw, 38px) !important;
+  }
+  .demo-device-wrap {
+    order: 2;
+    width: 100%;
+    margin-top: 8px;
+  }
+  .demo-device {
+    width: min(72vw, 292px);
+    max-height: 438px;
+  }
+  .demo-benefits {
+    order: 3;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 0;
+  }
+  .demo-benefit {
+    font-size: 11px;
   }
 }
 
@@ -682,9 +1112,9 @@ const THEMES = {
   minimal: { bg1:'#faf6f0', bg2:'#ede1cf', accent:'#a08560', soft:'#c9a876',  ink:'#3a2a1a', muted:'#a08560' },
 };
 const CDATA = {
-  honey:   { name:'Dulce Espera',    baby:'Mateo', parents:'Camila & Andrés',    msg:'Después de tanto soñarte, por fin estás aquí. Cada latido tuyo nos enseña a amar más fuerte.', date:'Sáb · 12 de junio', time:'4:00 PM', place:'Casa de la abuela', addr:'Cra. 14 #87-42, Bogotá', Mock:(p)=><DulceEsperaMock size="lg" {...p}/> },
-  floral:  { name:'Jardín de Amor',  baby:'Sofía', parents:'Valentina & Mateo', msg:'En cada pétalo de este jardín está escrito tu nombre. Te esperamos con el corazón abierto.',  date:'Dom · 24 de julio', time:'11:00 AM', place:'Jardín La Ceiba', addr:'Calle 119 #15-30, Bogotá', Mock:(p)=><JardinMock size="lg" {...p}/> },
-  minimal: { name:'Pequeño Milagro', baby:'Luna',  parents:'Daniela & Sebastián', msg:'Eres la prueba de que los milagros existen y se sienten en el alma. Celebra con nosotros.', date:'Sáb · 3 de septiembre', time:'5:30 PM', place:'Salón Lumière', addr:'Cra. 7 #114-20, Bogotá', Mock:(p)=><MilagroMock size="lg" {...p}/> },
+  honey:   { name:'Dulce Espera',    baby:'Mateo',   parents:'Camila & Andrés',    phrase:'Una dulce bendición está en camino', date:'Domingo 12 de mayo', time:'3:00 p.m.', place:'Terraza Jardín', city:'San José, Costa Rica', Mock:(p)=><DulceEsperaMock size="lg" {...p}/> },
+  floral:  { name:'Jardín de Amor',  baby:'Sofía',   parents:'Valentina & Mateo',  phrase:'Un nuevo amor está por florecer', date:'Domingo 12 de mayo', time:'3:00 p.m.', place:'Terraza Jardín', city:'San José, Costa Rica', Mock:(p)=><JardinMock size="lg" {...p}/> },
+  minimal: { name:'Pequeño Milagro', baby:'Isabella',parents:'Daniela & Sebastián', phrase:'Lo más pequeño puede cambiarlo todo', date:'Domingo 12 de mayo', time:'3:00 p.m.', place:'Terraza Jardín', city:'San José, Costa Rica', Mock:(p)=><MilagroMock size="lg" {...p}/> },
 };
 
 function WhatsappIcon({ size = 16 }) {
@@ -702,122 +1132,207 @@ function MusicPill({ t }) {
   );
 }
 
-/* Demo screens */
-function DemoCover({ data, t }) {
-  return (
-    <div style={{ flex:1, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:'16px', gap:12, minHeight:0 }}>
-      <div style={{ width:'72%', animation:'drift 4s ease-in-out infinite', flexShrink:0 }}><data.Mock/></div>
-      <MusicPill t={t}/>
-      <div style={{ fontSize:7, letterSpacing:'0.3em', textTransform:'uppercase', color:t.muted, opacity:0.7 }}>desliza para abrir ↓</div>
-    </div>
-  );
-}
-function DemoMessage({ data, t }) {
-  return (
-    <div style={{ flex:1, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:'18px 18px', textAlign:'center', gap:10, minHeight:0 }}>
-      <div className="script" style={{ fontSize:10, color:t.muted }}>un mensaje de</div>
-      <div className="display" style={{ fontSize:16, color:t.ink }}>{data.parents}</div>
-      <div style={{ width:22, height:1, background:t.soft }}/>
-      <div className="script" style={{ fontSize:12, color:t.ink, lineHeight:1.55, maxWidth:220 }}>"{data.msg}"</div>
-      <div style={{ fontSize:8, letterSpacing:'0.26em', textTransform:'uppercase', color:t.muted }}>— {data.baby} —</div>
-    </div>
-  );
-}
-function DemoEvent({ data, t }) {
-  const rows = [
-    { label:'bebé', value: data.baby },
-    { label:'fecha', value: data.date },
-    { label:'hora',  value: data.time },
-    { label:'lugar', value: data.place },
-    { label:'dirección', value: data.addr },
-  ];
-  return (
-    <div style={{ flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'18px 18px', gap:4, minHeight:0 }}>
-      <div className="script" style={{ fontSize:10, color:t.muted, textAlign:'center', marginBottom:6 }}>detalles del día</div>
-      {rows.map((r,i)=>(
-        <div key={i} style={{ display:'flex', justifyContent:'space-between', alignItems:'baseline', padding:'8px 0', borderBottom:`1px solid ${t.soft}33` }}>
-          <div style={{ fontSize:7, letterSpacing:'0.28em', textTransform:'uppercase', color:t.muted }}>{r.label}</div>
-          <div style={{ fontSize:10, color:t.ink, fontWeight:500, textAlign:'right', maxWidth:'58%' }}>{r.value}</div>
-        </div>
-      ))}
-      <div style={{ display:'flex', gap:8, marginTop:10 }}>
-        <MiniActionBtn icon="🗓" label="Agendar" t={t}/>
-        <MiniActionBtn icon="📍" label="Ver mapa" t={t}/>
-      </div>
-    </div>
-  );
-}
-function DemoLocation({ data, t }) {
-  return (
-    <div style={{ flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'18px 16px', gap:8, minHeight:0 }}>
-      <div className="script" style={{ fontSize:10, color:t.muted, textAlign:'center' }}>cómo llegar</div>
-      <div className="display" style={{ fontSize:16, color:t.ink, textAlign:'center' }}>{data.place}</div>
-      <div style={{ width:'100%', aspectRatio:'3/2', borderRadius:12, background:t.bg2, position:'relative', overflow:'hidden', border:`1px solid ${t.soft}44` }}>
-        <svg viewBox="0 0 200 130" style={{ position:'absolute', inset:0, width:'100%', height:'100%' }}>
-          <path d="M0 60 Q80 48 200 75" stroke={t.soft} strokeWidth="6" fill="none" opacity="0.4"/>
-          <path d="M55 0 Q72 70 88 130" stroke={t.soft} strokeWidth="4" fill="none" opacity="0.3"/>
-          <path d="M130 0 L148 130" stroke={t.soft} strokeWidth="3" fill="none" opacity="0.25"/>
-          <ellipse cx="38" cy="110" rx="20" ry="12" fill={t.soft} opacity="0.18"/>
-        </svg>
-        <div style={{ position:'absolute', top:'42%', left:'52%', transform:'translate(-50%,-50%)', width:26, height:26, borderRadius:'50%', background:t.ink, display:'flex', alignItems:'center', justifyContent:'center', color:t.bg1, fontSize:11, boxShadow:`0 3px 10px ${t.ink}55` }}>♥</div>
-      </div>
-      <div style={{ fontSize:9, color:t.muted, textAlign:'center', lineHeight:1.4 }}>{data.addr}</div>
-      <button style={{ padding:'9px', borderRadius:100, background:t.ink, color:t.bg1, border:'none', fontSize:9, fontWeight:500, letterSpacing:'0.08em', cursor:'pointer' }}>Abrir en Maps →</button>
-    </div>
-  );
-}
-function DemoConfirm({ data, t }) {
-  const [count, setCount] = useState(2);
-  const btnS = { width:32, height:32, borderRadius:'50%', border:`1px solid ${t.soft}`, background:'transparent', color:t.ink, fontSize:16, cursor:'pointer' };
-  return (
-    <div style={{ flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'18px 18px', textAlign:'center', gap:10, minHeight:0 }}>
-      <div className="script" style={{ fontSize:10, color:t.muted }}>¿podrás acompañarnos?</div>
-      <div className="display" style={{ fontSize:18, color:t.ink, lineHeight:1.05 }}>Confirma tu asistencia</div>
-      <div style={{ background:'white', borderRadius:12, padding:'12px', border:`1px solid ${t.soft}44`, textAlign:'left' }}>
-        <div style={{ fontSize:7, letterSpacing:'0.26em', textTransform:'uppercase', color:t.muted, marginBottom:4 }}>invitados</div>
-        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
-          <button onClick={()=>setCount(Math.max(1,count-1))} style={btnS}>−</button>
-          <span className="display" style={{ fontSize:24, color:t.ink }}>{count}</span>
-          <button onClick={()=>setCount(count+1)} style={btnS}>+</button>
-        </div>
-      </div>
-      <button style={{ padding:'12px 16px', borderRadius:100, background:'#25D366', color:'white', border:'none', fontSize:11, fontWeight:600, letterSpacing:'0.04em', display:'flex', alignItems:'center', justifyContent:'center', gap:7, boxShadow:'0 5px 16px -4px rgba(37,211,102,0.5)', cursor:'pointer' }}>
-        <WhatsappIcon size={13}/> Confirmar por WhatsApp
-      </button>
-      <div style={{ fontSize:8, color:t.muted, opacity:0.7 }}>recibirás un recordatorio el día anterior</div>
-    </div>
-  );
-}
-function DemoClose({ data, t }) {
-  return (
-    <div style={{ flex:1, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', padding:'18px 18px', textAlign:'center', gap:8, minHeight:0 }}>
-      <div style={{ fontSize:20, color:t.muted }}>✦</div>
-      <div className="script" style={{ fontSize:11, color:t.muted }}>gracias por celebrar con nosotros</div>
-      <div className="display" style={{ fontSize:22, color:t.ink, lineHeight:1.1 }}>cada presencia<br/>es un regalo.</div>
-      <div style={{ fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color:t.muted, marginTop:4 }}>{data.parents}</div>
-      <div style={{ width:28, height:1, background:t.soft }}/>
-      <div className="script" style={{ fontSize:13, color:t.ink }}>— {data.baby} —</div>
-    </div>
-  );
-}
-function MiniActionBtn({ icon, label, t }) {
-  return (<div style={{ flex:1, padding:'8px 6px', borderRadius:10, background:'white', border:`1px solid ${t.soft}44`, display:'flex', alignItems:'center', justifyContent:'center', gap:4, fontSize:8, color:t.ink, fontWeight:500 }}><span>{icon}</span>{label}</div>);
+const XP_SCENES = [
+  { id:'cover', label:'Portada' },
+  { id:'message', label:'Mensaje' },
+  { id:'details', label:'Detalles' },
+  { id:'location', label:'Ubicación' },
+  { id:'confirm', label:'Confirmar' },
+];
+
+function FineIcon({ type, size = 15 }) {
+  const common = { fill:'none', stroke:'currentColor', strokeWidth:1.5, strokeLinecap:'round', strokeLinejoin:'round' };
+  const paths = {
+    calendar: <><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></>,
+    clock: <><circle cx="12" cy="12" r="8"/><path d="M12 8v5l3 2"/></>,
+    pin: <><path d="M12 21s6-6.4 6-11a6 6 0 1 0-12 0c0 4.6 6 11 6 11z"/><circle cx="12" cy="10" r="2"/></>,
+    heart: <path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>,
+    music: <><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></>,
+    whatsapp: <><path d="M4 20l1.5-4A7 7 0 1 1 8 18.5L4 20z"/><path d="M9 10c.5 2.4 2.1 4 4.5 4.5"/></>,
+  };
+  return <svg viewBox="0 0 24 24" width={size} height={size} {...common}>{paths[type]}</svg>;
 }
 
-function InviteDemo({ collection, step }) {
+function InviteDecor({ collection }) {
+  if (collection === 'floral') {
+    return (
+      <>
+        {[8, 28, 64, 82].map((left,i)=><span key={i} className="xp-deco xp-petal" style={{ left:`${left}%`, top:`${-6 - i * 5}%`, animationDelay:`${i * 1.15}s` }}/>)}
+        <div className="xp-deco" style={{ top:18, right:-24, width:94, opacity:.55 }}><PeonyCluster/></div>
+      </>
+    );
+  }
+  if (collection === 'minimal') {
+    return (
+      <>
+        {[{t:18,l:18},{t:26,l:78},{t:55,l:12},{t:70,l:84},{t:36,l:48}].map((s,i)=><span key={i} className="xp-deco xp-star" style={{ top:`${s.t}%`, left:`${s.l}%`, fontSize:i===4?12:9, animationDelay:`${i * .42}s` }}>✦</span>)}
+      </>
+    );
+  }
+  return (
+    <>
+      {[{t:18,l:18},{t:26,l:74},{t:63,l:17},{t:75,l:79}].map((s,i)=><span key={i} className="xp-deco xp-honey-drop" style={{ top:`${s.t}%`, left:`${s.l}%`, animationDelay:`${i * .7}s` }}/>)}
+      <span className="xp-deco" style={{ top:'19%', right:'18%', color:'var(--xp-soft)', fontSize:10, opacity:.42, animation:'xp-float 6s ease-in-out infinite' }}>••</span>
+    </>
+  );
+}
+
+function InviteSymbol({ collection }) {
+  if (collection === 'floral') return <div className="xp-scale" style={{ '--d':'160ms' }}><div className="xp-symbol xp-flower-symbol"><PeonyCluster/></div></div>;
+  if (collection === 'minimal') {
+    return (
+      <div className="xp-scale" style={{ '--d':'160ms' }}>
+        <div className="xp-symbol xp-moon-symbol">
+          <svg viewBox="0 0 100 100">
+            <defs><radialGradient id="xpMoon" cx="40%" cy="35%"><stop offset="0%" stopColor="#fffaf0"/><stop offset="100%" stopColor="#c9a876"/></radialGradient></defs>
+            <path d="M50 10 A40 40 0 1 0 50 90 A30 35 0 1 1 50 10 Z" fill="url(#xpMoon)"/>
+            <path d="M32 72 Q50 84 68 72" stroke="#c9a876" strokeWidth="2" fill="none" opacity=".45"/>
+          </svg>
+        </div>
+      </div>
+    );
+  }
+  return <div className="xp-scale" style={{ '--d':'160ms' }}><div className="xp-symbol"><BearSVG/></div></div>;
+}
+
+function InviteSceneCover({ data, collection }) {
+  return (
+    <div className="xp-scene xp-center active" key={`cover-${collection}`}>
+      <div className="xp-kicker xp-reveal" style={{ '--d':'120ms' }}>Baby Shower</div>
+      <div className="xp-script xp-reveal" style={{ '--d':'260ms', fontSize:16, lineHeight:1.2, maxWidth:230 }}>Un pequeño milagro viene en camino...</div>
+      <InviteSymbol collection={collection}/>
+      <div className="xp-script xp-reveal" style={{ '--d':'560ms', fontSize:18, lineHeight:1.15, maxWidth:220 }}>{data.phrase}</div>
+      <div className="xp-name xp-reveal" style={{ '--d':'820ms' }}>{data.baby}</div>
+      <div className="xp-copy xp-reveal" style={{ '--d':'1080ms', marginTop:8 }}>Una invitación hecha para emocionar.</div>
+    </div>
+  );
+}
+
+function InviteSceneMessage({ data }) {
+  return (
+    <div className="xp-scene xp-center active" key="message">
+      <div className="xp-kicker xp-reveal" style={{ '--d':'120ms' }}>con mucho amor</div>
+      <div className="xp-title xp-reveal" style={{ '--d':'300ms', maxWidth:240 }}>Queremos invitarte</div>
+      <div className="xp-reveal" style={{ '--d':'540ms', width:38, height:1, background:'var(--xp-soft)', margin:'16px 0' }}/>
+      <p className="xp-script xp-reveal" style={{ '--d':'680ms', fontSize:18, lineHeight:1.45, maxWidth:250, color:'var(--xp-ink)' }}>
+        Con mucho amor queremos invitarte a celebrar este momento tan especial.
+      </p>
+      <div className="xp-copy xp-reveal" style={{ '--d':'980ms', marginTop:14 }}>{data.parents}</div>
+    </div>
+  );
+}
+
+function InviteSceneDetails({ data }) {
+  const rows = [
+    { icon:'calendar', label:'Fecha', value:data.date },
+    { icon:'clock', label:'Hora', value:data.time },
+    { icon:'heart', label:'Lugar', value:data.place },
+    { icon:'pin', label:'Ciudad', value:data.city },
+  ];
+  return (
+    <div className="xp-scene active" key="details">
+      <div className="xp-kicker xp-reveal" style={{ '--d':'100ms' }}>detalles del evento</div>
+      <div className="xp-title xp-reveal" style={{ '--d':'260ms' }}>Acompáñanos a celebrar nuestro baby shower</div>
+      <div className="xp-detail-list">
+        {rows.map((r,i)=>(
+          <div key={r.label} className="xp-detail xp-reveal" style={{ '--d':`${520 + i * 170}ms` }}>
+            <div className="xp-detail-icon"><FineIcon type={r.icon}/></div>
+            <div>
+              <div className="xp-detail-label">{r.label}</div>
+              <div className="xp-detail-value">{r.value}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function InviteSceneLocation({ data }) {
+  return (
+    <div className="xp-scene active" key="location">
+      <div className="xp-kicker xp-reveal" style={{ '--d':'100ms' }}>ubicación</div>
+      <div className="xp-title xp-reveal" style={{ '--d':'260ms' }}>Dirección lista para abrir</div>
+      <div className="xp-map-card xp-scale" style={{ '--d':'420ms' }}>
+        <svg className="xp-route" viewBox="0 0 260 190">
+          <path d="M20 132 C72 96 88 156 132 112 S182 42 236 74" stroke="var(--xp-soft)" strokeWidth="10" fill="none" opacity=".34"/>
+          <path d="M20 132 C72 96 88 156 132 112 S182 42 236 74" stroke="var(--xp-accent)" strokeWidth="3" fill="none" strokeLinecap="round"/>
+          <circle cx="42" cy="122" r="14" fill="var(--xp-soft)" opacity=".18"/>
+          <circle cx="205" cy="76" r="24" fill="var(--xp-soft)" opacity=".16"/>
+        </svg>
+        <div className="xp-pin"/>
+      </div>
+      <div className="xp-copy xp-reveal" style={{ '--d':'900ms' }}>{data.place} · {data.city}</div>
+      <button className="xp-btn xp-btn-secondary xp-reveal" style={{ '--d':'1080ms', marginTop:14, width:'100%' }} onClick={(e)=>e.stopPropagation()}>
+        Ver ubicación
+      </button>
+      <div className="xp-copy xp-reveal" style={{ '--d':'1240ms', marginTop:10 }}>Te llevamos directo al lugar.</div>
+    </div>
+  );
+}
+
+function InviteSceneConfirm() {
+  return (
+    <div className="xp-scene xp-center active" key="confirm">
+      <div className="xp-kicker xp-reveal" style={{ '--d':'120ms' }}>confirmación</div>
+      <div className="xp-title xp-reveal" style={{ '--d':'300ms' }}>¿Nos acompañas?</div>
+      <p className="xp-script xp-reveal" style={{ '--d':'520ms', fontSize:18, lineHeight:1.4, maxWidth:230, color:'var(--xp-ink)' }}>
+        Confirma con un toque por WhatsApp y guarda el recordatorio.
+      </p>
+      <div className="xp-button-row">
+        <div className="xp-reveal" style={{ '--d':'760ms' }}>
+          <button className="xp-btn xp-btn-primary" style={{ width:'100%' }} onClick={(e)=>e.stopPropagation()}>
+            Confirmar asistencia
+          </button>
+        </div>
+        <button className="xp-btn xp-btn-secondary xp-reveal" style={{ '--d':'940ms' }} onClick={(e)=>e.stopPropagation()}>
+          Agregar al calendario
+        </button>
+      </div>
+      <div className="xp-copy xp-reveal" style={{ '--d':'1140ms', marginTop:14 }}>Confirmación en un toque · Recordatorio guardado</div>
+    </div>
+  );
+}
+
+function InviteDemo({ collection, step, setStep }) {
   const t = THEMES[collection];
   const data = CDATA[collection];
+  const next = () => setStep((step + 1) % XP_SCENES.length);
+  const scene = XP_SCENES[step];
+  const sceneNode = {
+    cover: <InviteSceneCover data={data} collection={collection}/>,
+    message: <InviteSceneMessage data={data}/>,
+    details: <InviteSceneDetails data={data}/>,
+    location: <InviteSceneLocation data={data}/>,
+    confirm: <InviteSceneConfirm/>,
+  }[scene.id];
+
   return (
-    <div style={{ width:'100%', height:'100%', background:`linear-gradient(180deg,${t.bg1} 0%,${t.bg2} 100%)`, display:'flex', flexDirection:'column', color:t.ink, fontFamily:'Outfit,sans-serif', overflow:'hidden' }}>
-      <div style={{ padding:'14px 12px 0', display:'flex', justifyContent:'space-between', fontSize:8, fontWeight:600, color:t.ink, flexShrink:0 }}>
-        <span>9:41</span><span>•••</span>
+    <div
+      className={`invite-xp invite-xp-${collection}`}
+      onClick={next}
+      style={{ '--xp-bg1':t.bg1, '--xp-bg2':t.bg2, '--xp-accent':t.accent, '--xp-soft':t.soft, '--xp-ink':t.ink, '--xp-muted':t.muted }}
+      role="button"
+      tabIndex="0"
+      aria-label="Avanzar demo de invitación"
+      onKeyDown={(e)=>{ if (e.key === 'Enter' || e.key === ' ') next(); }}
+    >
+      <InviteDecor collection={collection}/>
+      <div className="xp-status">
+        <span>{data.name}</span>
+        <span className="xp-music">
+          <span className="xp-wave">{[0,.2,.4].map((d,i)=><span key={i} style={{ animationDelay:`${d}s` }}/>)}</span>
+          Música suave activada
+        </span>
       </div>
-      {step === 0 && <DemoCover data={data} t={t}/>}
-      {step === 1 && <DemoMessage data={data} t={t}/>}
-      {step === 2 && <DemoEvent data={data} t={t}/>}
-      {step === 3 && <DemoLocation data={data} t={t}/>}
-      {step === 4 && <DemoConfirm data={data} t={t}/>}
-      {step === 5 && <DemoClose data={data} t={t}/>}
+      {React.cloneElement(sceneNode, { key:`${collection}-${scene.id}` })}
+      <div className="xp-indicators">
+        {XP_SCENES.map((s,i)=>(
+          <button key={s.id} className={`xp-dot ${i===step?'active':''}`} onClick={(e)=>{ e.stopPropagation(); setStep(i); }} title={s.label}>
+            <span>{s.label}</span><i/>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
@@ -1002,55 +1517,73 @@ function SceneCollectionPage({ which, onTryDemo }) {
   );
 }
 
-/* ── 06 DEMO ── */
-function SceneDemo({ collection, setCollection }) {
+/* ── 02 DEMO ── */
+function SceneDemo({ collection, setCollection, onViewStyles }) {
   const [step, setStep] = useState(0);
-  const STEPS = ['Portada','Mensaje','Detalles','Mapa','Confirmar','Cierre'];
+  const [manualTick, setManualTick] = useState(0);
+  const benefits = [
+    { icon:'music', label:'Música visual' },
+    { icon:'pin', label:'Ubicación' },
+    { icon:'whatsapp', label:'WhatsApp' },
+    { icon:'calendar', label:'Calendario' },
+    { icon:'heart', label:'Datos personalizados' },
+  ];
   useEffect(()=>{ setStep(0); }, [collection]);
+  const setInviteStep = useCallback((next) => {
+    setStep(prev => typeof next === 'function' ? next(prev) : next);
+    setManualTick(t => t + 1);
+  }, []);
+  useEffect(()=>{
+    const id = setInterval(()=>setStep(s=>(s+1)%XP_SCENES.length), 3000);
+    return ()=>clearInterval(id);
+  }, [collection, manualTick]);
 
   return (
-    <div className="scene scene-snap bg-night" style={{ display:'flex', flexDirection:'column' }}>
-      {/* Header */}
-      <div style={{ paddingTop:66, padding:'66px 28px 10px', flexShrink:0, position:'relative', zIndex:3 }}>
-        <div className="eyebrow" style={{ color:'#d4a574', marginBottom:6 }}>02 · Demo visual</div>
-        <h2 className="display" style={{ fontSize:'clamp(24px,6vw,34px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.02em' }}>
-          Mira la invitación antes de pedirla.
-        </h2>
-        <p style={{ marginTop:8, fontSize:13, color:'rgba(245,233,216,0.65)', lineHeight:1.45, maxWidth:520 }}>
-          Revisa las pantallas principales: portada, mensaje, detalles, mapa y confirmación.
-        </p>
-      </div>
+    <div className="scene scene-snap bg-night scene-demo">
+      <div className="demo-grid">
+        <div className="demo-copy">
+          <div>
+            <div className="eyebrow" style={{ color:'#d4a574', marginBottom:8 }}>02 · Demo en vivo</div>
+            <h2 className="display" style={{ fontSize:'clamp(32px,6vw,50px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.02em' }}>
+              Mira la invitación antes de pedirla.
+            </h2>
+            <p style={{ marginTop:14, fontSize:15, color:'rgba(245,233,216,0.68)', lineHeight:1.55, maxWidth:480 }}>
+              Revisa portada, mensaje, detalles, ubicación y confirmación en una mini historia que se reproduce sola.
+            </p>
+          </div>
 
-      {/* Collection switcher */}
-      <div style={{ display:'flex', gap:6, padding:'10px 28px', flexShrink:0 }}>
-        {[{id:'honey',label:'🍯 Dulce'},{id:'floral',label:'🌸 Jardín'},{id:'minimal',label:'🤍 Milagro'}].map(c=>(
-          <button key={c.id} onClick={()=>setCollection(c.id)} style={{ padding:'7px 11px', borderRadius:100, border:`1px solid ${collection===c.id?'#f5e9d8':'rgba(245,233,216,0.18)'}`, background:collection===c.id?'#f5e9d8':'transparent', color:collection===c.id?'#1a1410':'rgba(245,233,216,0.68)', fontSize:10, fontWeight:500, cursor:'pointer' }}>
-            {c.label}
-          </button>
-        ))}
-      </div>
+          <div className="demo-tabs" role="tablist" aria-label="Estilos de invitación">
+            {[{id:'honey',label:'Dulce'},{id:'floral',label:'Jardín'},{id:'minimal',label:'Milagro'}].map(c=>(
+              <button key={c.id} className={`demo-tab ${collection===c.id?'active':''}`} onClick={()=>setCollection(c.id)} role="tab" aria-selected={collection===c.id}>
+                {c.label}
+              </button>
+            ))}
+          </div>
 
-      {/* Demo phone-in-phone */}
-      <div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center', padding:'4px 56px', minHeight:0 }}>
-        <div className="demo-frame" style={{ width:'100%', maxWidth:230, aspectRatio:'9/19' }}>
+          <div style={{ display:'flex', flexWrap:'wrap', gap:10, marginTop:2 }}>
+            <button className="btn-pill btn-light" onClick={()=>window.open('https://wa.me/?text=Hola,%20quiero%20una%20invitaci%C3%B3n%20digital%20para%20baby%20shower','_blank')} style={{ padding:'13px 18px', fontSize:11 }}>
+              Pedir por WhatsApp
+            </button>
+            <button className="btn-pill" onClick={onViewStyles} style={{ padding:'13px 18px', fontSize:11, background:'rgba(245,233,216,0.08)', color:'#f5e9d8', border:'1px solid rgba(245,233,216,0.16)' }}>
+              Ver estilos
+            </button>
+          </div>
+        </div>
+
+        <div className="demo-device-wrap">
+          <div className="demo-frame demo-device">
           <div className="demo-screen">
-            <InviteDemo collection={collection} step={step}/>
+            <InviteDemo collection={collection} step={step} setStep={setInviteStep}/>
           </div>
         </div>
       </div>
 
-      {/* Step nav */}
-      <div style={{ padding:'8px 28px 40px', flexShrink:0 }}>
-        <div style={{ display:'flex', alignItems:'center', gap:10, justifyContent:'space-between', marginBottom:10 }}>
-          <button onClick={()=>setStep(Math.max(0,step-1))} disabled={step===0} style={navBtn(step===0)}>‹</button>
-          <div style={{ flex:1, textAlign:'center', color:'#f5e9d8' }}>
-            <div className="eyebrow" style={{ fontSize:8, color:'#d4a574' }}>{step+1} / {STEPS.length}</div>
-            <div style={{ fontSize:12, marginTop:2, fontWeight:500 }}>{STEPS[step]}</div>
-          </div>
-          <button onClick={()=>setStep(Math.min(STEPS.length-1,step+1))} disabled={step===STEPS.length-1} style={navBtn(step===STEPS.length-1)}>›</button>
-        </div>
-        <div style={{ display:'flex', gap:4, justifyContent:'center' }}>
-          {STEPS.map((_,i)=><div key={i} style={{ width:i===step?20:5, height:3, borderRadius:2, background:i===step?'#f5e9d8':'rgba(245,233,216,0.2)', transition:'all 0.3s ease' }}/>)}
+        <div className="demo-benefits">
+          {benefits.map((b)=>(
+            <div key={b.label} className="demo-benefit">
+              <i/><span>{b.label}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -1419,7 +1952,7 @@ function App() {
 
         <div ref={scrollRef} className="phone-scroll" style={{ scrollSnapType: tweaks.snapScroll ? 'y mandatory' : 'none' }}>
           <SceneHero onJump={()=>goTo(1)}/>
-          <SceneDemo collection={collection} setCollection={setCollection}/>
+          <SceneDemo collection={collection} setCollection={setCollection} onViewStyles={()=>goTo(3)}/>
           <SceneHowWorks/>
           <SceneCollectionIntro onTryDemo={c=>{setCollection(c);goTo(1);}}/>
           <SceneCompare/>
