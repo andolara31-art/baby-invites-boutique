@@ -623,6 +623,42 @@ html, body {
   opacity: .9;
   pointer-events: none;
 }
+.palette-preview {
+  width: 100%;
+}
+.palette-preview .invite-mock {
+  background:
+    radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--invite-soft) 42%, transparent), transparent 28%),
+    radial-gradient(circle at 86% 84%, color-mix(in srgb, var(--invite-accent) 32%, transparent), transparent 31%),
+    linear-gradient(160deg, var(--invite-bg), var(--invite-secondary)) !important;
+  color: var(--invite-text);
+}
+.palette-preview .invite-mock::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 1px 1px, var(--invite-accent) 1px, transparent 0),
+    linear-gradient(120deg, transparent 0 42%, rgba(255,255,255,.32) 48%, transparent 54% 100%);
+  background-size: 17px 17px, 100% 100%;
+  opacity: .18;
+  pointer-events: none;
+  z-index: 0;
+}
+.palette-preview .watercolor {
+  background: var(--invite-soft) !important;
+  opacity: .42 !important;
+}
+.palette-preview .display,
+.palette-preview .script {
+  color: var(--invite-text) !important;
+}
+.palette-preview [style*="color"] {
+  color: var(--invite-accent) !important;
+}
+.palette-preview .display[style*="font-size"] {
+  color: var(--invite-text) !important;
+}
 .style-card-actions {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1640,8 +1676,8 @@ select.twk-field{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http:
     display: none;
   }
   .scene-hero .hero-main-card {
-    width: min(34vw, 135px) !important;
-    top: 43% !important;
+    width: min(46vw, 170px) !important;
+    top: 46% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
     animation: none !important;
@@ -2115,15 +2151,32 @@ function CoquetteMock({ size = 'lg', babyName = 'Baby Isabella', date = 'Domingo
   );
 }
 
-function StyleMock({ styleId, size = 'lg', babyName, date, place }) {
+function StyleMock({ styleId, size = 'lg', babyName, date, place, palette }) {
   const props = { size, babyName, date, place };
-  if (styleId === 'honey') return <DulceEsperaMock {...props}/>;
-  if (styleId === 'floral') return <JardinMock {...props}/>;
-  if (styleId === 'minimal') return <MilagroMock {...props}/>;
-  if (styleId === 'celestial') return <CelestialMock {...props}/>;
-  if (styleId === 'safari') return <SafariMock {...props}/>;
-  if (styleId === 'coquette') return <CoquetteMock {...props}/>;
-  return <JardinMock {...props}/>;
+  const mock = {
+    honey: <DulceEsperaMock {...props}/>,
+    floral: <JardinMock {...props}/>,
+    minimal: <MilagroMock {...props}/>,
+    celestial: <CelestialMock {...props}/>,
+    safari: <SafariMock {...props}/>,
+    coquette: <CoquetteMock {...props}/>,
+  }[styleId] || <JardinMock {...props}/>;
+
+  if (!palette) return mock;
+  return (
+    <div
+      className="palette-preview"
+      style={{
+        '--invite-bg': palette.bg,
+        '--invite-accent': palette.accent,
+        '--invite-secondary': palette.secondary,
+        '--invite-text': palette.text,
+        '--invite-soft': palette.soft || palette.secondary,
+      }}
+    >
+      {mock}
+    </div>
+  );
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -2240,6 +2293,43 @@ const INVITATION_STYLES = [
   },
 ];
 const STYLE_BY_ID = Object.fromEntries(INVITATION_STYLES.map(style => [style.id, style]));
+const STYLE_PALETTES = {
+  honey: [
+    { id:'cream', name:'Cream', bg:'#F8F1E7', accent:'#C9A77A', secondary:'#E9D8C5', soft:'#FFF7EA', text:'#2D2926' },
+    { id:'blush', name:'Blush', bg:'#F8E8EC', accent:'#B98596', secondary:'#F3D4DC', soft:'#FFEFF4', text:'#3E292B' },
+    { id:'caramel', name:'Caramel', bg:'#F7E1B8', accent:'#A66C32', secondary:'#E4BE7F', soft:'#FFF0D1', text:'#3D2410' },
+  ],
+  floral: [
+    { id:'porcelain', name:'Porcelain', bg:'#FFF6F2', accent:'#8A4F4F', secondary:'#F5CFC9', soft:'#FFE6E0', text:'#4B2725' },
+    { id:'champagne', name:'Champagne', bg:'#FAEBDD', accent:'#B58A5E', secondary:'#EAD1B8', soft:'#FFF5EA', text:'#4A3324' },
+    { id:'mauve', name:'Mauve', bg:'#F6E8EE', accent:'#936172', secondary:'#DDBAC7', soft:'#FFF0F5', text:'#4B2D37' },
+  ],
+  minimal: [
+    { id:'ivory', name:'Ivory', bg:'#FAF6F0', accent:'#A08560', secondary:'#EDE1CF', soft:'#FFF8EF', text:'#3A2A1A' },
+    { id:'pearl', name:'Pearl', bg:'#F4F1EC', accent:'#A9A093', secondary:'#DED8CF', soft:'#FFFFFF', text:'#2F2B26' },
+    { id:'gold', name:'Gold', bg:'#FFF8E9', accent:'#C9A876', secondary:'#EAD8AD', soft:'#FFF2C8', text:'#3A2A1A' },
+  ],
+  celestial: [
+    { id:'night', name:'Night', bg:'#273047', accent:'#D6B878', secondary:'#111827', soft:'#7F8EA8', text:'#FFF9EE' },
+    { id:'sky', name:'Sky', bg:'#EAF1F8', accent:'#8CA8C5', secondary:'#D8E5F0', soft:'#FFFFFF', text:'#253044' },
+    { id:'moon', name:'Moon', bg:'#F8EAD5', accent:'#C8A869', secondary:'#DED1C4', soft:'#FFF7E9', text:'#2E2A24' },
+  ],
+  safari: [
+    { id:'sage', name:'Sage', bg:'#F5EAD8', accent:'#6D7B55', secondary:'#D9C29D', soft:'#C8D2AF', text:'#4C3A28' },
+    { id:'sand', name:'Sand', bg:'#F7E8D1', accent:'#B37A4C', secondary:'#D7B98B', soft:'#FFF0D8', text:'#3D2F22' },
+    { id:'leaf', name:'Leaf', bg:'#EFF3E4', accent:'#7F946A', secondary:'#D1DDBF', soft:'#FFFFFF', text:'#35432C' },
+  ],
+  coquette: [
+    { id:'rose', name:'Rose', bg:'#FFF5F8', accent:'#8B557A', secondary:'#F4C8DF', soft:'#D8B7EC', text:'#6F4664' },
+    { id:'lilac', name:'Lilac', bg:'#F7EEFF', accent:'#8D6AAE', secondary:'#D8B7EC', soft:'#FFFFFF', text:'#4E375E' },
+    { id:'butter', name:'Butter', bg:'#FFF7EC', accent:'#D0A76B', secondary:'#F7D9BE', soft:'#FFEFF6', text:'#6A4B30' },
+  ],
+};
+function getStylePalettes(style) {
+  return STYLE_PALETTES[style.id] || [
+    { id:'base', name:'Base', bg:style.palette.bg1, accent:style.palette.accent, secondary:style.palette.bg2, soft:style.palette.soft, text:style.palette.ink },
+  ];
+}
 const THEMES = Object.fromEntries(INVITATION_STYLES.map(style => [style.id, {
   bg1: style.palette.bg1,
   bg2: style.palette.bg2,
@@ -2647,8 +2737,10 @@ function InviteSceneConfirm() {
   );
 }
 
-function InviteDemo({ collection, step, setStep, data: liveData, musicOn = true }) {
-  const t = THEMES[collection];
+function InviteDemo({ collection, step, setStep, data: liveData, musicOn = true, palette }) {
+  const t = palette
+    ? { bg1:palette.bg, bg2:palette.secondary, accent:palette.accent, soft:palette.soft || palette.secondary, ink:palette.text, muted:palette.accent }
+    : THEMES[collection];
   const data = liveData || CDATA[collection];
   const next = () => setStep((step + 1) % XP_SCENES.length);
   const scene = XP_SCENES[step];
@@ -2726,16 +2818,16 @@ function SceneHero({ onJump }) {
       {/* Invite mockups — hero + flankers */}
       <div className="hero-art" style={{ flex:1, position:'relative', zIndex:3, minHeight:0, overflow:'hidden' }}>
         {/* Left flank */}
-        <div className="hero-flank" style={{ position:'absolute', left:'14%', top:'50%', transform:'translateY(-50%)', width:'min(11vw, 120px)', opacity:0.9, filter:'drop-shadow(0 22px 34px rgba(0,0,0,.38))', animation:'float-1 7s ease-in-out infinite', zIndex:2 }}>
+        <div className="hero-flank" style={{ position:'absolute', left:'12%', top:'49%', transform:'translateY(-50%) rotate(-6deg)', width:'min(15vw, 170px)', opacity:0.94, filter:'drop-shadow(0 28px 42px rgba(0,0,0,.42))', animation:'float-1 7s ease-in-out infinite', zIndex:2 }}>
           <DulceEsperaMock size="sm" babyName="Baby Isabella" date="Domingo 26 de mayo"/>
         </div>
         {/* Center hero */}
-        <div className="hero-main-card" style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'min(16vw, 162px)', animation:'float-2 6s ease-in-out infinite', zIndex:3, filter:'drop-shadow(0 30px 60px rgba(0,0,0,0.55))' }}>
+        <div className="hero-main-card" style={{ position:'absolute', top:'48%', left:'50%', transform:'translate(-50%,-50%)', width:'min(20vw, 220px)', animation:'float-2 6s ease-in-out infinite', zIndex:3, filter:'drop-shadow(0 34px 66px rgba(0,0,0,0.58))' }}>
           <JardinMock size="sm" babyName="Baby Isabella" date="Domingo 26 de mayo"/>
         </div>
         {/* Right flank */}
-        <div className="hero-flank" style={{ position:'absolute', right:'14%', top:'50%', transform:'translateY(-50%)', width:'min(11vw, 120px)', opacity:0.9, filter:'drop-shadow(0 22px 34px rgba(0,0,0,.38))', animation:'float-3 7.5s ease-in-out infinite', zIndex:2 }}>
-          <MilagroMock size="sm" babyName="Baby Isabella" date="Domingo 26 de mayo"/>
+        <div className="hero-flank" style={{ position:'absolute', right:'12%', top:'50%', transform:'translateY(-50%) rotate(7deg)', width:'min(15vw, 170px)', opacity:0.94, filter:'drop-shadow(0 28px 42px rgba(0,0,0,.42))', animation:'float-3 7.5s ease-in-out infinite', zIndex:2 }}>
+          <CelestialMock size="sm" babyName="Baby Isabella" date="Domingo 26 de mayo"/>
         </div>
       </div>
 
@@ -2761,34 +2853,37 @@ function SceneHero({ onJump }) {
 }
 
 function StyleProductCard({ style, index, onTryDemo, onOrderStyle }) {
-  const [activeColor, setActiveColor] = useState(style.palette.chips[0]);
+  const palettes = getStylePalettes(style);
+  const [activePaletteId, setActivePaletteId] = useState(palettes[0].id);
+  const activePalette = palettes.find(p => p.id === activePaletteId) || palettes[0];
   const cardInk = style.palette.ink === '#fff9ee' ? '#273047' : style.palette.ink;
 
   return (
     <article
       className="style-card"
       style={{
-        '--card-bg':`linear-gradient(145deg, color-mix(in srgb, ${activeColor} 18%, ${style.palette.bg1}), ${style.palette.bg2})`,
+        '--card-bg':`linear-gradient(145deg, color-mix(in srgb, ${activePalette.bg} 82%, white), ${activePalette.secondary})`,
         '--card-ink':cardInk,
-        '--card-accent':style.palette.accent,
-        '--active-color':activeColor,
+        '--card-accent':activePalette.accent,
+        '--active-color':activePalette.accent,
       }}
     >
       <div className="style-card-preview" style={{ animationDelay:`${index * .18}s` }}>
-        <div className="style-card-preview-shell" style={{ '--active-color':activeColor }}>
+        <div className="style-card-preview-shell" style={{ '--active-color':activePalette.accent }}>
           <StyleMock
             styleId={style.id}
             size="sm"
             babyName={style.demoData.babyName}
             date={style.demoData.date}
             place={style.demoData.place}
+            palette={activePalette}
           />
         </div>
       </div>
       <div className="style-card-body">
         <div className="style-card-top">
           <div>
-            <div className="eyebrow" style={{ fontSize:7, color:style.palette.accent, marginBottom:4 }}>{style.category}</div>
+            <div className="eyebrow" style={{ fontSize:7, color:activePalette.accent, marginBottom:4 }}>{style.category} · {activePalette.name}</div>
             <h3 className="style-card-name">{style.name}</h3>
           </div>
           <div className="style-card-price">desde <strong>${style.price}</strong></div>
@@ -2796,21 +2891,21 @@ function StyleProductCard({ style, index, onTryDemo, onOrderStyle }) {
         <div className="style-card-phrase">"{style.phrase}"</div>
         <p className="style-card-desc">{style.emotionalTone}</p>
         <div className="style-card-swatches" aria-label={`Variantes visuales de ${style.name}`}>
-          {style.palette.chips.map((color, idx)=>(
+          {palettes.map((palette, idx)=>(
             <button
-              key={color}
+              key={palette.id}
               type="button"
-              className={`style-card-swatch ${activeColor === color ? 'active' : ''}`}
-              style={{ background:color, '--active-color':color }}
-              aria-label={`Ver variante ${idx + 1} de ${style.name}`}
-              aria-pressed={activeColor === color}
-              onClick={()=>setActiveColor(color)}
+              className={`style-card-swatch ${activePalette.id === palette.id ? 'active' : ''}`}
+              style={{ background:`linear-gradient(135deg, ${palette.bg}, ${palette.accent})`, '--active-color':palette.accent }}
+              aria-label={`Ver paleta ${palette.name} de ${style.name}`}
+              aria-pressed={activePalette.id === palette.id}
+              onClick={()=>setActivePaletteId(palette.id)}
             />
           ))}
         </div>
         <div className="style-card-actions">
-          <button type="button" onClick={()=>onTryDemo(style.id)}>Ver demo</button>
-          <button type="button" onClick={()=>onOrderStyle(style.id)}>Pedir este estilo</button>
+          <button type="button" onClick={()=>onTryDemo(style.id, activePalette)}>Ver demo</button>
+          <button type="button" onClick={()=>onOrderStyle(style.id, activePalette)}>Pedir este estilo</button>
         </div>
       </div>
     </article>
@@ -2909,7 +3004,7 @@ function SceneCollectionPage({ which, onTryDemo }) {
 }
 
 /* ── 02 DEMO ── */
-function SceneDemo({ collection, setCollection, liveFields, setLiveFields, onViewStyles }) {
+function SceneDemo({ collection, setCollection, liveFields, setLiveFields, selectedPalette, onViewStyles }) {
   const [step, setStep] = useState(0);
   const [manualTick, setManualTick] = useState(0);
   const [shareLink, setShareLink] = useState('');
@@ -3078,7 +3173,7 @@ function SceneDemo({ collection, setCollection, liveFields, setLiveFields, onVie
           <div className="demo-device-stack">
             <div className="demo-frame demo-device">
               <div className="demo-screen">
-                <InviteDemo collection={collection} step={step} setStep={setInviteStep} data={liveData}/>
+                <InviteDemo collection={collection} step={step} setStep={setInviteStep} data={liveData} palette={selectedPalette}/>
               </div>
             </div>
             <div className="demo-device-caption">Así la verán tus invitados.</div>
@@ -3223,8 +3318,56 @@ function ScenePrice() {
 }
 
 /* ── 08 ANTES / DESPUÉS ── */
+function BeforeFlatInvite() {
+  return (
+    <div className="compare-before-card" aria-label="Invitación plana básica">
+      <div style={{ fontSize:7, color:'#9a9086', marginBottom:6 }}>imagen enviada por chat</div>
+      <div className="compare-before-image">
+        <div className="compare-before-stamp">Baby Shower</div>
+        <div className="compare-before-title">Invitación<br/>simple</div>
+        <div className="compare-before-lines"><span/><span/><span style={{ width:'72%' }}/></div>
+        <div style={{ fontSize:8, marginTop:12 }}>Sábado 12 · Casa</div>
+      </div>
+      <div className="compare-before-note">
+        <span>sin música</span>
+        <span>sin mapa</span>
+        <span>sin calendario ni confirmación</span>
+      </div>
+    </div>
+  );
+}
+
+function AfterPremiumInvite() {
+  return (
+    <div className="compare-after-product" aria-label="Invitación digital premium completa">
+      <div className="compare-after-item compare-after-kicker" style={{ '--d':'0s' }}>BABY SHOWER</div>
+      <div className="compare-after-item compare-after-headline" style={{ '--d':'0.1s' }}>Está por<br/>florecer</div>
+      <div className="compare-after-item compare-after-name" style={{ '--d':'0.2s' }}>Sofía</div>
+      <div className="compare-after-item compare-after-date" style={{ '--d':'0.3s' }}>24 · 07 · 2026</div>
+      <div className="compare-after-item compare-after-micro" style={{ '--d':'0.4s' }}>
+        <FineIcon type="music" size={13}/> música suave
+      </div>
+      <div className="compare-after-item" style={{ '--d':'0.48s', display:'grid', gridTemplateColumns:'1fr 1fr', gap:6, width:'min(230px, 82%)' }}>
+        {[
+          { icon:'pin', label:'Ubicación' },
+          { icon:'calendar', label:'Calendario' },
+          { icon:'whatsapp', label:'WhatsApp' },
+          { icon:'heart', label:'Link listo' },
+        ].map(item => (
+          <div key={item.label} className="compare-after-micro" style={{ justifyContent:'center', padding:'5px 8px', fontSize:8 }}>
+            <FineIcon type={item.icon} size={11}/> {item.label}
+          </div>
+        ))}
+      </div>
+      <div className="compare-after-item compare-after-separator" style={{ '--d':'0.5s' }}/>
+      <button className="compare-after-item compare-after-button" style={{ '--d':'0.6s' }} type="button">Confirmar asistencia</button>
+      <div className="compare-after-item compare-after-copy" style={{ '--d':'0.7s' }}>Ubicación + recordatorio en un toque</div>
+    </div>
+  );
+}
+
 function SceneCompare() {
-  const [pos, setPos] = useState(38);
+  const [pos, setPos] = useState(50);
   const trackRef = useRef(null);
   const dragging = useRef(false);
   const onMove = (cx) => {
@@ -3260,50 +3403,14 @@ function SceneCompare() {
           onTouchMove={e=>onMove(e.touches[0].clientX)}
           onTouchEnd={()=>{ dragging.current=false; }}>
 
-          {/* DESPUÉS (full, behind) */}
-          <div className="compare-side" style={{ background:'radial-gradient(circle at 16% 12%, rgba(255,255,255,.9), transparent 22%), radial-gradient(circle at 86% 84%, rgba(216,183,236,.36), transparent 28%), linear-gradient(180deg,#fff6f2 0%,#f5dcd5 100%)', display:'flex', alignItems:'center', justifyContent:'center', padding:16 }}>
-            <div className="compare-after-product" aria-label="Invitación digital completa">
-              <div className="compare-after-item compare-after-kicker" style={{ '--d':'0s' }}>BABY SHOWER</div>
-              <div className="compare-after-item compare-after-headline" style={{ '--d':'0.1s' }}>Está por<br/>florecer</div>
-              <div className="compare-after-item compare-after-name" style={{ '--d':'0.2s' }}>Sofía</div>
-              <div className="compare-after-item compare-after-date" style={{ '--d':'0.3s' }}>24 · 07 · 2026</div>
-              <div className="compare-after-item compare-after-micro" style={{ '--d':'0.4s' }}>
-                <FineIcon type="music" size={13}/> música suave
-              </div>
-              <div className="compare-after-item" style={{ '--d':'0.48s', display:'grid', gridTemplateColumns:'1fr 1fr', gap:6, width:'min(230px, 82%)' }}>
-                {[
-                  { icon:'pin', label:'Ubicación' },
-                  { icon:'calendar', label:'Calendario' },
-                  { icon:'whatsapp', label:'WhatsApp' },
-                  { icon:'heart', label:'Link listo' },
-                ].map(item => (
-                  <div key={item.label} className="compare-after-micro" style={{ justifyContent:'center', padding:'5px 8px', fontSize:8 }}>
-                    <FineIcon type={item.icon} size={11}/> {item.label}
-                  </div>
-                ))}
-              </div>
-              <div className="compare-after-item compare-after-separator" style={{ '--d':'0.5s' }}/>
-              <button className="compare-after-item compare-after-button" style={{ '--d':'0.6s' }} type="button">Confirmar asistencia</button>
-              <div className="compare-after-item compare-after-copy" style={{ '--d':'0.7s' }}>Ubicación + recordatorio en un toque</div>
-            </div>
+          {/* ANTES base */}
+          <div className="compare-side" style={{ background:'#cfc7bd', display:'flex', alignItems:'center', justifyContent:'flex-start', padding:16 }}>
+            <BeforeFlatInvite/>
           </div>
 
-          {/* ANTES (clipped left side) */}
-          <div className="compare-side" style={{ clipPath:`inset(0 ${100-pos}% 0 0)`, background:'#cfc7bd', display:'flex', alignItems:'center', justifyContent:'flex-start', padding:16 }}>
-            <div className="compare-before-card">
-              <div style={{ fontSize:7, color:'#9a9086', marginBottom:6 }}>imagen enviada por chat</div>
-              <div className="compare-before-image">
-                <div className="compare-before-stamp">Baby Shower</div>
-                <div className="compare-before-title">Invitación<br/>simple</div>
-                <div className="compare-before-lines"><span/><span/><span style={{ width:'72%' }}/></div>
-                <div style={{ fontSize:8, marginTop:12 }}>Sábado 12 · Casa</div>
-              </div>
-              <div className="compare-before-note">
-                <span>sin música</span>
-                <span>sin mapa</span>
-                <span>sin calendario ni confirmación</span>
-              </div>
-            </div>
+          {/* DESPUÉS overlay desde la derecha */}
+          <div className="compare-side" style={{ clipPath:`inset(0 0 0 ${100-pos}%)`, background:'radial-gradient(circle at 16% 12%, rgba(255,255,255,.9), transparent 22%), radial-gradient(circle at 86% 84%, rgba(216,183,236,.36), transparent 28%), linear-gradient(180deg,#fff6f2 0%,#f5dcd5 100%)', display:'flex', alignItems:'center', justifyContent:'flex-end', padding:'16px 34px 16px 16px' }}>
+            <AfterPremiumInvite/>
           </div>
 
           {/* Drag handle */}
@@ -3554,6 +3661,8 @@ function PublicInvitationPage() {
 function App() {
   const [tweaks, setTweaks] = useTweaks({ showAdmin:false, snapScroll:true, stagePalette:'dark' });
   const [collection, setCollection] = useState('floral');
+  const [demoPalette, setDemoPalette] = useState(getStylePalettes(STYLE_BY_ID.floral)[0]);
+  const [selectedPalettes, setSelectedPalettes] = useState({ floral: getStylePalettes(STYLE_BY_ID.floral)[0] });
   const [liveFields, setLiveFields] = useState({ baby: '', date: '', time: '', place: '', address: '', whatsapp: '' });
   const [activeIdx, setActiveIdx] = useState(0);
   const scrollRef = useRef(null);
@@ -3579,14 +3688,23 @@ function App() {
     el.scrollTo({ top: target ? target.offsetTop : i * el.clientHeight, behavior:'smooth' });
   };
 
-  const orderStyle = (styleId) => {
+  const chooseCollection = (styleId, palette) => {
+    const style = STYLE_BY_ID[styleId] || STYLE_BY_ID.floral;
+    const chosenPalette = palette || selectedPalettes[style.id] || getStylePalettes(style)[0];
+    setCollection(style.id);
+    setDemoPalette(chosenPalette);
+    setSelectedPalettes(current => ({ ...current, [style.id]: chosenPalette }));
+  };
+
+  const orderStyle = (styleId, palette) => {
     const style = STYLE_BY_ID[styleId] || STYLE_BY_ID.floral;
     const data = getLiveInviteData(style.id, liveFields);
     const hasTypedData = Object.values(liveFields).some(value => String(value || '').trim());
+    const paletteText = palette ? ` paleta ${palette.name}` : '';
     const details = hasTypedData
       ? ` Datos: ${data.baby} · ${data.date} · ${data.time} · ${data.place}.`
       : '';
-    window.open(`https://wa.me/?text=${encodeURIComponent(`Hola, quiero una invitación digital estilo ${style.name}.${details}`)}`, '_blank');
+    window.open(`https://wa.me/?text=${encodeURIComponent(`Hola, quiero una invitación digital estilo ${style.name}${paletteText}.${details}`)}`, '_blank');
   };
 
   return (
@@ -3628,9 +3746,9 @@ function App() {
 
         <div ref={scrollRef} className="phone-scroll" style={{ scrollSnapType: tweaks.snapScroll ? 'y mandatory' : 'none' }}>
           <SceneHero onJump={()=>goTo(3)}/>
-          <SceneDemo collection={collection} setCollection={setCollection} liveFields={liveFields} setLiveFields={setLiveFields} onViewStyles={()=>goTo(3)}/>
+          <SceneDemo collection={collection} setCollection={chooseCollection} liveFields={liveFields} setLiveFields={setLiveFields} selectedPalette={demoPalette} onViewStyles={()=>goTo(3)}/>
           <SceneHowWorks/>
-          <SceneCollectionIntro onTryDemo={c=>{setCollection(c);goTo(1);}} onOrderStyle={orderStyle}/>
+          <SceneCollectionIntro onTryDemo={(c,palette)=>{chooseCollection(c, palette);goTo(1);}} onOrderStyle={orderStyle}/>
           <SceneCompare/>
           <SceneIncludes/>
           <ScenePrice/>
@@ -3651,7 +3769,7 @@ function App() {
           <TweakToggle label="Snap scroll"  value={tweaks.snapScroll}  onChange={v=>setTweaks({snapScroll:v})}/>
         </TweakSection>
         <TweakSection label="Demo">
-          <TweakRadio label="Colección" value={collection} onChange={setCollection}
+          <TweakRadio label="Colección" value={collection} onChange={chooseCollection}
             options={INVITATION_STYLES.map(style => ({ value:style.id, label:style.shortName.slice(0, 3) }))}/>
         </TweakSection>
         <TweakSection label="Internal">
