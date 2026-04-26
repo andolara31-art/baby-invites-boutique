@@ -1,10 +1,11 @@
-import { readFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, readFileSync, rmSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const html = readFileSync(resolve(root, "index.html"), "utf8");
 const vercel = JSON.parse(readFileSync(resolve(root, "vercel.json"), "utf8"));
+const outputDir = resolve(root, "public");
 
 const requiredStyles = [
   "honey",
@@ -38,4 +39,8 @@ if (failed.length) {
   process.exit(1);
 }
 
-console.log(`Static build check passed: ${checks.length} checks.`);
+rmSync(outputDir, { recursive: true, force: true });
+mkdirSync(outputDir, { recursive: true });
+copyFileSync(resolve(root, "index.html"), resolve(outputDir, "index.html"));
+
+console.log(`Static build check passed: ${checks.length} checks. Output written to public/.`);
