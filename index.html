@@ -286,6 +286,151 @@ html, body {
 }
 .demo-tab:hover { transform: translateY(-1px); color: #f5e9d8; border-color: rgba(245,233,216,0.34); }
 .demo-tab.active { background: #f5e9d8; color: #1a1410; border-color: #f5e9d8; }
+.demo-personalizer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 2px;
+}
+.demo-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.demo-field:first-child {
+  grid-column: 1 / -1;
+}
+.demo-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px 11px;
+  border-radius: 14px;
+  border: 1px solid rgba(245,233,216,0.13);
+  background: rgba(245,233,216,0.055);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  transition: border-color .25s ease, background .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.demo-field:focus-within {
+  transform: translateY(-1px);
+  border-color: rgba(212,165,116,0.5);
+  background: rgba(245,233,216,0.095);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 12px 30px -26px rgba(212,165,116,0.65);
+}
+.demo-field label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 7px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(212,165,116,0.78);
+  font-weight: 600;
+}
+.demo-field input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #f5e9d8;
+  font: 500 13px/1.2 'Outfit', sans-serif;
+  letter-spacing: 0;
+}
+.demo-field input::placeholder {
+  color: rgba(245,233,216,0.38);
+}
+.demo-field input[type="date"] {
+  color-scheme: dark;
+}
+.demo-field input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) sepia(.24) saturate(1.6) hue-rotate(350deg);
+  opacity: .7;
+}
+.demo-live-note {
+  margin: 0;
+  color: rgba(245,233,216,0.6);
+  font-size: 12px;
+  line-height: 1.45;
+}
+.demo-device-stack {
+  width: min(38vw, 390px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.demo-device-stack .demo-device {
+  width: 100%;
+}
+.demo-device-caption {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: rgba(245,233,216,0.72);
+  font-size: 15px;
+  line-height: 1.2;
+}
+.demo-live-cta {
+  width: 100%;
+  justify-content: center;
+  padding: 14px 20px;
+  font-size: 11px;
+  box-shadow: 0 18px 40px -22px rgba(245,233,216,0.5);
+}
+.demo-link-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.demo-share-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(212,165,116,0.22);
+  background: rgba(245,233,216,0.075);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.demo-share-panel label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 7px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(212,165,116,0.82);
+  font-weight: 600;
+}
+.demo-share-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+}
+.demo-share-row input {
+  min-width: 0;
+  border: 1px solid rgba(245,233,216,0.14);
+  border-radius: 999px;
+  background: rgba(0,0,0,0.16);
+  color: rgba(245,233,216,0.86);
+  font: 500 11px/1.2 'Outfit', sans-serif;
+  padding: 11px 14px;
+  outline: 0;
+}
+.demo-share-row button,
+.demo-link-actions button {
+  appearance: none;
+  border: 1px solid rgba(245,233,216,0.18);
+  border-radius: 999px;
+  background: rgba(245,233,216,0.08);
+  color: #f5e9d8;
+  font: 600 10px/1 'Outfit', sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 11px 14px;
+  cursor: pointer;
+}
+.demo-link-actions button:first-child {
+  background: #f5e9d8;
+  color: #1a1410;
+  border-color: #f5e9d8;
+}
 .demo-benefits {
   grid-column: 1;
   display: grid;
@@ -617,6 +762,17 @@ html, body {
   background: var(--xp-accent);
   animation: xp-progress 3s linear forwards;
 }
+.live-value {
+  display: inline-block;
+  transition: opacity .15s ease, transform .15s ease;
+}
+.live-value.is-out {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+.live-value.is-in {
+  animation: live-value-in .25s cubic-bezier(.35,.8,.25,1) both;
+}
 .xp-deco { position: absolute; pointer-events: none; z-index: 1; }
 .xp-honey-drop {
   width: 9px; height: 13px; border-radius: 70% 70% 70% 18%;
@@ -646,6 +802,7 @@ html, body {
 @keyframes xp-drop { 0%,100%{ transform: translateY(0) scale(1); opacity:.34; } 50%{ transform: translateY(10px) scale(.96); opacity:.55; } }
 @keyframes xp-petal { 0%{ transform: translateY(-14px) translateX(0) rotate(0deg); opacity:0; } 15%,80%{ opacity:.42; } 100%{ transform: translateY(110px) translateX(-22px) rotate(80deg); opacity:0; } }
 @keyframes xp-shimmer { 0%,100%{ opacity:.32; transform: scale(.92); } 50%{ opacity:.72; transform: scale(1.04); } }
+@keyframes live-value-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ── Compare ── */
 .compare-track {
@@ -664,6 +821,400 @@ html, body {
   box-shadow: 0 2px 12px rgba(0,0,0,0.2);
   display: flex; align-items: center; justify-content: center;
   font-size: 12px; color: #2a201a; flex-shrink: 0;
+}
+.compare-after-product {
+  position: relative;
+  width: min(100%, 420px);
+  max-height: calc(100% - 18px);
+  border-radius: 22px;
+  padding: clamp(22px, 5vw, 34px) clamp(20px, 6vw, 38px);
+  overflow: hidden;
+  text-align: center;
+  color: #4b2725;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background:
+    radial-gradient(circle at 16% 12%, rgba(255,255,255,0.88) 0 18%, transparent 19%),
+    radial-gradient(circle at 88% 20%, rgba(232,180,176,0.38) 0 16%, transparent 17%),
+    linear-gradient(145deg, #fffaf6 0%, #f8dedc 58%, #efcfc8 100%);
+  border: 1px solid rgba(92,42,42,0.08);
+  box-shadow: 0 28px 65px -34px rgba(92,42,42,0.44), inset 0 1px 0 rgba(255,255,255,0.72);
+}
+.compare-after-product::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.26;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(138,79,79,0.16) 1px, transparent 0),
+    linear-gradient(115deg, transparent 0 42%, rgba(255,255,255,0.34) 43% 50%, transparent 51% 100%);
+  background-size: 16px 16px, 100% 100%;
+  pointer-events: none;
+}
+.compare-after-product::after {
+  content: "";
+  position: absolute;
+  width: 124px;
+  height: 124px;
+  right: -42px;
+  bottom: -38px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,180,176,0.34), transparent 68%);
+  pointer-events: none;
+}
+.compare-after-item {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: compare-after-reveal 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+.compare-after-kicker {
+  font-family: 'Outfit', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #8a4f4f;
+}
+.compare-after-headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(28px, 8vw, 44px);
+  line-height: 0.9;
+  letter-spacing: 0;
+  color: #4b2725;
+  max-width: 300px;
+}
+.compare-after-name {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: clamp(40px, 10vw, 60px);
+  line-height: 0.86;
+  letter-spacing: 0;
+  color: #8a4f4f;
+  margin-top: -2px;
+}
+.compare-after-date {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #5c2a2a;
+  margin-top: 4px;
+}
+.compare-after-micro {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.72);
+  border: 1px solid rgba(138,79,79,0.12);
+  color: #5c2a2a;
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  box-shadow: 0 10px 24px -18px rgba(92,42,42,0.42);
+}
+.compare-after-separator {
+  width: min(170px, 58%);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(138,79,79,0.28), transparent);
+}
+.compare-after-button {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  background: #4b2725;
+  color: #fff8f3;
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  padding: 10px 16px;
+  box-shadow: 0 14px 30px -18px rgba(75,39,37,0.65);
+}
+.compare-after-copy {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  line-height: 1.35;
+  color: #6d4542;
+}
+@keyframes compare-after-reveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Final invitation card ── */
+.scene-cta .final-cta-copy {
+  padding: 64px 28px 8px !important;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 4;
+}
+.scene-cta .final-invite-wrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 30px 18px;
+  position: relative;
+  z-index: 2;
+}
+.final-invite-card {
+  position: relative;
+  width: min(74%, 310px);
+  max-height: 100%;
+  aspect-ratio: 9 / 12.6;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 24px;
+  text-align: center;
+  color: #472421;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255,255,255,0.88) 0 16%, transparent 17%),
+    radial-gradient(circle at 82% 84%, rgba(232,180,176,0.38) 0 22%, transparent 23%),
+    linear-gradient(155deg, #fffaf6 0%, #f8e5df 48%, #edcdc6 100%);
+  border: 1px solid rgba(138,79,79,0.09);
+  box-shadow: 0 24px 48px -28px rgba(80,50,30,0.44), inset 0 1px 0 rgba(255,255,255,0.7);
+  animation: final-card-drift 5.8s ease-in-out infinite;
+}
+.final-invite-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(138,79,79,0.13) 1px, transparent 0),
+    linear-gradient(120deg, transparent 0 40%, rgba(255,255,255,0.28) 46%, transparent 52% 100%);
+  background-size: 18px 18px, 100% 100%;
+  opacity: 0.28;
+  pointer-events: none;
+}
+.final-deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.16;
+  animation: final-deco-float 6.5s ease-in-out infinite;
+}
+.final-deco-1 { top: -8%; left: -18%; width: 58%; }
+.final-deco-2 { right: -16%; bottom: -7%; width: 52%; transform: rotate(180deg); animation-delay: -1.8s; }
+.final-deco-3 {
+  top: 18%;
+  right: 13%;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #8a4f4f;
+  opacity: 0.12;
+  animation-delay: -3s;
+}
+.final-invite-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.final-invite-line {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: final-line-reveal 0.85s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+.final-invite-kicker {
+  font-family: 'Outfit', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #8a4f4f;
+}
+.final-invite-headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(32px, 8vw, 48px);
+  line-height: 0.9;
+  letter-spacing: 0;
+  color: #472421;
+  max-width: 245px;
+  margin-top: 14px;
+}
+.final-shimmer {
+  background: linear-gradient(90deg, #472421 0%, #8a4f4f 42%, #c8957f 52%, #472421 70%);
+  background-size: 230% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: final-text-shimmer 4.4s ease-in-out infinite;
+}
+.final-invite-name {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-size: clamp(46px, 11vw, 64px);
+  line-height: 0.86;
+  letter-spacing: 0;
+  color: #8a4f4f;
+  margin-top: 6px;
+}
+.final-invite-date {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #4b2725;
+  font-weight: 700;
+  margin-top: 16px;
+}
+.final-invite-rule {
+  width: min(172px, 72%);
+  height: 1px;
+  margin: 15px 0 12px;
+  background: linear-gradient(90deg, transparent, rgba(138,79,79,0.28), transparent);
+}
+.final-invite-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #5c2a2a;
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.64);
+  border: 1px solid rgba(138,79,79,0.11);
+}
+.final-invite-copy {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  line-height: 1.4;
+  color: #65413d;
+  margin-top: 12px;
+}
+@keyframes final-card-drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes final-deco-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -6px; }
+}
+@keyframes final-line-reveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes final-text-shimmer {
+  0%, 18% { background-position: 120% 0; }
+  48%, 100% { background-position: -120% 0; }
+}
+
+/* ── Public invitation ── */
+.public-invite-page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 22px 18px;
+  color: #f5e9d8;
+  background:
+    radial-gradient(ellipse at 24% 12%, #3a2820 0%, transparent 52%),
+    radial-gradient(ellipse at 82% 84%, #2a1f18 0%, transparent 48%),
+    linear-gradient(180deg, #1a1410 0%, #120d0a 100%);
+}
+.public-invite-shell {
+  width: min(100%, 420px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+.public-invite-frame {
+  width: min(92vw, 320px, calc((100dvh - 300px) * 9 / 19));
+  min-width: min(92vw, 220px);
+  aspect-ratio: 9 / 19;
+  border-radius: 34px;
+  padding: 8px;
+  background: #0a0604;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 32px 80px -28px rgba(0,0,0,0.8);
+}
+.public-invite-frame .demo-screen {
+  border-radius: 26px;
+}
+.public-invite-meta {
+  width: min(92vw, 390px);
+  text-align: center;
+}
+.public-invite-meta .eyebrow {
+  color: #d4a574;
+}
+.public-invite-meta h1 {
+  margin: 8px 0 0;
+  font-size: clamp(30px, 7vw, 44px);
+  color: #f5e9d8;
+}
+.public-invite-meta p {
+  margin: 8px auto 0;
+  max-width: 310px;
+  color: rgba(245,233,216,0.66);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.public-actions {
+  width: min(92vw, 390px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.public-action {
+  appearance: none;
+  border: 1px solid rgba(245,233,216,0.14);
+  border-radius: 999px;
+  background: rgba(245,233,216,0.08);
+  color: #f5e9d8;
+  min-height: 46px;
+  padding: 0 14px;
+  font: 600 10px/1 'Outfit', sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  cursor: pointer;
+}
+.public-action.primary {
+  background: #25D366;
+  border-color: #25D366;
+  color: #fff;
+  box-shadow: 0 14px 36px -18px rgba(37,211,102,0.7);
+}
+.public-unavailable {
+  width: min(92vw, 440px);
+  border-radius: 24px;
+  padding: 34px 28px;
+  text-align: center;
+  color: #f5e9d8;
+  background: rgba(245,233,216,0.07);
+  border: 1px solid rgba(245,233,216,0.13);
+  box-shadow: 0 28px 70px -38px rgba(0,0,0,0.7);
+}
+.public-unavailable h1 {
+  margin: 0;
+  color: #f5e9d8;
+  font-size: clamp(30px, 8vw, 44px);
+}
+.public-unavailable p {
+  margin: 12px 0 0;
+  color: rgba(245,233,216,0.62);
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 /* ── Outside controls ── */
@@ -829,8 +1380,10 @@ select.twk-field{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http:
     width: calc(100vw - 72px) !important;
     max-width: 100%;
   }
-  .scene-demo {
-    overflow-y: auto;
+  .scene-demo.scene-snap {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
   }
   .demo-grid {
     display: flex;
@@ -838,12 +1391,14 @@ select.twk-field{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http:
     gap: 18px;
     align-items: stretch;
     justify-content: flex-start;
+    flex: none;
     min-height: 100svh;
     padding: 34px 24px max(28px, env(safe-area-inset-bottom));
   }
   .demo-copy {
     gap: 14px;
     max-width: none;
+    flex-shrink: 0;
   }
   .demo-copy h2 {
     font-size: clamp(30px, 9vw, 38px) !important;
@@ -852,19 +1407,68 @@ select.twk-field{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http:
     order: 2;
     width: 100%;
     margin-top: 8px;
+    flex-shrink: 0;
+  }
+  .demo-device-stack {
+    width: min(72vw, 292px);
+    gap: 10px;
   }
   .demo-device {
     width: min(72vw, 292px);
     max-height: 438px;
   }
+  .demo-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .demo-field:first-child {
+    grid-column: auto;
+  }
+  .demo-share-row {
+    grid-template-columns: 1fr;
+  }
+  .demo-share-row button {
+    width: 100%;
+  }
+  .demo-live-cta {
+    padding: 13px 18px;
+  }
   .demo-benefits {
     order: 3;
+    width: 100%;
+    flex-shrink: 0;
     grid-template-columns: 1fr;
     gap: 8px;
     margin-top: 0;
   }
   .demo-benefit {
     font-size: 11px;
+  }
+  .compare-after-product {
+    padding: 20px 18px;
+    gap: 8px;
+  }
+  .compare-after-headline {
+    font-size: clamp(27px, 8.4vw, 38px);
+  }
+  .compare-after-name {
+    font-size: clamp(38px, 10vw, 52px);
+  }
+  .scene-cta .final-cta-copy {
+    padding: 48px 24px 8px !important;
+  }
+  .scene-cta .final-invite-wrap {
+    padding: 8px 24px 14px;
+    align-items: flex-start;
+  }
+  .final-invite-card {
+    width: min(70vw, 270px);
+    padding: 24px 20px;
+  }
+  .final-invite-headline {
+    font-size: clamp(30px, 8vw, 40px);
+  }
+  .final-invite-name {
+    font-size: clamp(42px, 11vw, 58px);
   }
 }
 
@@ -880,6 +1484,14 @@ select.twk-field{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http:
     font-size: 11px;
     padding-left: 18px;
     padding-right: 18px;
+  }
+  .final-invite-card {
+    width: min(68vw, 250px);
+  }
+  .compare-after-button,
+  .compare-after-copy,
+  .final-invite-copy {
+    font-size: 9px;
   }
 }
 </style>
@@ -1116,6 +1728,156 @@ const CDATA = {
   floral:  { name:'Jardín de Amor',  baby:'Sofía',   parents:'Valentina & Mateo',  phrase:'Un nuevo amor está por florecer', date:'Domingo 12 de mayo', time:'3:00 p.m.', place:'Terraza Jardín', city:'San José, Costa Rica', Mock:(p)=><JardinMock size="lg" {...p}/> },
   minimal: { name:'Pequeño Milagro', baby:'Isabella',parents:'Daniela & Sebastián', phrase:'Lo más pequeño puede cambiarlo todo', date:'Domingo 12 de mayo', time:'3:00 p.m.', place:'Terraza Jardín', city:'San José, Costa Rica', Mock:(p)=><MilagroMock size="lg" {...p}/> },
 };
+const LIVE_DEFAULTS = {
+  baby: 'Mateo',
+  dateInput: '2026-07-24',
+  date: '24 · 07 · 2026',
+  time: '15:00',
+  place: 'San José',
+  address: 'Terraza Jardín',
+  whatsapp: '',
+};
+
+function formatInviteDate(value) {
+  if (!value) value = LIVE_DEFAULTS.dateInput;
+  const [year, month, day] = value.split('-');
+  if (!year || !month || !day) return LIVE_DEFAULTS.date;
+  return `${day} · ${month} · ${year}`;
+}
+
+function getLiveInviteData(collection, fields) {
+  const style = CDATA[collection] ? collection : 'floral';
+  const base = CDATA[style];
+  const baby = fields.baby?.trim() || LIVE_DEFAULTS.baby;
+  const dateInput = fields.date || LIVE_DEFAULTS.dateInput;
+  const date = formatInviteDate(fields.date);
+  const time = fields.time || LIVE_DEFAULTS.time;
+  const place = fields.place?.trim() || LIVE_DEFAULTS.place;
+  const address = fields.address?.trim() || LIVE_DEFAULTS.address;
+  const whatsapp = fields.whatsapp?.trim() || LIVE_DEFAULTS.whatsapp;
+  return {
+    ...base,
+    style,
+    baby,
+    dateInput,
+    date,
+    time,
+    place,
+    address,
+    city: address,
+    whatsapp,
+  };
+}
+
+function cleanText(value, fallback = '', max = 80) {
+  const text = String(value ?? '').replace(/[\u0000-\u001F\u007F<>]/g, '').trim();
+  return (text || fallback).slice(0, max);
+}
+
+function normalizePhone(value) {
+  return String(value ?? '').replace(/\D/g, '').slice(0, 18);
+}
+
+function sanitizeInvitePayload(raw) {
+  if (!raw || typeof raw !== 'object') return null;
+  const style = CDATA[raw.style] ? raw.style : 'floral';
+  const dateInput = /^\d{4}-\d{2}-\d{2}$/.test(String(raw.dateInput || '')) ? raw.dateInput : LIVE_DEFAULTS.dateInput;
+  const time = /^\d{2}:\d{2}$/.test(String(raw.time || '')) ? raw.time : LIVE_DEFAULTS.time;
+  return {
+    style,
+    baby: cleanText(raw.baby, LIVE_DEFAULTS.baby, 48),
+    dateInput,
+    date: formatInviteDate(dateInput),
+    time,
+    place: cleanText(raw.place, LIVE_DEFAULTS.place, 80),
+    address: cleanText(raw.address, LIVE_DEFAULTS.address, 120),
+    whatsapp: normalizePhone(raw.whatsapp),
+  };
+}
+
+function makeInviteDataFromPayload(payload) {
+  const safe = sanitizeInvitePayload(payload);
+  if (!safe) return null;
+  const base = CDATA[safe.style];
+  return { ...base, ...safe, city: safe.address };
+}
+
+function encodeInvitePayload(payload) {
+  const json = JSON.stringify(sanitizeInvitePayload(payload));
+  const binary = unescape(encodeURIComponent(json));
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+function decodeInvitePayload(encoded) {
+  try {
+    if (!encoded || encoded.length > 3000) return null;
+    const normalized = encoded.replace(/-/g, '+').replace(/_/g, '/');
+    const padded = normalized + '='.repeat((4 - normalized.length % 4) % 4);
+    const json = decodeURIComponent(escape(atob(padded)));
+    return sanitizeInvitePayload(JSON.parse(json));
+  } catch {
+    return null;
+  }
+}
+
+function makeInvitationUrl(payload) {
+  const code = encodeInvitePayload(payload);
+  return `${window.location.origin}/invitacion?data=${code}`;
+}
+
+function makeWhatsappUrl(data) {
+  const phone = normalizePhone(data.whatsapp);
+  const text = `Hola, confirmo mi asistencia al baby shower de ${data.baby}`;
+  return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+}
+
+function makeMapsUrl(data) {
+  const query = [data.address, data.place].filter(Boolean).join(', ');
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
+function makeCalendarUrl(data) {
+  const start = `${data.dateInput.replace(/-/g, '')}T${data.time.replace(':', '')}00`;
+  const endDate = new Date(`${data.dateInput}T${data.time}:00`);
+  if (Number.isFinite(endDate.getTime())) endDate.setHours(endDate.getHours() + 3);
+  const end = Number.isFinite(endDate.getTime())
+    ? `${endDate.getFullYear()}${String(endDate.getMonth()+1).padStart(2,'0')}${String(endDate.getDate()).padStart(2,'0')}T${String(endDate.getHours()).padStart(2,'0')}${String(endDate.getMinutes()).padStart(2,'0')}00`
+    : start;
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: `Baby Shower de ${data.baby}`,
+    dates: `${start}/${end}`,
+    details: `Baby shower de ${data.baby}. Confirma tu asistencia por WhatsApp.`,
+    location: [data.place, data.address].filter(Boolean).join(' - '),
+  });
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
+function LiveValue({ value, as = 'span', className = '', style }) {
+  const Tag = as;
+  const initial = String(value ?? '');
+  const [shown, setShown] = useState(initial);
+  const [phase, setPhase] = useState('');
+  const shownRef = useRef(initial);
+
+  useEffect(() => {
+    const incoming = String(value ?? '');
+    if (incoming === shownRef.current) return;
+    setPhase('is-out');
+    const swap = setTimeout(() => {
+      shownRef.current = incoming;
+      setShown(incoming);
+      setPhase('is-in');
+    }, 150);
+    const settle = setTimeout(() => setPhase(''), 420);
+    return () => {
+      clearTimeout(swap);
+      clearTimeout(settle);
+    };
+  }, [value]);
+
+  return <Tag className={`live-value ${phase} ${className}`.trim()} style={style}>{shown}</Tag>;
+}
 
 function WhatsappIcon({ size = 16 }) {
   return (<svg viewBox="0 0 32 32" width={size} height={size} fill="currentColor"><path d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.5 1.7 6.4L3 29l6.8-1.8c1.8 1 3.9 1.5 6.2 1.5 7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.7c-2 0-3.9-.5-5.5-1.5l-.4-.2-4 1 1.1-3.9-.3-.4c-1.1-1.7-1.6-3.6-1.6-5.7 0-5.9 4.8-10.7 10.7-10.7s10.7 4.8 10.7 10.7-4.8 10.7-10.7 10.7zm5.9-8c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2s-.8 1-1 1.2c-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-.9-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.2 3c.2.2 2.1 3.2 5 4.4.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.6-.1 1.9-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.4z"/></svg>);
@@ -1202,7 +1964,7 @@ function InviteSceneCover({ data, collection }) {
       <div className="xp-script xp-reveal" style={{ '--d':'260ms', fontSize:16, lineHeight:1.2, maxWidth:230 }}>Un pequeño milagro viene en camino...</div>
       <InviteSymbol collection={collection}/>
       <div className="xp-script xp-reveal" style={{ '--d':'560ms', fontSize:18, lineHeight:1.15, maxWidth:220 }}>{data.phrase}</div>
-      <div className="xp-name xp-reveal" style={{ '--d':'820ms' }}>{data.baby}</div>
+      <LiveValue as="div" value={data.baby} className="xp-name xp-reveal" style={{ '--d':'820ms' }}/>
       <div className="xp-copy xp-reveal" style={{ '--d':'1080ms', marginTop:8 }}>Una invitación hecha para emocionar.</div>
     </div>
   );
@@ -1227,7 +1989,7 @@ function InviteSceneDetails({ data }) {
     { icon:'calendar', label:'Fecha', value:data.date },
     { icon:'clock', label:'Hora', value:data.time },
     { icon:'heart', label:'Lugar', value:data.place },
-    { icon:'pin', label:'Ciudad', value:data.city },
+    { icon:'pin', label:'Dirección', value:data.address || data.city },
   ];
   return (
     <div className="xp-scene active" key="details">
@@ -1239,7 +2001,7 @@ function InviteSceneDetails({ data }) {
             <div className="xp-detail-icon"><FineIcon type={r.icon}/></div>
             <div>
               <div className="xp-detail-label">{r.label}</div>
-              <div className="xp-detail-value">{r.value}</div>
+              <LiveValue as="div" value={r.value} className="xp-detail-value"/>
             </div>
           </div>
         ))}
@@ -1262,7 +2024,7 @@ function InviteSceneLocation({ data }) {
         </svg>
         <div className="xp-pin"/>
       </div>
-      <div className="xp-copy xp-reveal" style={{ '--d':'900ms' }}>{data.place} · {data.city}</div>
+      <LiveValue as="div" value={`${data.place} · ${data.address || data.city}`} className="xp-copy xp-reveal" style={{ '--d':'900ms' }}/>
       <button className="xp-btn xp-btn-secondary xp-reveal" style={{ '--d':'1080ms', marginTop:14, width:'100%' }} onClick={(e)=>e.stopPropagation()}>
         Ver ubicación
       </button>
@@ -1294,9 +2056,9 @@ function InviteSceneConfirm() {
   );
 }
 
-function InviteDemo({ collection, step, setStep }) {
+function InviteDemo({ collection, step, setStep, data: liveData, musicOn = true }) {
   const t = THEMES[collection];
-  const data = CDATA[collection];
+  const data = liveData || CDATA[collection];
   const next = () => setStep((step + 1) % XP_SCENES.length);
   const scene = XP_SCENES[step];
   const sceneNode = {
@@ -1322,7 +2084,7 @@ function InviteDemo({ collection, step, setStep }) {
         <span>{data.name}</span>
         <span className="xp-music">
           <span className="xp-wave">{[0,.2,.4].map((d,i)=><span key={i} style={{ animationDelay:`${d}s` }}/>)}</span>
-          Música suave activada
+          {musicOn ? 'Música suave activada' : 'Música pausada'}
         </span>
       </div>
       {React.cloneElement(sceneNode, { key:`${collection}-${scene.id}` })}
@@ -1521,6 +2283,10 @@ function SceneCollectionPage({ which, onTryDemo }) {
 function SceneDemo({ collection, setCollection, onViewStyles }) {
   const [step, setStep] = useState(0);
   const [manualTick, setManualTick] = useState(0);
+  const [liveFields, setLiveFields] = useState({ baby: '', date: '', time: '', place: '', address: '', whatsapp: '' });
+  const [shareLink, setShareLink] = useState('');
+  const [copied, setCopied] = useState(false);
+  const liveData = getLiveInviteData(collection, liveFields);
   const benefits = [
     { icon:'music', label:'Música visual' },
     { icon:'pin', label:'Ubicación' },
@@ -1537,6 +2303,42 @@ function SceneDemo({ collection, setCollection, onViewStyles }) {
     const id = setInterval(()=>setStep(s=>(s+1)%XP_SCENES.length), 3000);
     return ()=>clearInterval(id);
   }, [collection, manualTick]);
+  const updateLiveField = (field, value) => {
+    setLiveFields(current => ({ ...current, [field]: value }));
+    setCopied(false);
+  };
+  const currentPayload = () => sanitizeInvitePayload({
+    style: collection,
+    baby: liveData.baby,
+    dateInput: liveData.dateInput,
+    time: liveData.time,
+    place: liveData.place,
+    address: liveData.address,
+    whatsapp: liveData.whatsapp,
+  });
+  const generateInvitationLink = () => {
+    const link = makeInvitationUrl(currentPayload());
+    setShareLink(link);
+    setCopied(false);
+  };
+  const copyInvitationLink = async () => {
+    if (!shareLink) return;
+    try {
+      await navigator.clipboard.writeText(shareLink);
+      setCopied(true);
+    } catch {
+      const el = document.getElementById('generated-invite-link');
+      if (el) {
+        el.select();
+        document.execCommand('copy');
+        setCopied(true);
+      }
+    }
+  };
+  const openPersonalizedWhatsapp = () => {
+    const message = `Hola, quiero esta invitación personalizada con estos datos: ${liveData.baby} + ${liveData.date} + ${liveData.place}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+  };
 
   return (
     <div className="scene scene-snap bg-night scene-demo">
@@ -1545,11 +2347,78 @@ function SceneDemo({ collection, setCollection, onViewStyles }) {
           <div>
             <div className="eyebrow" style={{ color:'#d4a574', marginBottom:8 }}>02 · Demo en vivo</div>
             <h2 className="display" style={{ fontSize:'clamp(32px,6vw,50px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.02em' }}>
-              Mira la invitación antes de pedirla.
+              Personaliza tu invitación en segundos.
             </h2>
             <p style={{ marginTop:14, fontSize:15, color:'rgba(245,233,216,0.68)', lineHeight:1.55, maxWidth:480 }}>
-              Revisa portada, mensaje, detalles, ubicación y confirmación en una mini historia que se reproduce sola.
+              Prueba cómo se siente cuando la invitación ya tiene tus datos.
             </p>
+          </div>
+
+          <div className="demo-personalizer" aria-label="Personalización en vivo">
+            <div className="demo-form-grid">
+              <div className="demo-field">
+                <label htmlFor="demo-baby-name">Nombre</label>
+                <input
+                  id="demo-baby-name"
+                  type="text"
+                  value={liveFields.baby}
+                  placeholder="Nombre del bebé"
+                  onChange={e=>updateLiveField('baby', e.target.value)}
+                />
+              </div>
+              <div className="demo-field">
+                <label htmlFor="demo-event-date">Fecha</label>
+                <input
+                  id="demo-event-date"
+                  type="date"
+                  value={liveFields.date}
+                  placeholder="Fecha del evento"
+                  aria-label="Fecha del evento"
+                  onChange={e=>updateLiveField('date', e.target.value)}
+                />
+              </div>
+              <div className="demo-field">
+                <label htmlFor="demo-event-time">Hora</label>
+                <input
+                  id="demo-event-time"
+                  type="time"
+                  value={liveFields.time}
+                  aria-label="Hora del evento"
+                  onChange={e=>updateLiveField('time', e.target.value)}
+                />
+              </div>
+              <div className="demo-field">
+                <label htmlFor="demo-event-place">Lugar</label>
+                <input
+                  id="demo-event-place"
+                  type="text"
+                  value={liveFields.place}
+                  placeholder="Lugar (opcional)"
+                  onChange={e=>updateLiveField('place', e.target.value)}
+                />
+              </div>
+              <div className="demo-field">
+                <label htmlFor="demo-event-address">Dirección</label>
+                <input
+                  id="demo-event-address"
+                  type="text"
+                  value={liveFields.address}
+                  placeholder="Dirección o salón"
+                  onChange={e=>updateLiveField('address', e.target.value)}
+                />
+              </div>
+              <div className="demo-field">
+                <label htmlFor="demo-event-whatsapp">WhatsApp</label>
+                <input
+                  id="demo-event-whatsapp"
+                  type="tel"
+                  value={liveFields.whatsapp}
+                  placeholder="+50688888888"
+                  onChange={e=>updateLiveField('whatsapp', e.target.value)}
+                />
+              </div>
+            </div>
+            <p className="demo-live-note">Escribe y mira cómo se crea tu invitación en tiempo real.</p>
           </div>
 
           <div className="demo-tabs" role="tablist" aria-label="Estilos de invitación">
@@ -1560,23 +2429,36 @@ function SceneDemo({ collection, setCollection, onViewStyles }) {
             ))}
           </div>
 
-          <div style={{ display:'flex', flexWrap:'wrap', gap:10, marginTop:2 }}>
-            <button className="btn-pill btn-light" onClick={()=>window.open('https://wa.me/?text=Hola,%20quiero%20una%20invitaci%C3%B3n%20digital%20para%20baby%20shower','_blank')} style={{ padding:'13px 18px', fontSize:11 }}>
-              Pedir por WhatsApp
-            </button>
-            <button className="btn-pill" onClick={onViewStyles} style={{ padding:'13px 18px', fontSize:11, background:'rgba(245,233,216,0.08)', color:'#f5e9d8', border:'1px solid rgba(245,233,216,0.16)' }}>
-              Ver estilos
-            </button>
+          <div className="demo-link-actions">
+            <button type="button" onClick={generateInvitationLink}>Generar link de invitación</button>
+            <button type="button" onClick={openPersonalizedWhatsapp}>Pedir por WhatsApp</button>
           </div>
+
+          {shareLink && (
+            <div className="demo-share-panel">
+              <label htmlFor="generated-invite-link">Link generado</label>
+              <div className="demo-share-row">
+                <input id="generated-invite-link" readOnly value={shareLink} onFocus={e=>e.target.select()}/>
+                <button type="button" onClick={copyInvitationLink}>{copied ? 'Copiado' : 'Copiar link'}</button>
+                <button type="button" onClick={()=>window.open(shareLink, '_blank')}>Abrir invitación</button>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="demo-device-wrap">
-          <div className="demo-frame demo-device">
-          <div className="demo-screen">
-            <InviteDemo collection={collection} step={step} setStep={setInviteStep}/>
+          <div className="demo-device-stack">
+            <div className="demo-frame demo-device">
+              <div className="demo-screen">
+                <InviteDemo collection={collection} step={step} setStep={setInviteStep} data={liveData}/>
+              </div>
+            </div>
+            <div className="demo-device-caption">Así la verán tus invitados.</div>
+            <button className="btn-pill btn-light demo-live-cta" onClick={openPersonalizedWhatsapp}>
+              <WhatsappIcon size={15}/> Quiero esta invitación
+            </button>
           </div>
         </div>
-      </div>
 
         <div className="demo-benefits">
           {benefits.map((b)=>(
@@ -1680,7 +2562,7 @@ function IcHrt(){ return <svg viewBox="0 0 24 24" fill="none" stroke="currentCol
 
 /* ── 08 ANTES / DESPUÉS ── */
 function SceneCompare() {
-  const [pos, setPos] = useState(50);
+  const [pos, setPos] = useState(22);
   const trackRef = useRef(null);
   const dragging = useRef(false);
   const onMove = (cx) => {
@@ -1718,9 +2600,17 @@ function SceneCompare() {
 
           {/* DESPUÉS (full, behind) */}
           <div className="compare-side" style={{ background:'linear-gradient(180deg,#fdf4f1 0%,#f5dcd5 100%)', display:'flex', alignItems:'center', justifyContent:'center', padding:16 }}>
-            <div style={{ width:'65%' }}><JardinMock size="sm"/></div>
-            <div style={{ position:'absolute', bottom:10, left:0, right:0, textAlign:'center', fontSize:9, color:'#5c2a2a', lineHeight:1.4, padding:'0 12px' }}>
-              ✦ animada · música · mapa · confirmación
+            <div className="compare-after-product" aria-label="Invitación digital completa">
+              <div className="compare-after-item compare-after-kicker" style={{ '--d':'0s' }}>BABY SHOWER</div>
+              <div className="compare-after-item compare-after-headline" style={{ '--d':'0.1s' }}>Está por<br/>florecer</div>
+              <div className="compare-after-item compare-after-name" style={{ '--d':'0.2s' }}>Sofía</div>
+              <div className="compare-after-item compare-after-date" style={{ '--d':'0.3s' }}>24 · 07 · 2026</div>
+              <div className="compare-after-item compare-after-micro" style={{ '--d':'0.4s' }}>
+                <FineIcon type="music" size={13}/> música suave
+              </div>
+              <div className="compare-after-item compare-after-separator" style={{ '--d':'0.5s' }}/>
+              <button className="compare-after-item compare-after-button" style={{ '--d':'0.6s' }} type="button">Confirmar asistencia</button>
+              <div className="compare-after-item compare-after-copy" style={{ '--d':'0.7s' }}>Ubicación + recordatorio en un toque</div>
             </div>
           </div>
 
@@ -1794,23 +2684,39 @@ function SceneViral() {
 /* ── 07 CTA FINAL ── */
 function SceneCTA() {
   return (
-    <div className="scene scene-snap bg-paper" style={{ display:'flex', flexDirection:'column' }}>
+    <div className="scene scene-snap bg-paper scene-cta" style={{ display:'flex', flexDirection:'column' }}>
       <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.07)', lineHeight:1, pointerEvents:'none', userSelect:'none' }}>07</div>
 
       {/* Headline */}
-      <div style={{ paddingTop:70, padding:'70px 28px 0', flexShrink:0, position:'relative', zIndex:2 }}>
+      <div className="final-cta-copy">
         <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:8 }}>pídela hoy</div>
-        <h2 className="display" style={{ fontSize:'clamp(30px,8vw,40px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.02em' }}>Lista para enviar</h2>
+        <h2 className="display" style={{ fontSize:'clamp(30px,8vw,40px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.02em' }}>Tu invitación lista</h2>
         <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(34px,10vw,48px)', color:'#8a4f4f', lineHeight:0.9, letterSpacing:'-0.03em', marginTop:-4 }}>en 24 horas.</div>
         <p style={{ marginTop:12, fontSize:13, color:'#5a4838', lineHeight:1.55, maxWidth:290 }}>
-          Escríbenos por WhatsApp, envía tus datos y recibe tu invitación personalizada.
+          Solo envías los datos. Nosotros hacemos el resto.
         </p>
       </div>
 
-      {/* Invite preview — grows to fill available space */}
-      <div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center', padding:'12px 72px', minHeight:0, position:'relative', zIndex:2 }}>
-        <div style={{ width:'80%', animation:'drift 4s ease-in-out infinite', filter:'drop-shadow(0 20px 40px rgba(80,50,30,0.22))' }}>
-          <JardinMock size="lg"/>
+      {/* Invite preview — vertical, below the copy */}
+      <div className="final-invite-wrap">
+        <div className="final-invite-card" aria-label="Invitación final animada">
+          <div className="final-deco final-deco-1"><PeonyCluster/></div>
+          <div className="final-deco final-deco-2"><PeonyCluster/></div>
+          <div className="final-deco final-deco-3"/>
+          <div className="final-invite-content">
+            <div className="final-invite-line final-invite-kicker" style={{ '--d':'0s' }}>BABY SHOWER</div>
+            <div className="final-invite-line final-invite-headline" style={{ '--d':'0.14s' }}>
+              <span className="final-shimmer">Está por florecer</span>
+            </div>
+            <div className="final-invite-line final-invite-name" style={{ '--d':'0.28s' }}>Sofía</div>
+            <div className="final-invite-line final-invite-date" style={{ '--d':'0.42s' }}>24 · 07 · 2026</div>
+            <div className="final-invite-line final-invite-rule" style={{ '--d':'0.56s' }}/>
+            <div className="final-invite-line final-invite-meta" style={{ '--d':'0.68s' }}>
+              <FineIcon type="music" size={13}/> música suave
+            </div>
+            <button className="final-invite-line compare-after-button" style={{ '--d':'0.78s', marginTop:12 }} type="button">Confirmar asistencia</button>
+            <div className="final-invite-line final-invite-copy" style={{ '--d':'0.88s' }}>Ubicación + recordatorio en un toque</div>
+          </div>
         </div>
       </div>
 
@@ -1842,12 +2748,12 @@ function SceneCTA() {
 ═══════════════════════════════════════════════════════════════ */
 const SCENE_COPY = {
   hero:      { headline:'Invitaciones digitales\npara baby shower.',                    sub:'Personalizadas, animadas y listas para compartir por WhatsApp desde $10.' },
-  demo:      { headline:'Mira la demo\nantes de pedir.',                                sub:'Revisa portada, mensaje, detalles, mapa y confirmación en una experiencia real.' },
+  demo:      { headline:'Personaliza en vivo\nen segundos.',                           sub:'Escribe nombre, fecha y lugar mientras la invitación se actualiza dentro del teléfono.' },
   steps:     { headline:'Tu invitación\nen 3 pasos.',                                  sub:'Elige diseño, envía tus datos y recibe el link listo para compartir.' },
   collections:{ headline:'Elige el estilo\nque quieres enviar.',                        sub:'Tres colecciones base, personalizadas con los datos de tu evento.' },
   compare:   { headline:'Más que una\nimagen plana.',                                  sub:'Una invitación interactiva con música, mapa y confirmación.' },
   includes:  { headline:'Todo incluido\npor $10.',                                      sub:'Diseño personalizado, entrega en 24h y funciones listas para tus invitados.' },
-  cta:       { headline:'Pídela hoy.\nCompártela mañana.',                             sub:'Escríbenos por WhatsApp y empezamos con tus datos.' },
+  cta:       { headline:'Tu invitación lista\nen 24 horas.',                            sub:'Solo envías los datos. Nosotros hacemos el resto.' },
 };
 
 function StageLeft({ activeScene, goTo }) {
@@ -1894,6 +2800,73 @@ const SCENES_META = [
   {id:'includes',name:'Precio'},
   {id:'cta',name:'Pídela'},
 ];
+
+function PublicUnavailable() {
+  return (
+    <div className="public-invite-page">
+      <div className="public-unavailable">
+        <div className="eyebrow" style={{ color:'#d4a574', marginBottom:10 }}>Baby Invites</div>
+        <h1 className="display">Esta invitación no está disponible.</h1>
+        <p>El link puede estar incompleto o haber sido copiado con error.</p>
+      </div>
+    </div>
+  );
+}
+
+function PublicInvitationPage() {
+  const params = new URLSearchParams(window.location.search);
+  const payload = decodeInvitePayload(params.get('data'));
+  const data = makeInviteDataFromPayload(payload);
+  const [step, setStep] = useState(0);
+  const [manualTick, setManualTick] = useState(0);
+  const [musicOn, setMusicOn] = useState(true);
+
+  useEffect(()=>{
+    if (!data) return;
+    const id = setInterval(()=>setStep(s=>(s+1)%XP_SCENES.length), 3000);
+    return ()=>clearInterval(id);
+  }, [data?.style, manualTick]);
+
+  const setInviteStep = useCallback((next) => {
+    setStep(prev => typeof next === 'function' ? next(prev) : next);
+    setManualTick(t => t + 1);
+  }, []);
+
+  if (!data) return <PublicUnavailable/>;
+
+  return (
+    <div className="public-invite-page">
+      <div className="public-invite-shell">
+        <div className="public-invite-meta">
+          <div className="eyebrow">{data.name}</div>
+          <h1 className="display">Baby Shower de {data.baby}</h1>
+          <p>{data.date} · {data.time} · {data.place}</p>
+        </div>
+
+        <div className="public-invite-frame">
+          <div className="demo-screen">
+            <InviteDemo collection={data.style} step={step} setStep={setInviteStep} data={data} musicOn={musicOn}/>
+          </div>
+        </div>
+
+        <div className="public-actions">
+          <button className="public-action primary" onClick={()=>window.open(makeWhatsappUrl(data), '_blank')}>
+            <WhatsappIcon size={15}/> Confirmar asistencia
+          </button>
+          <button className="public-action" onClick={()=>window.open(makeMapsUrl(data), '_blank')}>
+            <FineIcon type="pin" size={14}/> Ver ubicación
+          </button>
+          <button className="public-action" onClick={()=>window.open(makeCalendarUrl(data), '_blank')}>
+            <FineIcon type="calendar" size={14}/> Agendar
+          </button>
+          <button className="public-action" onClick={()=>setMusicOn(v=>!v)}>
+            <FineIcon type="music" size={14}/> {musicOn ? 'Música on' : 'Música off'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function App() {
   const [tweaks, setTweaks] = useTweaks({ showAdmin:false, snapScroll:true, stagePalette:'dark' });
@@ -1985,7 +2958,12 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+function Root() {
+  const isPublicInvitation = window.location.pathname.replace(/\/+$/, '') === '/invitacion';
+  return isPublicInvitation ? <PublicInvitationPage/> : <App/>;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Root/>);
 </script>
 </body>
 </html>
