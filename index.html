@@ -211,6 +211,9 @@ html, body {
 .invite-honey  { background: radial-gradient(ellipse at 50% 30%, #fff4dd 0%, #f5e1bd 60%, #e8c989 100%); }
 .invite-floral { background: radial-gradient(ellipse at 50% 70%, #fde4e0 0%, #f5cfc9 50%, #e8b4b0 100%); }
 .invite-minimal{ background: linear-gradient(180deg, #faf5ec 0%, #f0e6d4 100%); }
+.invite-celestial{ background: radial-gradient(ellipse at 50% 18%, #52617e 0%, #273047 55%, #111827 100%); }
+.invite-safari{ background: radial-gradient(ellipse at 50% 30%, #fbf0df 0%, #e4d1ad 58%, #c7b084 100%); }
+.invite-coquette{ background: radial-gradient(ellipse at 50% 30%, #fff5f8 0%, #f4d9ee 54%, #d8b7ec 100%); }
 .watercolor { position:absolute; border-radius:50%; filter:blur(18px); opacity:0.42; pointer-events:none; }
 .wave-bar { width:2px; background:currentColor; border-radius:2px; animation:wave 0.9s ease-in-out infinite; }
 
@@ -453,6 +456,153 @@ html, body {
   background: #d4a574;
   box-shadow: 0 0 0 5px rgba(212,165,116,0.08);
   flex-shrink: 0;
+}
+.style-catalog-scene.scene-snap {
+  height: auto;
+  min-height: 100dvh;
+}
+.style-catalog-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 72px clamp(28px, 5vw, 64px) 42px;
+  gap: 22px;
+  position: relative;
+  z-index: 2;
+}
+.style-catalog-head {
+  max-width: 720px;
+}
+.style-catalog-head p {
+  font-size: 14px;
+  color: #5a4838;
+  margin-top: 12px;
+  line-height: 1.55;
+  max-width: 520px;
+}
+.style-catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+.style-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(122,79,31,0.12);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.54), rgba(255,255,255,0.22)),
+    var(--card-bg, #fff6f0);
+  box-shadow: 0 24px 50px -34px rgba(62,36,22,0.42), inset 0 1px 0 rgba(255,255,255,0.6);
+  overflow: hidden;
+}
+.style-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .2;
+  background-image: radial-gradient(circle at 1px 1px, var(--card-accent, #8a4f4f) 1px, transparent 0);
+  background-size: 18px 18px;
+  pointer-events: none;
+}
+.style-card-preview {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 150px);
+  margin: 0 auto;
+  filter: drop-shadow(0 22px 28px rgba(75,39,37,.18));
+  animation: drift-slow 5.4s ease-in-out infinite;
+}
+.style-card-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.style-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+}
+.style-card-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(20px, 2.2vw, 28px);
+  line-height: .95;
+  letter-spacing: 0;
+  color: var(--card-ink, #2a201a);
+}
+.style-card-phrase {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.25;
+  color: var(--card-accent, #8a4f4f);
+}
+.style-card-desc {
+  font-size: 11px;
+  line-height: 1.45;
+  color: rgba(42,32,26,.72);
+}
+.style-card-price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  padding: 7px 9px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.64);
+  color: var(--card-ink, #2a201a);
+  font-size: 10px;
+  white-space: nowrap;
+  border: 1px solid rgba(0,0,0,.05);
+}
+.style-card-price strong {
+  font-family: 'DM Serif Display', serif;
+  font-size: 19px;
+  line-height: 1;
+}
+.style-card-swatches {
+  display: flex;
+  gap: 5px;
+}
+.style-card-swatch {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,.08);
+}
+.style-card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: auto;
+}
+.style-card-actions button {
+  appearance: none;
+  border-radius: 999px;
+  border: 1px solid rgba(42,32,26,.12);
+  min-height: 38px;
+  padding: 0 11px;
+  cursor: pointer;
+  font: 700 9px/1 'Outfit', sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.style-card-actions button:first-child {
+  background: var(--card-ink, #2a201a);
+  color: #fff8f0;
+  border-color: transparent;
+}
+.style-card-actions button:last-child {
+  background: rgba(255,255,255,.58);
+  color: var(--card-ink, #2a201a);
 }
 .demo-device-wrap {
   grid-column: 2;
@@ -802,6 +952,9 @@ html, body {
 @keyframes xp-drop { 0%,100%{ transform: translateY(0) scale(1); opacity:.34; } 50%{ transform: translateY(10px) scale(.96); opacity:.55; } }
 @keyframes xp-petal { 0%{ transform: translateY(-14px) translateX(0) rotate(0deg); opacity:0; } 15%,80%{ opacity:.42; } 100%{ transform: translateY(110px) translateX(-22px) rotate(80deg); opacity:0; } }
 @keyframes xp-shimmer { 0%,100%{ opacity:.32; transform: scale(.92); } 50%{ opacity:.72; transform: scale(1.04); } }
+@keyframes xp-cloud { 0%,100%{ transform: translateX(0); opacity:.28; } 50%{ transform: translateX(10px); opacity:.42; } }
+@keyframes xp-leaf { 0%,100%{ transform: translateY(0) rotate(var(--r, 0deg)); } 50%{ transform: translateY(-7px) rotate(calc(var(--r, 0deg) + 5deg)); } }
+@keyframes xp-butterfly { 0%,100%{ transform: translate(0,0) rotate(-6deg); opacity:.34; } 50%{ transform: translate(8px,-10px) rotate(7deg); opacity:.62; } }
 @keyframes live-value-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ── Compare ── */
@@ -1364,8 +1517,8 @@ select.twk-field{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http:
     display: none;
   }
   .scene-hero .hero-main-card {
-    width: min(46vw, 170px) !important;
-    top: 52% !important;
+    width: min(34vw, 135px) !important;
+    top: 43% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
     animation: none !important;
@@ -1442,6 +1595,29 @@ select.twk-field{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http:
   }
   .demo-benefit {
     font-size: 11px;
+  }
+  .style-catalog-wrap {
+    padding: 48px 24px max(34px, env(safe-area-inset-bottom));
+    gap: 18px;
+  }
+  .style-catalog-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .style-card {
+    display: grid;
+    grid-template-columns: minmax(94px, 128px) 1fr;
+    align-items: center;
+    gap: 12px;
+  }
+  .style-card-preview {
+    width: 100%;
+  }
+  .style-card-name {
+    font-size: 22px;
+  }
+  .style-card-actions {
+    grid-template-columns: 1fr;
   }
   .compare-after-product {
     padding: 20px 18px;
@@ -1715,26 +1891,265 @@ function MilagroMock({ size = 'lg', babyName = 'Luna', date = '03 · 09 · 26' }
   );
 }
 
+function CelestialMock({ size = 'lg', babyName = 'Baby Isabella', date = 'Domingo 26 de mayo', place = 'Terraza Rosé' }) {
+  const sm = size === 'sm';
+  return (
+    <div className="invite-mock invite-celestial">
+      <div className="watercolor" style={{ width:'70%', height:'42%', top:'-14%', left:'-18%', background:'#d6b878', opacity:.22 }}/>
+      <div className="watercolor" style={{ width:'60%', height:'42%', bottom:'-14%', right:'-18%', background:'#7f8ea8', opacity:.32 }}/>
+      {[{t:'15%',l:'18%',s:sm?5:9},{t:'20%',l:'78%',s:sm?4:8},{t:'41%',l:'12%',s:sm?4:7},{t:'61%',l:'82%',s:sm?5:9},{t:'73%',l:'24%',s:sm?3:6}].map((st,i)=>(
+        <div key={i} style={{ position:'absolute', top:st.t, left:st.l, fontSize:st.s, color:'#f8ead5', opacity:.72, animation:'xp-shimmer 3s ease-in-out infinite', animationDelay:`${i*.35}s` }}>✦</div>
+      ))}
+      <div style={{ position:'absolute', top:'20%', left:'50%', transform:'translateX(-50%)', width:sm?'30%':'35%', filter:'drop-shadow(0 0 18px rgba(214,184,120,.35))' }}>
+        <svg viewBox="0 0 100 100" style={{ width:'100%', display:'block' }}>
+          <path d="M50 8 A42 42 0 1 0 50 92 A31 36 0 1 1 50 8 Z" fill="#d6b878"/>
+          <path d="M18 68 C30 58 42 64 50 70 C61 78 74 71 84 62" stroke="#f8ead5" strokeWidth="5" strokeLinecap="round" fill="none" opacity=".42"/>
+        </svg>
+      </div>
+      <div style={{ position:'absolute', top:'7%', left:0, right:0, textAlign:'center', fontFamily:'Outfit,sans-serif', fontSize:sm?5:8, letterSpacing:'0.42em', textTransform:'uppercase', color:'#f8ead5', fontWeight:600 }}>Baby Shower</div>
+      <div style={{ position:'absolute', top:'50%', left:0, right:0, textAlign:'center', padding:'0 11%' }}>
+        <div className="script" style={{ fontSize:sm?8:15, color:'#f8ead5' }}>una estrellita</div>
+        <div className="display" style={{ fontSize:sm?16:32, color:'#fff9ee', lineHeight:.96 }}>viene en camino</div>
+      </div>
+      <div style={{ position:'absolute', bottom:'8%', left:0, right:0, textAlign:'center' }}>
+        <div className="display" style={{ fontSize:sm?9:17, color:'#fff9ee', letterSpacing:'0.08em' }}>{babyName}</div>
+        <div style={{ fontFamily:'Outfit,sans-serif', fontSize:sm?5:8, letterSpacing:'0.24em', color:'#f8ead5', marginTop:sm?2:5 }}>{date}</div>
+        {!sm && <div className="script" style={{ fontSize:11, color:'rgba(248,234,213,.82)', marginTop:3 }}>{place}</div>}
+      </div>
+    </div>
+  );
+}
+
+function SafariMock({ size = 'lg', babyName = 'Baby Isabella', date = 'Domingo 26 de mayo', place = 'Terraza Rosé' }) {
+  const sm = size === 'sm';
+  return (
+    <div className="invite-mock invite-safari">
+      <div className="watercolor" style={{ width:'70%', height:'45%', top:'-12%', right:'-16%', background:'#9caf88', opacity:.28 }}/>
+      <div className="watercolor" style={{ width:'60%', height:'42%', bottom:'-12%', left:'-18%', background:'#d9c29d', opacity:.38 }}/>
+      {[{t:'18%',l:'12%',r:-24},{t:'31%',l:'78%',r:34},{t:'69%',l:'17%',r:-12},{t:'75%',l:'76%',r:22}].map((leaf,i)=>(
+        <span key={i} style={{ position:'absolute', top:leaf.t, left:leaf.l, width:sm?14:23, height:sm?6:10, borderRadius:'50%', background:'#9caf88', opacity:.42, transform:`rotate(${leaf.r}deg)`, animation:'xp-float 5s ease-in-out infinite', animationDelay:`${i*.45}s` }}/>
+      ))}
+      <div style={{ position:'absolute', top:'22%', left:'50%', transform:'translateX(-50%)', width:sm?'42%':'48%', animation:'xp-float 6s ease-in-out infinite' }}>
+        <svg viewBox="0 0 130 120" style={{ width:'100%', display:'block' }}>
+          <ellipse cx="66" cy="82" rx="34" ry="24" fill="#d9b27c"/>
+          <rect x="47" y="78" width="8" height="28" rx="4" fill="#b37a4c"/>
+          <rect x="77" y="78" width="8" height="28" rx="4" fill="#b37a4c"/>
+          <path d="M82 26 C98 25 107 39 105 55 C103 71 92 78 82 75 Z" fill="#d9b27c"/>
+          <rect x="72" y="30" width="16" height="50" rx="8" fill="#d9b27c"/>
+          <circle cx="93" cy="43" r="2.2" fill="#4c3a28"/>
+          <path d="M90 52 Q96 55 101 51" stroke="#4c3a28" strokeWidth="1.3" fill="none" strokeLinecap="round"/>
+          <path d="M74 38 L66 19 L83 31 Z" fill="#b37a4c" opacity=".65"/>
+          <path d="M96 35 L105 18 L105 41 Z" fill="#b37a4c" opacity=".65"/>
+          <circle cx="58" cy="61" r="3" fill="#b37a4c" opacity=".55"/>
+          <circle cx="72" cy="54" r="2.5" fill="#b37a4c" opacity=".5"/>
+          <circle cx="81" cy="68" r="3" fill="#b37a4c" opacity=".45"/>
+        </svg>
+      </div>
+      <div style={{ position:'absolute', top:'7%', left:0, right:0, textAlign:'center', fontFamily:'Outfit,sans-serif', fontSize:sm?5:8, letterSpacing:'0.34em', textTransform:'uppercase', color:'#6d7b55', fontWeight:700 }}>Baby Shower</div>
+      <div style={{ position:'absolute', top:'57%', left:0, right:0, textAlign:'center', padding:'0 10%' }}>
+        <div className="script" style={{ fontSize:sm?8:15, color:'#6d7b55' }}>una pequeña aventura</div>
+        <div className="display" style={{ fontSize:sm?14:28, color:'#4c3a28', lineHeight:.96 }}>está por comenzar</div>
+      </div>
+      <div style={{ position:'absolute', bottom:'7%', left:0, right:0, textAlign:'center' }}>
+        <div className="display" style={{ fontSize:sm?9:17, color:'#4c3a28', letterSpacing:'0.08em' }}>{babyName}</div>
+        <div style={{ fontFamily:'Outfit,sans-serif', fontSize:sm?5:8, letterSpacing:'0.22em', color:'#6d7b55', marginTop:sm?2:5 }}>{date}</div>
+        {!sm && <div className="script" style={{ fontSize:11, color:'#6d7b55', marginTop:3 }}>{place}</div>}
+      </div>
+    </div>
+  );
+}
+
+function CoquetteMock({ size = 'lg', babyName = 'Baby Isabella', date = 'Domingo 26 de mayo', place = 'Terraza Rosé' }) {
+  const sm = size === 'sm';
+  return (
+    <div className="invite-mock invite-coquette">
+      <div className="watercolor" style={{ width:'70%', height:'44%', top:'-12%', left:'-14%', background:'#f4c8df', opacity:.36 }}/>
+      <div className="watercolor" style={{ width:'62%', height:'42%', bottom:'-12%', right:'-18%', background:'#d8b7ec', opacity:.34 }}/>
+      {[{t:'21%',l:'18%',s:sm?12:20},{t:'27%',l:'76%',s:sm?9:16},{t:'63%',l:'13%',s:sm?8:14},{t:'70%',l:'82%',s:sm?10:18}].map((b,i)=>(
+        <span key={i} style={{ position:'absolute', top:b.t, left:b.l, fontSize:b.s, color:i%2?'#d8b7ec':'#8b557a', opacity:.52, animation:'xp-butterfly 6.4s ease-in-out infinite', animationDelay:`${i*.55}s` }}>⌁</span>
+      ))}
+      <div style={{ position:'absolute', top:'23%', left:'50%', transform:'translateX(-50%)', width:sm?'40%':'46%', animation:'xp-float 5.6s ease-in-out infinite' }}>
+        <svg viewBox="0 0 120 100" style={{ width:'100%', display:'block' }}>
+          <path d="M58 50 C30 18 8 34 18 62 C25 84 48 69 58 52" fill="#f4c8df" opacity=".82"/>
+          <path d="M62 50 C90 18 112 34 102 62 C95 84 72 69 62 52" fill="#d8b7ec" opacity=".86"/>
+          <path d="M58 54 C34 86 16 80 22 58 C28 41 48 49 58 54" fill="#f6d8e8" opacity=".9"/>
+          <path d="M62 54 C86 86 104 80 98 58 C92 41 72 49 62 54" fill="#e7c9f3" opacity=".9"/>
+          <rect x="57" y="38" width="6" height="30" rx="3" fill="#8b557a"/>
+          <path d="M58 38 Q52 27 44 24M62 38 Q68 27 76 24" stroke="#8b557a" strokeWidth="2" fill="none" strokeLinecap="round"/>
+        </svg>
+      </div>
+      <div style={{ position:'absolute', top:'7%', left:0, right:0, textAlign:'center', fontFamily:'Outfit,sans-serif', fontSize:sm?5:8, letterSpacing:'0.36em', textTransform:'uppercase', color:'#8b557a', fontWeight:700 }}>Baby Shower</div>
+      <div style={{ position:'absolute', top:'54%', left:0, right:0, textAlign:'center', padding:'0 10%' }}>
+        <div className="script" style={{ fontSize:sm?8:15, color:'#8b557a' }}>un amor hermoso</div>
+        <div className="display" style={{ fontSize:sm?16:31, color:'#6f4664', lineHeight:.95 }}>está por volar</div>
+      </div>
+      <div style={{ position:'absolute', bottom:'7%', left:0, right:0, textAlign:'center' }}>
+        <div className="display" style={{ fontSize:sm?9:17, color:'#6f4664', letterSpacing:'0.08em' }}>{babyName}</div>
+        <div style={{ fontFamily:'Outfit,sans-serif', fontSize:sm?5:8, letterSpacing:'0.22em', color:'#8b557a', marginTop:sm?2:5 }}>{date}</div>
+        {!sm && <div className="script" style={{ fontSize:11, color:'#8b557a', marginTop:3 }}>{place}</div>}
+      </div>
+    </div>
+  );
+}
+
+function StyleMock({ styleId, size = 'lg', babyName, date, place }) {
+  const props = { size, babyName, date, place };
+  if (styleId === 'honey') return <DulceEsperaMock {...props}/>;
+  if (styleId === 'floral') return <JardinMock {...props}/>;
+  if (styleId === 'minimal') return <MilagroMock {...props}/>;
+  if (styleId === 'celestial') return <CelestialMock {...props}/>;
+  if (styleId === 'safari') return <SafariMock {...props}/>;
+  if (styleId === 'coquette') return <CoquetteMock {...props}/>;
+  return <JardinMock {...props}/>;
+}
+
 /* ═══════════════════════════════════════════════════════════════
    DEMO COMPONENTS
 ═══════════════════════════════════════════════════════════════ */
-const THEMES = {
-  honey:   { bg1:'#fff4dd', bg2:'#f5e1bd', accent:'#7a4f1f', soft:'#d4a574',  ink:'#3d2410', muted:'#7a4f1f' },
-  floral:  { bg1:'#fdf4f1', bg2:'#f5dcd5', accent:'#8a4f4f', soft:'#e8b4b0',  ink:'#5c2a2a', muted:'#8a4f4f' },
-  minimal: { bg1:'#faf6f0', bg2:'#ede1cf', accent:'#a08560', soft:'#c9a876',  ink:'#3a2a1a', muted:'#a08560' },
-};
-const CDATA = {
-  honey:   { name:'Dulce Espera',    baby:'Mateo',   parents:'Camila & Andrés',    phrase:'Una dulce bendición está en camino', date:'Domingo 12 de mayo', time:'3:00 p.m.', place:'Terraza Jardín', city:'San José, Costa Rica', Mock:(p)=><DulceEsperaMock size="lg" {...p}/> },
-  floral:  { name:'Jardín de Amor',  baby:'Sofía',   parents:'Valentina & Mateo',  phrase:'Un nuevo amor está por florecer', date:'Domingo 12 de mayo', time:'3:00 p.m.', place:'Terraza Jardín', city:'San José, Costa Rica', Mock:(p)=><JardinMock size="lg" {...p}/> },
-  minimal: { name:'Pequeño Milagro', baby:'Isabella',parents:'Daniela & Sebastián', phrase:'Lo más pequeño puede cambiarlo todo', date:'Domingo 12 de mayo', time:'3:00 p.m.', place:'Terraza Jardín', city:'San José, Costa Rica', Mock:(p)=><MilagroMock size="lg" {...p}/> },
-};
+const INVITATION_STYLES = [
+  {
+    id:'honey',
+    name:'Dulce Espera',
+    shortName:'Dulce',
+    phrase:'Una dulce bendición está en camino.',
+    description:'Honey bear con miel, osito genérico, abejitas, crema y blush.',
+    emotionalTone:'Tierna, cálida, dulce y coqueta.',
+    targetMom:'Para mamás que quieren una invitación acogedora y dulce.',
+    price:10,
+    palette:{ bg1:'#fff4dd', bg2:'#f5e1bd', accent:'#7a4f1f', soft:'#d4a574', ink:'#3d2410', muted:'#7a4f1f', chips:['#fff4dd','#f5e1bd','#d4a574','#e8a89a','#7a4f1f'] },
+    background:'Fondo crema cálido con textura de papel, miel dorada y puntos suaves.',
+    typographyMood:'Serif cálida con detalles script delicados.',
+    visualElements:['osito genérico','gotas de miel','abejitas sutiles','lazos blush'],
+    animationSignature:'Miel cayendo suave, abejitas flotando y texto con fade cálido.',
+    demoData:{ babyName:'Baby Isabella', date:'Domingo 26 de mayo', dateInput:'2026-05-26', time:'14:30', place:'Terraza Rosé', address:'Heredia, Costa Rica', parents:'Mamá & Papá' },
+    category:'Honey & Cream',
+    whatsappMessage:'Hola, quiero una invitación digital estilo Dulce Espera.',
+  },
+  {
+    id:'floral',
+    name:'Jardín de Amor',
+    shortName:'Jardín',
+    phrase:'Un nuevo amor está por florecer.',
+    description:'Floral blush luxury con peonías, pétalos y champagne.',
+    emotionalTone:'Romántica, femenina, boutique y delicada.',
+    targetMom:'Para mamás que buscan una estética floral editorial.',
+    price:10,
+    palette:{ bg1:'#fff6f2', bg2:'#f5dcd5', accent:'#8a4f4f', soft:'#e8b4b0', ink:'#5c2a2a', muted:'#8a4f4f', chips:['#fff6f2','#f5cfc9','#e8b4b0','#c4a47c','#8a4f4f'] },
+    background:'Flores acuarela sobre papel fino con detalles champagne.',
+    typographyMood:'Editorial romántica con serif elegante e itálica.',
+    visualElements:['peonías','pétalos flotando','papel fino','líneas botánicas'],
+    animationSignature:'Pétalos cayendo, flores apareciendo y reveal elegante del nombre.',
+    demoData:{ babyName:'Baby Isabella', date:'Domingo 26 de mayo', dateInput:'2026-05-26', time:'14:30', place:'Terraza Rosé', address:'Heredia, Costa Rica', parents:'Mamá & Papá' },
+    category:'Floral Blush',
+    whatsappMessage:'Hola, quiero una invitación digital estilo Jardín de Amor.',
+  },
+  {
+    id:'minimal',
+    name:'Pequeño Milagro',
+    shortName:'Milagro',
+    phrase:'Lo más pequeño puede cambiarlo todo.',
+    description:'Minimal chic con blanco cálido, dorado, luna y estrellas.',
+    emotionalTone:'Moderna, limpia, emocional y premium.',
+    targetMom:'Para mamás que prefieren algo sobrio, limpio y muy elegante.',
+    price:10,
+    palette:{ bg1:'#faf6f0', bg2:'#ede1cf', accent:'#a08560', soft:'#c9a876', ink:'#3a2a1a', muted:'#a08560', chips:['#faf6f0','#ede1cf','#c9a876','#f6ead8','#3a2a1a'] },
+    background:'Blanco cálido con luna fina, shimmer suave y mucho aire.',
+    typographyMood:'Minimalista, respirada y sofisticada.',
+    visualElements:['luna fina','estrellas doradas','lazo minimal','gris perla'],
+    animationSignature:'Shimmer suave, estrellas sutiles y fade limpio.',
+    demoData:{ babyName:'Baby Isabella', date:'Domingo 26 de mayo', dateInput:'2026-05-26', time:'14:30', place:'Terraza Rosé', address:'Heredia, Costa Rica', parents:'Mamá & Papá' },
+    category:'Minimal Moon',
+    whatsappMessage:'Hola, quiero una invitación digital estilo Pequeño Milagro.',
+  },
+  {
+    id:'celestial',
+    name:'Celestial Baby',
+    shortName:'Celestial',
+    phrase:'Una estrellita viene en camino.',
+    description:'Luna, estrellas, nubes crema y azul noche suave.',
+    emotionalTone:'Mágica, elegante, tierna y celestial.',
+    targetMom:'Para una celebración soñadora con estética nocturna delicada.',
+    price:10,
+    palette:{ bg1:'#273047', bg2:'#111827', accent:'#d6b878', soft:'#7f8ea8', ink:'#fff9ee', muted:'#f8ead5', chips:['#f8ead5','#d6b878','#7f8ea8','#273047','#111827'] },
+    background:'Cielo nocturno suave con luna dorada, nubes crema y glow delicado.',
+    typographyMood:'Serif poética con contraste nocturno refinado.',
+    visualElements:['luna dorada','estrellas finas','nubes crema','glow delicado'],
+    animationSignature:'Estrellas titilando, nubes flotando y reveal de luna.',
+    demoData:{ babyName:'Baby Isabella', date:'Domingo 26 de mayo', dateInput:'2026-05-26', time:'14:30', place:'Terraza Rosé', address:'Heredia, Costa Rica', parents:'Mamá & Papá' },
+    category:'Soft Night',
+    whatsappMessage:'Hola, quiero una invitación digital estilo Celestial Baby.',
+  },
+  {
+    id:'safari',
+    name:'Safari Tierno',
+    shortName:'Safari',
+    phrase:'Una pequeña aventura está por comenzar.',
+    description:'Animales bebé, beige, verde salvia y aventura suave.',
+    emotionalTone:'Tierna, natural, alegre y aventurera.',
+    targetMom:'Para baby showers naturales, neutros o con temática animalitos.',
+    price:10,
+    palette:{ bg1:'#f5ead8', bg2:'#d9c29d', accent:'#6d7b55', soft:'#9caf88', ink:'#4c3a28', muted:'#6d7b55', chips:['#f5ead8','#d9c29d','#9caf88','#b37a4c','#4c3a28'] },
+    background:'Papel natural con hojas salvia, animalitos y textura arena.',
+    typographyMood:'Cálida, orgánica y amable.',
+    visualElements:['jirafa bebé','elefantito genérico','hojas suaves','textura natural'],
+    animationSignature:'Hojas moviéndose y animales flotando de forma elegante.',
+    demoData:{ babyName:'Baby Isabella', date:'Domingo 26 de mayo', dateInput:'2026-05-26', time:'14:30', place:'Terraza Rosé', address:'Heredia, Costa Rica', parents:'Mamá & Papá' },
+    category:'Soft Safari',
+    whatsappMessage:'Hola, quiero una invitación digital estilo Safari Tierno.',
+  },
+  {
+    id:'coquette',
+    name:'Mariposa Coquette',
+    shortName:'Coquette',
+    phrase:'Un amor hermoso está por volar.',
+    description:'Mariposas, rosa, lila, lazos y brillo suave.',
+    emotionalTone:'Coqueta, femenina, delicada y llamativa.',
+    targetMom:'Para mamás que quieren una invitación dulce, femenina y memorable.',
+    price:10,
+    palette:{ bg1:'#fff5f8', bg2:'#ead7f6', accent:'#8b557a', soft:'#d8b7ec', ink:'#6f4664', muted:'#8b557a', chips:['#fff5f8','#f4c8df','#d8b7ec','#d5b985','#6f4664'] },
+    background:'Rosa blush y lila pastel con mariposas, lazos finos y destellos pequeños.',
+    typographyMood:'Romántica con brillo suave y acento editorial.',
+    visualElements:['mariposas suaves','lazos finos','lila pastel','destellos champagne'],
+    animationSignature:'Mariposas flotando, brillo suave y texto con entrada delicada.',
+    demoData:{ babyName:'Baby Isabella', date:'Domingo 26 de mayo', dateInput:'2026-05-26', time:'14:30', place:'Terraza Rosé', address:'Heredia, Costa Rica', parents:'Mamá & Papá' },
+    category:'Butterfly Blush',
+    whatsappMessage:'Hola, quiero una invitación digital estilo Mariposa Coquette.',
+  },
+];
+const STYLE_BY_ID = Object.fromEntries(INVITATION_STYLES.map(style => [style.id, style]));
+const THEMES = Object.fromEntries(INVITATION_STYLES.map(style => [style.id, {
+  bg1: style.palette.bg1,
+  bg2: style.palette.bg2,
+  accent: style.palette.accent,
+  soft: style.palette.soft,
+  ink: style.palette.ink,
+  muted: style.palette.muted,
+}]));
+const CDATA = Object.fromEntries(INVITATION_STYLES.map(style => [style.id, {
+  name: style.name,
+  shortName: style.shortName,
+  parents: style.demoData.parents,
+  baby: style.demoData.babyName,
+  phrase: style.phrase.replace(/\.$/, ''),
+  date: style.demoData.date,
+  dateInput: style.demoData.dateInput,
+  time: style.demoData.time,
+  place: style.demoData.place,
+  city: style.demoData.address,
+  address: style.demoData.address,
+  category: style.category,
+  description: style.description,
+  emotionalTone: style.emotionalTone,
+  whatsappMessage: style.whatsappMessage,
+  Mock: (p) => <StyleMock styleId={style.id} size="lg" {...p}/>,
+}]));
 const LIVE_DEFAULTS = {
-  baby: 'Mateo',
-  dateInput: '2026-07-24',
-  date: '24 · 07 · 2026',
-  time: '15:00',
-  place: 'San José',
-  address: 'Terraza Jardín',
+  baby: 'Baby Isabella',
+  dateInput: '2026-05-26',
+  date: '26 · 05 · 2026',
+  time: '14:30',
+  place: 'Terraza Rosé',
+  address: 'Heredia, Costa Rica',
   whatsapp: '',
 };
 
@@ -1931,6 +2346,29 @@ function InviteDecor({ collection }) {
       </>
     );
   }
+  if (collection === 'celestial') {
+    return (
+      <>
+        {[{t:17,l:17},{t:25,l:78},{t:45,l:11},{t:64,l:84},{t:76,l:25}].map((s,i)=><span key={i} className="xp-deco xp-star" style={{ top:`${s.t}%`, left:`${s.l}%`, color:'#f8ead5', fontSize:i===1?12:9, animationDelay:`${i * .34}s` }}>✦</span>)}
+        {[{t:32,l:-8,w:92},{t:69,l:63,w:78}].map((c,i)=><span key={`c${i}`} className="xp-deco" style={{ top:`${c.t}%`, left:`${c.l}%`, width:c.w, height:c.w*.32, borderRadius:999, background:'rgba(248,234,213,.22)', filter:'blur(1px)', animation:'xp-cloud 7s ease-in-out infinite', animationDelay:`${i * 1.3}s` }}/>)}
+      </>
+    );
+  }
+  if (collection === 'safari') {
+    return (
+      <>
+        {[{t:17,l:12,r:-28},{t:28,l:78,r:38},{t:62,l:14,r:-10},{t:76,l:80,r:18}].map((leaf,i)=><span key={i} className="xp-deco" style={{ top:`${leaf.t}%`, left:`${leaf.l}%`, '--r':`${leaf.r}deg`, width:25, height:10, borderRadius:'50%', background:'var(--xp-soft)', opacity:.34, animation:'xp-leaf 5.8s ease-in-out infinite', animationDelay:`${i*.45}s` }}/>)}
+      </>
+    );
+  }
+  if (collection === 'coquette') {
+    return (
+      <>
+        {[{t:18,l:16,s:18},{t:28,l:79,s:15},{t:62,l:12,s:14},{t:76,l:84,s:17}].map((b,i)=><span key={i} className="xp-deco" style={{ top:`${b.t}%`, left:`${b.l}%`, color:i%2?'#d8b7ec':'var(--xp-accent)', fontSize:b.s, opacity:.44, animation:'xp-butterfly 6.4s ease-in-out infinite', animationDelay:`${i*.52}s` }}>⌁</span>)}
+        <span className="xp-deco" style={{ top:'21%', right:'22%', color:'#d5b985', fontSize:10, opacity:.55, animation:'xp-shimmer 2.8s ease-in-out infinite' }}>✦</span>
+      </>
+    );
+  }
   return (
     <>
       {[{t:18,l:18},{t:26,l:74},{t:63,l:17},{t:75,l:79}].map((s,i)=><span key={i} className="xp-deco xp-honey-drop" style={{ top:`${s.t}%`, left:`${s.l}%`, animationDelay:`${i * .7}s` }}/>)}
@@ -1949,6 +2387,36 @@ function InviteSymbol({ collection }) {
             <defs><radialGradient id="xpMoon" cx="40%" cy="35%"><stop offset="0%" stopColor="#fffaf0"/><stop offset="100%" stopColor="#c9a876"/></radialGradient></defs>
             <path d="M50 10 A40 40 0 1 0 50 90 A30 35 0 1 1 50 10 Z" fill="url(#xpMoon)"/>
             <path d="M32 72 Q50 84 68 72" stroke="#c9a876" strokeWidth="2" fill="none" opacity=".45"/>
+          </svg>
+        </div>
+      </div>
+    );
+  }
+  if (collection === 'celestial') {
+    return (
+      <div className="xp-scale" style={{ '--d':'160ms' }}>
+        <div className="xp-symbol xp-moon-symbol">
+          <svg viewBox="0 0 100 100">
+            <path d="M50 8 A42 42 0 1 0 50 92 A31 36 0 1 1 50 8 Z" fill="#d6b878"/>
+            <path d="M17 70 C30 58 43 64 51 71 C62 79 75 70 84 62" stroke="#f8ead5" strokeWidth="5" strokeLinecap="round" fill="none" opacity=".38"/>
+          </svg>
+        </div>
+      </div>
+    );
+  }
+  if (collection === 'safari') {
+    return <div className="xp-scale" style={{ '--d':'160ms' }}><div className="xp-symbol"><SafariMock size="sm" babyName="" date=""/></div></div>;
+  }
+  if (collection === 'coquette') {
+    return (
+      <div className="xp-scale" style={{ '--d':'160ms' }}>
+        <div className="xp-symbol">
+          <svg viewBox="0 0 120 100" style={{ width:'100%', display:'block' }}>
+            <path d="M58 50 C30 18 8 34 18 62 C25 84 48 69 58 52" fill="#f4c8df" opacity=".82"/>
+            <path d="M62 50 C90 18 112 34 102 62 C95 84 72 69 62 52" fill="#d8b7ec" opacity=".86"/>
+            <path d="M58 54 C34 86 16 80 22 58 C28 41 48 49 58 54" fill="#f6d8e8" opacity=".9"/>
+            <path d="M62 54 C86 86 104 80 98 58 C92 41 72 49 62 54" fill="#e7c9f3" opacity=".9"/>
+            <rect x="57" y="38" width="6" height="30" rx="3" fill="#8b557a"/>
           </svg>
         </div>
       </div>
@@ -2105,6 +2573,12 @@ function InviteDemo({ collection, step, setStep, data: liveData, musicOn = true 
 
 /* ── 01 HERO ── */
 function SceneHero({ onJump }) {
+  const [heroStep, setHeroStep] = useState(0);
+  useEffect(()=>{
+    const id = setInterval(()=>setHeroStep(s=>(s+1)%XP_SCENES.length), 3000);
+    return ()=>clearInterval(id);
+  }, []);
+  const heroData = getLiveInviteData('floral', {});
   return (
     <div className="scene scene-snap bg-night scene-hero">
       {/* Petals — decorative only */}
@@ -2123,12 +2597,12 @@ function SceneHero({ onJump }) {
 
       {/* Headline */}
       <div className="hero-copy" style={{ padding:'14px 28px 0', position:'relative', zIndex:5, flexShrink:0 }}>
-        <div className="script" style={{ fontSize:15, color:'#d4a574', marginBottom:2 }}>listas en 24 horas</div>
-        <h1 className="display hero-title" style={{ fontSize:'clamp(34px,8vw,52px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.025em' }}>
-          Invitaciones digitales<br/>para baby shower
+        <div className="script" style={{ fontSize:15, color:'#d4a574', marginBottom:2 }}>Desde $10 · Lista en 24h</div>
+        <h1 className="display hero-title" style={{ fontSize:'clamp(34px,6.2vw,46px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.025em' }}>
+          Invitaciones digitales animadas para baby shower.
         </h1>
         <p className="script hero-title-em" style={{ fontSize:'clamp(17px,3vw,22px)', color:'rgba(245,233,216,0.78)', lineHeight:1.35, letterSpacing:0, marginTop:12, maxWidth:520 }}>
-          Animadas, personalizadas y listas<br/>para compartir por WhatsApp.
+          Personalizadas, con música, ubicación, calendario, confirmación por WhatsApp y link compartible.
         </p>
       </div>
 
@@ -2139,8 +2613,10 @@ function SceneHero({ onJump }) {
           <DulceEsperaMock size="sm"/>
         </div>
         {/* Center hero */}
-        <div className="hero-main-card" style={{ position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', width:'52%', animation:'float-2 6s ease-in-out infinite', zIndex:3, filter:'drop-shadow(0 30px 60px rgba(0,0,0,0.55))' }}>
-          <JardinMock size="lg"/>
+        <div className="hero-main-card demo-frame" style={{ position:'absolute', top:'38%', left:'50%', transform:'translate(-50%,-50%)', width:'min(20vw, 185px)', aspectRatio:'9 / 19', animation:'float-2 6s ease-in-out infinite', zIndex:3, filter:'drop-shadow(0 30px 60px rgba(0,0,0,0.55))' }}>
+          <div className="demo-screen">
+            <InviteDemo collection="floral" step={heroStep} setStep={setHeroStep} data={heroData}/>
+          </div>
         </div>
         {/* Right flank */}
         <div className="hero-flank" style={{ position:'absolute', right:'-6%', top:'50%', transform:'translateY(-50%)', width:'30%', opacity:0.65, filter:'blur(0.5px)', animation:'float-3 7.5s ease-in-out infinite', zIndex:2 }}>
@@ -2160,8 +2636,8 @@ function SceneHero({ onJump }) {
             personalizada<br/>entrega rápida
           </div>
         </div>
-        <button className="btn-pill btn-light hero-button" onClick={()=>window.open('https://wa.me/?text=Hola,%20quiero%20una%20invitaci%C3%B3n%20digital%20para%20baby%20shower','_blank')} style={{ width:'calc(100% - 24px)', justifyContent:'space-between', padding:'16px 22px' }}>
-          <span>Pedir por WhatsApp</span>
+        <button className="btn-pill btn-light hero-button" onClick={onJump} style={{ width:'calc(100% - 24px)', justifyContent:'space-between', padding:'16px 22px' }}>
+          <span>Ver estilos</span>
           <span style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:17 }}>→</span>
         </button>
       </div>
@@ -2170,52 +2646,72 @@ function SceneHero({ onJump }) {
 }
 
 /* ── 04 COLECCIONES ── */
-function SceneCollectionIntro({ onTryDemo }) {
-  const collections = [
-    { id:'honey', Mock:DulceEsperaMock, num:'I', name:'Dulce Espera', tag:'Honey & Cream', color:'#7a4f1f', desc:'Cálida, tierna y dulce.' },
-    { id:'floral', Mock:JardinMock, num:'II', name:'Jardín de Amor', tag:'Floral Blush', color:'#8a4f4f', desc:'Romántica, floral y elegante.' },
-    { id:'minimal', Mock:MilagroMock, num:'III', name:'Pequeño Milagro', tag:'Minimal Chic', color:'#a08560', desc:'Limpia, suave y moderna.' },
-  ];
+function SceneCollectionIntro({ onTryDemo, onOrderStyle }) {
   return (
-    <div className="scene scene-snap bg-paper">
+    <div className="scene scene-snap bg-paper style-catalog-scene">
       {/* Giant number — purely decorative, pointer-events none */}
       <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.08)', lineHeight:1, letterSpacing:'-0.04em', pointerEvents:'none', userSelect:'none', zIndex:0 }}>04</div>
 
       {/* All content in flow */}
-      <div style={{ flex:1, display:'flex', flexDirection:'column', padding:'72px 28px 24px', gap:0, position:'relative', zIndex:2, overflow:'hidden' }}>
-
-        {/* Header */}
-        <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:10 }}>colecciones</div>
-        <h2 className="display" style={{ fontSize:'clamp(32px,9vw,44px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.025em' }}>Elige el estilo</h2>
-        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(34px,9vw,46px)', color:'#8a4f4f', lineHeight:0.95, letterSpacing:'-0.03em', marginTop:-4 }}>que quieres enviar.</div>
-        <p style={{ fontSize:13, color:'#5a4838', marginTop:12, lineHeight:1.55, maxWidth:290 }}>
-          Tres diseños base. Personalizamos nombres, fecha, lugar y mensaje.
-        </p>
-
-        {/* Spacer */}
-        <div style={{ flex:1, minHeight:12 }}/>
-
-        {/* Three thumbnails */}
-        <div style={{ display:'flex', gap:12, alignItems:'stretch' }}>
-          {collections.map(({ id, Mock, num, name, tag, color, desc }, i) => (
-            <button key={id} onClick={()=>onTryDemo(id)} style={{ flex:1, minWidth:0, border:'none', background:'transparent', cursor:'pointer', textAlign:'left', animation:'drift-slow 4.5s ease-in-out infinite', animationDelay:`${i * 0.25}s` }}>
-              <Mock size="sm"/>
-              <div style={{ marginTop:8, paddingLeft:2 }}>
-                <div className="eyebrow" style={{ fontSize:7, color }}>{num}</div>
-                <div className="display" style={{ fontSize:13, lineHeight:1.05, marginTop:2, color:'#2a201a' }}>{name}</div>
-                <div style={{ fontSize:8, color:'#6a5848', marginTop:4, lineHeight:1.35 }}>{tag}</div>
-                <div className="script" style={{ fontSize:11, color, marginTop:4, lineHeight:1.2 }}>{desc}</div>
-              </div>
-            </button>
-          ))}
+      <div className="style-catalog-wrap">
+        <div className="style-catalog-head">
+          <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:10 }}>elige tu estilo</div>
+          <h2 className="display" style={{ fontSize:'clamp(34px,7vw,58px)', color:'#2a201a', lineHeight:0.92, letterSpacing:'-0.02em' }}>
+            Elige el estilo que más se parece al momento que quieres compartir.
+          </h2>
+          <p>
+            Seis colecciones boutique, animadas y listas para convertir tus datos en una invitación digital vendible desde $10.
+          </p>
         </div>
 
-        {/* Bottom spacer */}
-        <div style={{ height:40 }}/>
+        <div className="style-catalog-grid">
+          {INVITATION_STYLES.map((style, i) => {
+            const data = CDATA[style.id];
+            return (
+              <article
+                key={style.id}
+                className="style-card"
+                style={{
+                  '--card-bg':`linear-gradient(145deg, ${style.palette.bg1}, ${style.palette.bg2})`,
+                  '--card-ink':style.palette.ink === '#fff9ee' ? '#273047' : style.palette.ink,
+                  '--card-accent':style.palette.accent,
+                }}
+              >
+                <div className="style-card-preview" style={{ animationDelay:`${i * .18}s` }}>
+                  <StyleMock
+                    styleId={style.id}
+                    size="sm"
+                    babyName={style.demoData.babyName}
+                    date={style.demoData.date}
+                    place={style.demoData.place}
+                  />
+                </div>
+                <div className="style-card-body">
+                  <div className="style-card-top">
+                    <div>
+                      <div className="eyebrow" style={{ fontSize:7, color:style.palette.accent, marginBottom:4 }}>{style.category}</div>
+                      <h3 className="style-card-name">{style.name}</h3>
+                    </div>
+                    <div className="style-card-price">desde <strong>${style.price}</strong></div>
+                  </div>
+                  <div className="style-card-phrase">"{style.phrase}"</div>
+                  <p className="style-card-desc">{style.emotionalTone}</p>
+                  <div className="style-card-swatches" aria-hidden="true">
+                    {style.palette.chips.map((color, idx)=><span key={idx} className="style-card-swatch" style={{ background:color }}/>)}
+                  </div>
+                  <div className="style-card-actions">
+                    <button type="button" onClick={()=>onTryDemo(style.id)}>Ver demo</button>
+                    <button type="button" onClick={()=>onOrderStyle(style.id)}>Pedir este estilo</button>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
       </div>
 
       <div className="scroll-hint" style={{ color:'#7a4f1f', bottom:22 }}>
-        <div>Conócelas</div><div style={{ fontSize:14 }}>↓</div>
+        <div>Ver demo</div><div style={{ fontSize:14 }}>↓</div>
       </div>
     </div>
   );
@@ -2280,10 +2776,9 @@ function SceneCollectionPage({ which, onTryDemo }) {
 }
 
 /* ── 02 DEMO ── */
-function SceneDemo({ collection, setCollection, onViewStyles }) {
+function SceneDemo({ collection, setCollection, liveFields, setLiveFields, onViewStyles }) {
   const [step, setStep] = useState(0);
   const [manualTick, setManualTick] = useState(0);
-  const [liveFields, setLiveFields] = useState({ baby: '', date: '', time: '', place: '', address: '', whatsapp: '' });
   const [shareLink, setShareLink] = useState('');
   const [copied, setCopied] = useState(false);
   const liveData = getLiveInviteData(collection, liveFields);
@@ -2350,7 +2845,7 @@ function SceneDemo({ collection, setCollection, onViewStyles }) {
               Personaliza tu invitación en segundos.
             </h2>
             <p style={{ marginTop:14, fontSize:15, color:'rgba(245,233,216,0.68)', lineHeight:1.55, maxWidth:480 }}>
-              Prueba cómo se siente cuando la invitación ya tiene tus datos.
+              Escribe los datos y mira cómo se crea en vivo.
             </p>
           </div>
 
@@ -2422,9 +2917,9 @@ function SceneDemo({ collection, setCollection, onViewStyles }) {
           </div>
 
           <div className="demo-tabs" role="tablist" aria-label="Estilos de invitación">
-            {[{id:'honey',label:'Dulce'},{id:'floral',label:'Jardín'},{id:'minimal',label:'Milagro'}].map(c=>(
+            {INVITATION_STYLES.map(c=>(
               <button key={c.id} className={`demo-tab ${collection===c.id?'active':''}`} onClick={()=>setCollection(c.id)} role="tab" aria-selected={collection===c.id}>
-                {c.label}
+                {c.shortName}
               </button>
             ))}
           </div>
@@ -2514,25 +3009,27 @@ function SceneHowWorks() {
 function SceneIncludes() {
   const items = [
     { ic:<IcAnim/>, label:'Invitación animada',     desc:'Transiciones suaves entre secciones' },
-    { ic:<IcMusic/>,label:'Música ambiental',        desc:'Eliges la canción que la abre' },
+    { ic:<IcHrt/>,  label:'Link compartible',        desc:'Lista para enviar por WhatsApp' },
     { ic:<IcWA/>,   label:'Confirmación WhatsApp',   desc:'Tus invitados confirman en un toque' },
     { ic:<IcPin/>,  label:'Mapa con ubicación',      desc:'Enlace directo a Google Maps' },
     { ic:<IcCal/>,  label:'Agenda automática',       desc:'Guardan el evento al instante' },
+    { ic:<IcMusic/>,label:'Música visual',           desc:'Sensación premium sin verse recargada' },
     { ic:<IcHrt/>,  label:'Datos editables',         desc:'Nombres, fecha y mensaje personalizados' },
+    { ic:<IcAnim/>, label:'Entrega en 24h',           desc:'Solo envías tus datos y hacemos el resto' },
   ];
   return (
     <div className="scene scene-snap bg-paper">
       <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.07)', lineHeight:1, pointerEvents:'none', userSelect:'none' }}>06</div>
 
       <div style={{ flex:1, display:'flex', flexDirection:'column', padding:'72px 28px 0', position:'relative', zIndex:2, overflow:'hidden' }}>
-        <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:8 }}>precio</div>
-        <h2 className="display" style={{ fontSize:'clamp(28px,8vw,38px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.02em' }}>Todo incluido</h2>
-        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(36px,10vw,52px)', color:'#8a4f4f', lineHeight:0.95, letterSpacing:'-0.03em', marginTop:-4, marginBottom:16 }}>por $10.</div>
+        <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:8 }}>qué incluye</div>
+        <h2 className="display" style={{ fontSize:'clamp(28px,8vw,38px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.02em' }}>Más que una imagen:</h2>
+        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(34px,9vw,48px)', color:'#8a4f4f', lineHeight:0.95, letterSpacing:'-0.03em', marginTop:-4, marginBottom:16 }}>una experiencia para tus invitados.</div>
 
         {/* Feature list */}
         <div style={{ flex:1, overflow:'hidden' }}>
           {items.map((it,i)=>(
-            <div key={i} style={{ display:'grid', gridTemplateColumns:'28px 1fr 20px', gap:12, alignItems:'center', padding:'10px 0', borderBottom:'1px solid rgba(122,79,31,0.15)', borderTop:i===0?'1px solid rgba(122,79,31,0.15)':'none' }}>
+            <div key={i} style={{ display:'grid', gridTemplateColumns:'28px 1fr 20px', gap:12, alignItems:'center', padding:'8px 0', borderBottom:'1px solid rgba(122,79,31,0.15)', borderTop:i===0?'1px solid rgba(122,79,31,0.15)':'none' }}>
               <div style={{ width:24, height:24, color:'#7a4f1f', flexShrink:0 }}>{it.ic}</div>
               <div>
                 <div style={{ fontSize:13, fontWeight:500, color:'#2a201a' }}>{it.label}</div>
@@ -2547,7 +3044,7 @@ function SceneIncludes() {
         <div style={{ padding:'18px 0 36px', textAlign:'center', borderTop:'1px solid rgba(122,79,31,0.1)', marginTop:8 }}>
           <div className="script" style={{ fontSize:13, color:'#6a5848', marginBottom:2 }}>pago único</div>
           <div className="display" style={{ fontSize:'clamp(44px,13vw,56px)', color:'#2a201a', lineHeight:1 }}>$10</div>
-          <div style={{ fontSize:8, letterSpacing:'0.32em', textTransform:'uppercase', color:'#7a4f1f', marginTop:4 }}>USD · entrega en 24h</div>
+          <div style={{ fontSize:8, letterSpacing:'0.32em', textTransform:'uppercase', color:'#7a4f1f', marginTop:4 }}>personalización incluida · entrega en 24h</div>
         </div>
       </div>
     </div>
@@ -2559,6 +3056,38 @@ function IcWA(){ return <svg viewBox="0 0 24 24" fill="none" stroke="currentColo
 function IcPin(){ return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/></svg> }
 function IcCal(){ return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg> }
 function IcHrt(){ return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg> }
+
+/* ── 07 PRECIO LIMPIO ── */
+function ScenePrice() {
+  return (
+    <div className="scene scene-snap bg-paper">
+      <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.07)', lineHeight:1, pointerEvents:'none', userSelect:'none' }}>07</div>
+      <div style={{ flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'72px 28px 44px', position:'relative', zIndex:2 }}>
+        <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:10 }}>precio</div>
+        <h2 className="display" style={{ fontSize:'clamp(42px,11vw,72px)', color:'#2a201a', lineHeight:.9, letterSpacing:0 }}>Desde $10</h2>
+        <p className="script" style={{ fontSize:'clamp(20px,5vw,30px)', color:'#8a4f4f', lineHeight:1.2, marginTop:10, maxWidth:560 }}>
+          Personalización incluida.
+        </p>
+        <div style={{ marginTop:28, display:'grid', gap:10, maxWidth:520 }}>
+          {[
+            'Diseño animado según el estilo elegido',
+            'Nombre, fecha, hora, lugar y WhatsApp personalizados',
+            'Link compartible listo para enviar',
+            'Entrega en 24h'
+          ].map((item, i)=>(
+            <div key={item} style={{ display:'grid', gridTemplateColumns:'34px 1fr', gap:12, alignItems:'center', padding:'13px 0', borderTop:i===0?'1px solid rgba(122,79,31,.16)':'none', borderBottom:'1px solid rgba(122,79,31,.16)' }}>
+              <div className="display" style={{ width:28, height:28, borderRadius:'50%', background:'#2a201a', color:'#f5e9d8', display:'grid', placeItems:'center', fontSize:14 }}>✓</div>
+              <div style={{ fontSize:14, color:'#4c3a28', lineHeight:1.35 }}>{item}</div>
+            </div>
+          ))}
+        </div>
+        <p style={{ marginTop:24, color:'#6a5848', fontSize:14, lineHeight:1.55, maxWidth:460 }}>
+          Solo envías tus datos. Nosotros hacemos el resto.
+        </p>
+      </div>
+    </div>
+  );
+}
 
 /* ── 08 ANTES / DESPUÉS ── */
 function SceneCompare() {
@@ -2576,7 +3105,7 @@ function SceneCompare() {
         {/* Header */}
         <div style={{ flexShrink:0 }}>
           <div className="eyebrow" style={{ color:'#d4a574', marginBottom:6 }}>05 · Antes / Después</div>
-          <h2 className="display" style={{ fontSize:'clamp(24px,6.5vw,34px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.02em' }}>No mandes solo una imagen.</h2>
+          <h2 className="display" style={{ fontSize:'clamp(24px,6.5vw,34px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.02em' }}>De una imagen plana a una invitación que se puede sentir.</h2>
           <p style={{ marginTop:8, fontSize:13, color:'rgba(245,233,216,0.65)', lineHeight:1.45, maxWidth:520 }}>
             Envía una experiencia con música, mapa y confirmación en un toque.
           </p>
@@ -2685,13 +3214,13 @@ function SceneViral() {
 function SceneCTA() {
   return (
     <div className="scene scene-snap bg-paper scene-cta" style={{ display:'flex', flexDirection:'column' }}>
-      <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.07)', lineHeight:1, pointerEvents:'none', userSelect:'none' }}>07</div>
+      <div aria-hidden="true" style={{ position:'absolute', top:48, right:16, fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:120, color:'rgba(122,79,31,0.07)', lineHeight:1, pointerEvents:'none', userSelect:'none' }}>08</div>
 
       {/* Headline */}
       <div className="final-cta-copy">
         <div className="eyebrow" style={{ color:'#7a4f1f', marginBottom:8 }}>pídela hoy</div>
-        <h2 className="display" style={{ fontSize:'clamp(30px,8vw,40px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.02em' }}>Tu invitación lista</h2>
-        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(34px,10vw,48px)', color:'#8a4f4f', lineHeight:0.9, letterSpacing:'-0.03em', marginTop:-4 }}>en 24 horas.</div>
+        <h2 className="display" style={{ fontSize:'clamp(30px,8vw,40px)', color:'#2a201a', lineHeight:0.95, letterSpacing:'-0.02em' }}>¿Quieres una invitación así</h2>
+        <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(34px,10vw,48px)', color:'#8a4f4f', lineHeight:0.9, letterSpacing:'-0.03em', marginTop:-4 }}>para tu baby shower?</div>
         <p style={{ marginTop:12, fontSize:13, color:'#5a4838', lineHeight:1.55, maxWidth:290 }}>
           Solo envías los datos. Nosotros hacemos el resto.
         </p>
@@ -2736,7 +3265,7 @@ function SceneCTA() {
           </div>
         </div>
         <button onClick={()=>window.open('https://wa.me/?text=Hola,%20quiero%20una%20invitaci%C3%B3n%20de%20baby%20shower','_blank')} className="btn-pill btn-whatsapp" style={{ width:'100%', justifyContent:'center', padding:'17px 24px', fontSize:13 }}>
-          <WhatsappIcon size={17}/> Pedir mi invitación
+          <WhatsappIcon size={17}/> Pedir por WhatsApp
         </button>
       </div>
     </div>
@@ -2750,10 +3279,11 @@ const SCENE_COPY = {
   hero:      { headline:'Invitaciones digitales\npara baby shower.',                    sub:'Personalizadas, animadas y listas para compartir por WhatsApp desde $10.' },
   demo:      { headline:'Personaliza en vivo\nen segundos.',                           sub:'Escribe nombre, fecha y lugar mientras la invitación se actualiza dentro del teléfono.' },
   steps:     { headline:'Tu invitación\nen 3 pasos.',                                  sub:'Elige diseño, envía tus datos y recibe el link listo para compartir.' },
-  collections:{ headline:'Elige el estilo\nque quieres enviar.',                        sub:'Tres colecciones base, personalizadas con los datos de tu evento.' },
+  collections:{ headline:'Elige el estilo\nque quieres enviar.',                        sub:'Seis colecciones boutique, personalizadas con los datos de tu evento.' },
   compare:   { headline:'Más que una\nimagen plana.',                                  sub:'Una invitación interactiva con música, mapa y confirmación.' },
-  includes:  { headline:'Todo incluido\npor $10.',                                      sub:'Diseño personalizado, entrega en 24h y funciones listas para tus invitados.' },
-  cta:       { headline:'Tu invitación lista\nen 24 horas.',                            sub:'Solo envías los datos. Nosotros hacemos el resto.' },
+  includes:  { headline:'Más que una\nimagen.',                                         sub:'Diseño animado, link, WhatsApp, ubicación, calendario y música visual.' },
+  price:     { headline:'Desde $10\nlista en 24h.',                                    sub:'Personalización incluida. Solo envías tus datos y hacemos el resto.' },
+  cta:       { headline:'¿Quieres una\ninvitación así?',                               sub:'Pídela por WhatsApp y recibe tu experiencia lista en 24h.' },
 };
 
 function StageLeft({ activeScene, goTo }) {
@@ -2797,7 +3327,8 @@ const SCENES_META = [
   {id:'steps',name:'Cómo funciona'},
   {id:'collections',name:'Colecciones'},
   {id:'compare',name:'Antes / Después'},
-  {id:'includes',name:'Precio'},
+  {id:'includes',name:'Qué incluye'},
+  {id:'price',name:'Precio'},
   {id:'cta',name:'Pídela'},
 ];
 
@@ -2871,19 +3402,39 @@ function PublicInvitationPage() {
 function App() {
   const [tweaks, setTweaks] = useTweaks({ showAdmin:false, snapScroll:true, stagePalette:'dark' });
   const [collection, setCollection] = useState('floral');
+  const [liveFields, setLiveFields] = useState({ baby: '', date: '', time: '', place: '', address: '', whatsapp: '' });
   const [activeIdx, setActiveIdx] = useState(0);
   const scrollRef = useRef(null);
 
   useEffect(()=>{
     const el = scrollRef.current; if (!el) return;
-    const fn = ()=>{ const i = Math.round(el.scrollTop / el.clientHeight); setActiveIdx(Math.max(0, Math.min(SCENES_META.length-1, i))); };
+    const fn = ()=>{
+      const center = el.scrollTop + el.clientHeight * 0.45;
+      const children = Array.from(el.children);
+      const i = children.reduce((best, child, index) => {
+        const dist = Math.abs(child.offsetTop - center);
+        return dist < best.dist ? { index, dist } : best;
+      }, { index:0, dist:Infinity }).index;
+      setActiveIdx(Math.max(0, Math.min(SCENES_META.length-1, i)));
+    };
     el.addEventListener('scroll', fn, { passive:true }); fn();
     return ()=>el.removeEventListener('scroll', fn);
   }, []);
 
   const goTo = (i) => {
     const el = scrollRef.current; if (!el) return;
-    el.scrollTo({ top: i * el.clientHeight, behavior:'smooth' });
+    const target = el.children[i];
+    el.scrollTo({ top: target ? target.offsetTop : i * el.clientHeight, behavior:'smooth' });
+  };
+
+  const orderStyle = (styleId) => {
+    const style = STYLE_BY_ID[styleId] || STYLE_BY_ID.floral;
+    const data = getLiveInviteData(style.id, liveFields);
+    const hasTypedData = Object.values(liveFields).some(value => String(value || '').trim());
+    const details = hasTypedData
+      ? ` Datos: ${data.baby} · ${data.date} · ${data.time} · ${data.place}.`
+      : '';
+    window.open(`https://wa.me/?text=${encodeURIComponent(`Hola, quiero una invitación digital estilo ${style.name}.${details}`)}`, '_blank');
   };
 
   return (
@@ -2924,12 +3475,13 @@ function App() {
         </div>
 
         <div ref={scrollRef} className="phone-scroll" style={{ scrollSnapType: tweaks.snapScroll ? 'y mandatory' : 'none' }}>
-          <SceneHero onJump={()=>goTo(1)}/>
-          <SceneDemo collection={collection} setCollection={setCollection} onViewStyles={()=>goTo(3)}/>
+          <SceneHero onJump={()=>goTo(3)}/>
+          <SceneDemo collection={collection} setCollection={setCollection} liveFields={liveFields} setLiveFields={setLiveFields} onViewStyles={()=>goTo(3)}/>
           <SceneHowWorks/>
-          <SceneCollectionIntro onTryDemo={c=>{setCollection(c);goTo(1);}}/>
+          <SceneCollectionIntro onTryDemo={c=>{setCollection(c);goTo(1);}} onOrderStyle={orderStyle}/>
           <SceneCompare/>
           <SceneIncludes/>
+          <ScenePrice/>
           <SceneCTA/>
         </div>
 
@@ -2948,7 +3500,7 @@ function App() {
         </TweakSection>
         <TweakSection label="Demo">
           <TweakRadio label="Colección" value={collection} onChange={setCollection}
-            options={[{value:'honey',label:'🍯'},{value:'floral',label:'🌸'},{value:'minimal',label:'🤍'}]}/>
+            options={INVITATION_STYLES.map(style => ({ value:style.id, label:style.shortName.slice(0, 3) }))}/>
         </TweakSection>
         <TweakSection label="Internal">
           <TweakToggle label="Admin badge" value={tweaks.showAdmin} onChange={v=>setTweaks({showAdmin:v})}/>
