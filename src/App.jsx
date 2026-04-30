@@ -385,8 +385,9 @@ const LIVE_DEFAULTS = {
   time: '14:30',
   place: 'Terraza Rosé',
   address: 'Heredia, Costa Rica',
-  whatsapp: '',
+  whatsapp: '50671757171',
 };
+const BUSINESS_WHATSAPP = '50671757171';
 
 function formatInviteDate(value) {
   if (!value) value = LIVE_DEFAULTS.dateInput;
@@ -476,9 +477,13 @@ function makeInvitationUrl(payload) {
 }
 
 function makeWhatsappUrl(data) {
-  const phone = normalizePhone(data.whatsapp);
+  const phone = normalizePhone(data.whatsapp) || BUSINESS_WHATSAPP;
   const text = `Hola, confirmo mi asistencia al baby shower de ${data.baby}`;
   return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+}
+
+function makeBusinessWhatsappUrl(message) {
+  return `https://wa.me/${BUSINESS_WHATSAPP}?text=${encodeURIComponent(message)}`;
 }
 
 function makeMapsUrl(data) {
@@ -1086,8 +1091,8 @@ function SceneDemo({ collection, setCollection, liveFields, setLiveFields, selec
     }
   };
   const openPersonalizedWhatsapp = () => {
-    const message = `Hola, quiero esta invitación personalizada con estos datos: ${liveData.baby} + ${liveData.date} + ${liveData.place}`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+    const message = `Hola, quiero esta invitación personalizada con estos datos: ${liveData.baby} · ${liveData.date} · ${liveData.time} · ${liveData.place}`;
+    window.open(makeBusinessWhatsappUrl(message), '_blank');
   };
 
   return (
@@ -1163,7 +1168,7 @@ function SceneDemo({ collection, setCollection, liveFields, setLiveFields, selec
                   id="demo-event-whatsapp"
                   type="tel"
                   value={liveFields.whatsapp}
-                  placeholder="+50688888888"
+                  placeholder="+50671757171"
                   onChange={e=>updateLiveField('whatsapp', e.target.value)}
                 />
               </div>
@@ -1550,7 +1555,7 @@ function SceneCTA() {
             <div style={{ fontSize:8, color:'#6a5848', marginTop:2, letterSpacing:'0.06em' }}>revisiones incluidas</div>
           </div>
         </div>
-        <button onClick={()=>window.open('https://wa.me/?text=Hola,%20quiero%20una%20invitaci%C3%B3n%20de%20baby%20shower','_blank')} className="btn-pill btn-whatsapp" style={{ width:'100%', justifyContent:'center', padding:'17px 24px', fontSize:13 }}>
+        <button onClick={()=>window.open(makeBusinessWhatsappUrl('Hola, quiero una invitación de baby shower.'),'_blank')} className="btn-pill btn-whatsapp" style={{ width:'100%', justifyContent:'center', padding:'17px 24px', fontSize:13 }}>
           <WhatsappIcon size={17}/> Pedir por WhatsApp
         </button>
       </div>
@@ -1764,7 +1769,7 @@ function App() {
     const details = hasTypedData
       ? ` Datos: ${data.baby} · ${data.date} · ${data.time} · ${data.place}.`
       : '';
-    window.open(`https://wa.me/?text=${encodeURIComponent(`Hola, quiero una invitación digital estilo ${style.name}${paletteText}.${details}`)}`, '_blank');
+    window.open(makeBusinessWhatsappUrl(`Hola, quiero una invitación digital estilo ${style.name}${paletteText}.${details}`), '_blank');
   };
 
   return (
