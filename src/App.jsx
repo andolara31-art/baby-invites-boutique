@@ -1459,7 +1459,7 @@ function SceneViral() {
   return (
     <div className="scene scene-snap bg-night" style={{ display:'flex', flexDirection:'column' }}>
       <div style={{ paddingTop:68, padding:'68px 28px 16px', flexShrink:0 }}>
-        <div className="eyebrow" style={{ color:'#d4a574', marginBottom:6 }}>09 · Para ti</div>
+        <div className="eyebrow" style={{ color:'#d4a574', marginBottom:6 }}>08 · Para ti</div>
         <div className="display" style={{ fontSize:'clamp(22px,6.5vw,28px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.02em' }}>Si estás preparando un</div>
         <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(32px,9vw,40px)', color:'#d4a574', lineHeight:0.9, letterSpacing:'-0.03em', marginTop:-2 }}>baby shower…</div>
         <p style={{ marginTop:8, fontSize:13, color:'rgba(245,233,216,0.65)' }}>esto es para ti.</p>
