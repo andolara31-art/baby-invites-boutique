@@ -1460,6 +1460,72 @@ input:focus-visible {
   48%, 100% { background-position: -120% 0; }
 }
 
+/* ── Reel scene: constrained vertical previews ── */
+.viral-scene {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.viral-copy {
+  flex-shrink: 0;
+  padding: 68px 28px 14px;
+  position: relative;
+  z-index: 3;
+}
+.viral-invite-stage {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 8px clamp(28px, 7vw, 86px);
+  overflow: hidden;
+}
+.viral-invite-stage::before {
+  content: "";
+  position: absolute;
+  width: min(48vw, 520px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,165,116,.18), transparent 68%);
+  filter: blur(10px);
+  opacity: .8;
+}
+.viral-slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: translateY(10px) scale(.9) rotate(-2deg);
+  transition: opacity .65s ease, transform .65s ease;
+  pointer-events: none;
+}
+.viral-slide.active {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotate(0deg);
+  animation: viral-card-drift 4.8s ease-in-out infinite;
+}
+.viral-slide > .invite-mock {
+  width: min(300px, 32vw, calc((100dvh - 260px) * .5625));
+  max-width: 100%;
+  filter: drop-shadow(0 34px 52px rgba(0,0,0,.58));
+}
+.viral-bottom {
+  padding: 14px 28px 42px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 3;
+}
+@keyframes viral-card-drift {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
 /* ── Public invitation ── */
 .public-invite-page {
   min-height: 100dvh;
@@ -1870,6 +1936,18 @@ select.twk-field{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http:
   }
   .final-invite-name {
     font-size: clamp(42px, 11vw, 58px);
+  }
+  .viral-copy {
+    padding: 46px 24px 10px;
+  }
+  .viral-invite-stage {
+    padding: 4px 24px;
+  }
+  .viral-slide > .invite-mock {
+    width: min(62vw, 240px, calc((100svh - 245px) * .5625));
+  }
+  .viral-bottom {
+    padding: 12px 24px max(30px, env(safe-area-inset-bottom));
   }
 }
 

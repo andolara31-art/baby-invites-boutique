@@ -1462,8 +1462,8 @@ function SceneViral() {
   ];
   useEffect(()=>{ const t=setInterval(()=>setIdx(i=>(i+1)%3),2800); return ()=>clearInterval(t); }, []);
   return (
-    <div className="scene scene-snap bg-night" style={{ display:'flex', flexDirection:'column' }}>
-      <div style={{ paddingTop:68, padding:'68px 28px 16px', flexShrink:0 }}>
+    <div className="scene scene-snap bg-night viral-scene">
+      <div className="viral-copy">
         <div className="eyebrow" style={{ color:'#d4a574', marginBottom:6 }}>08 · Para ti</div>
         <div className="display" style={{ fontSize:'clamp(22px,6.5vw,28px)', color:'#f5e9d8', lineHeight:0.95, letterSpacing:'-0.02em' }}>Si estás preparando un</div>
         <div style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:'clamp(32px,9vw,40px)', color:'#d4a574', lineHeight:0.9, letterSpacing:'-0.03em', marginTop:-2 }}>baby shower…</div>
@@ -1471,16 +1471,16 @@ function SceneViral() {
       </div>
 
       {/* Cycling invite */}
-      <div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center', position:'relative', minHeight:0, padding:'0 72px' }}>
+      <div className="viral-invite-stage">
         {items.map((it,i)=>(
-          <div key={i} style={{ position:i===idx?'relative':'absolute', top:0, left:0, width:'100%', opacity:i===idx?1:0, transform:i===idx?'scale(1)':'scale(0.92) rotate(-2deg)', transition:'opacity 0.65s ease, transform 0.65s ease', animation:i===idx?'drift 4s ease-in-out infinite':'none', filter:'drop-shadow(0 40px 60px rgba(0,0,0,0.6))' }}>
+          <div key={i} className={`viral-slide ${i===idx?'active':''}`}>
             <it.Mock size="lg"/>
           </div>
         ))}
       </div>
 
       {/* Bottom meta + dots */}
-      <div style={{ padding:'16px 28px 44px', display:'flex', alignItems:'flex-end', justifyContent:'space-between', flexShrink:0 }}>
+      <div className="viral-bottom">
         <div>
           <div className="eyebrow" style={{ fontSize:8, color:items[idx].accent, marginBottom:3 }}>{String(idx+1).padStart(2,'0')} / 03</div>
           <div className="display" style={{ fontSize:20, color:'#f5e9d8', lineHeight:1 }}>{items[idx].name}</div>
