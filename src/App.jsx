@@ -835,21 +835,26 @@ function SceneHero({ onJump }) {
         <p className="script hero-title-em" style={{ fontSize:'clamp(17px,3vw,22px)', color:'rgba(245,233,216,0.78)', lineHeight:1.35, letterSpacing:0, marginTop:12, maxWidth:520 }}>
           Personalizadas, con música, ubicación, calendario, confirmación por WhatsApp y link compartible.
         </p>
+        <div className="hero-proof-row" aria-label="Beneficios principales">
+          <span>Animada</span>
+          <span>WhatsApp</span>
+          <span>Link real</span>
+        </div>
       </div>
 
       {/* Invite mockups — hero + flankers */}
       <div className="hero-art" style={{ flex:1, position:'relative', zIndex:3, minHeight:0, overflow:'hidden' }}>
         {/* Left flank */}
         <div className="hero-flank" style={{ position:'absolute', left:'12%', top:'49%', transform:'translateY(-50%) rotate(-6deg)', width:'min(15vw, 170px)', opacity:0.94, filter:'drop-shadow(0 28px 42px rgba(0,0,0,.42))', animation:'float-1 7s ease-in-out infinite', zIndex:2 }}>
-          <DulceEsperaMock size="sm" babyName="Baby Isabella" date="Domingo 26 de mayo"/>
+          <DulceEsperaMock size="lg" babyName="Baby Isabella" date="Domingo 26 de mayo"/>
         </div>
         {/* Center hero */}
         <div className="hero-main-card" style={{ position:'absolute', top:'48%', left:'50%', transform:'translate(-50%,-50%)', width:'min(20vw, 220px)', animation:'float-2 6s ease-in-out infinite', zIndex:3, filter:'drop-shadow(0 34px 66px rgba(0,0,0,0.58))' }}>
-          <JardinMock size="sm" babyName="Baby Isabella" date="Domingo 26 de mayo"/>
+          <JardinMock size="lg" babyName="Baby Isabella" date="Domingo 26 de mayo"/>
         </div>
         {/* Right flank */}
         <div className="hero-flank" style={{ position:'absolute', right:'12%', top:'50%', transform:'translateY(-50%) rotate(7deg)', width:'min(15vw, 170px)', opacity:0.94, filter:'drop-shadow(0 28px 42px rgba(0,0,0,.42))', animation:'float-3 7.5s ease-in-out infinite', zIndex:2 }}>
-          <CelestialMock size="sm" babyName="Baby Isabella" date="Domingo 26 de mayo"/>
+          <CelestialMock size="lg" babyName="Baby Isabella" date="Domingo 26 de mayo"/>
         </div>
       </div>
 
@@ -866,7 +871,7 @@ function SceneHero({ onJump }) {
           </div>
         </div>
         <button className="btn-pill btn-light hero-button" onClick={onJump} style={{ width:'calc(100% - 24px)', justifyContent:'space-between', padding:'16px 22px' }}>
-          <span>Ver estilos</span>
+          <span>Ver estilos boutique</span>
           <span style={{ fontFamily:'DM Serif Display', fontStyle:'italic', fontSize:17 }}>→</span>
         </button>
       </div>
